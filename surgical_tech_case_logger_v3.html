@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surgical Tech Case Logger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g: #639922; --g-lt: #EAF3DE; --g-dk: #27500A;
+  --amber: #BA7517; --amber-lt: #FAEEDA;
+  --red: #A32D2D; --red-lt: #FCEBEB;
+  --ink: #1a1a1a; --paper: #f5f2ec; --muted: #6b6560;
+  --border: #d4cfc5; --surface: #eceae4; --card: #ffffff;
+  --radius: 8px; --radius-lg: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8e4de; --paper: #1c1a18; --muted: #9a9490;
+    --border: #3a3730; --surface: #252320; --card: #2a2724;
+    --g-lt: #1a2e0a; --g-dk: #9fcf5a;
+    --amber-lt: #2e2008; --red-lt: #2e1010;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Instrument Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; font-size: 15px; }
+
+/* ROLE BAR */
+.role-bar { background: var(--ink); color: var(--paper); padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.role-bar h1 { font-size: 1rem; font-weight: 600; }
+.role-bar .sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; }
+.role-toggle { display: flex; gap: 4px; background: rgba(255,255,255,0.12); border-radius: var(--radius); padding: 3px; }
+.role-btn { padding: 5px 14px; font-size: 12px; font-family: 'Instrument Sans', sans-serif; border: none; border-radius: 6px; background: transparent; color: rgba(255,255,255,0.55); cursor: pointer; transition: all .15s; font-weight: 500; }
+.role-btn.active { background: #fff; color: var(--ink); }
+
+.layout { max-width: 800px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+/* NAV */
+.nav { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.nav-btn { padding: 7px 16px; font-size: 13px; font-family: 'Instrument Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius); background: transparent; color: var(--muted); cursor: pointer; transition: all .15s; position: relative; }
+.nav-btn:hover { color: var(--ink); border-color: var(--ink); }
+.nav-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.dot { display: inline-block; width: 7px; height: 7px; background: var(--amber); border-radius: 50%; margin-left: 5px; vertical-align: 2px; }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* METRICS */
+.metric-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 1.25rem; }
+.metric { background: var(--surface); border-radius: var(--radius); padding: 0.85rem 1rem; }
+.metric-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
+.metric-val { font-size: 26px; font-weight: 500; font-family: 'DM Mono', monospace; line-height: 1; }
+.metric-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.ok { color: var(--g); } .warn { color: var(--amber); } .danger { color: var(--red); }
+
+/* PROGRESS */
+.prog-block { margin-bottom: 0.85rem; }
+.prog-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.prog-title { font-size: 12px; color: var(--muted); }
+.prog-count { font-size: 12px; font-weight: 500; font-family: 'DM Mono', monospace; }
+.track { height: 6px; background: var(--surface); border-radius: 3px; overflow: hidden; }
+.fill { height: 100%; border-radius: 3px; transition: width .4s ease; }
+.fill-ok { background: var(--g); } .fill-warn { background: var(--amber); } .fill-over { background: var(--red); }
+
+/* SPECIALTY */
+.sect-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin: 1.25rem 0 0.5rem; }
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; margin-bottom: 0.5rem; }
+.spec-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.55rem 0.75rem; }
+.spec-card.has-cases { border-color: var(--g); background: var(--g-lt); }
+.spec-name { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+.spec-cnt { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.spec-card.has-cases .spec-name { color: var(--g-dk); }
+.spec-card.has-cases .spec-cnt { color: var(--g-dk); }
+.hint { font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 4px; }
+
+/* FORM */
+.log-form { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; }
+.form-title { font-size: 14px; font-weight: 600; margin-bottom: 1rem; }
+.field { margin-bottom: 0.85rem; }
+.field label { display: block; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 5px; }
+.field input[type=text], .field input[type=date], .field select, .field textarea {
+  width: 100%; padding: 8px 10px; font-size: 13px; font-family: 'Instrument Sans', sans-serif;
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--paper); color: var(--ink); outline: none; transition: border-color .15s;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ink); }
+.field textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* SCRUB CHECK */
+.scrub-check { background: var(--surface); border-radius: var(--radius); padding: 0.85rem 1rem; margin-bottom: 0.85rem; }
+.scrub-check-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 10px; }
+.check-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; cursor: pointer; user-select: none; }
+.check-item:last-child { margin-bottom: 0; }
+.cb { width: 20px; height: 20px; border: 1.5px solid var(--border); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; transition: all .15s; background: var(--card); }
+.cb.checked { background: var(--g); border-color: var(--g); }
+.cb.checked::after { content: ''; display: block; width: 5px; height: 10px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px,-1px); }
+.check-label { font-size: 13px; line-height: 1.45; color: var(--ink); }
+
+/* VERDICT */
+.scrub-verdict { padding: 0.6rem 0.85rem; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-bottom: 0.85rem; text-align: center; background: var(--surface); color: var(--muted); }
+.verdict-1st { background: var(--g-lt); color: var(--g-dk); }
+.verdict-2nd { background: var(--amber-lt); color: var(--amber); }
+
+/* ALERTS */
+.alert { padding: 0.65rem 0.9rem; border-radius: var(--radius); font-size: 12px; line-height: 1.5; margin-bottom: 0.85rem; }
+.alert-warn { background: var(--amber-lt); color: var(--amber); }
+.alert-cap { background: var(--g-lt); color: var(--g-dk); border-left: 3px solid var(--g); }
+
+/* BUTTONS */
+.btn-primary { width: 100%; padding: 11px; background: var(--ink); color: var(--paper); border: none; border-radius: var(--radius); font-size: 14px; font-weight: 500; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: opacity .15s; }
+.btn-primary:hover { opacity: .85; }
+.btn-primary:disabled { opacity: .35; cursor: not-allowed; }
+.btn-cancel { width: 100%; padding: 11px; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; font-weight: 500; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: all .15s; margin-top: 8px; }
+.btn-cancel:hover { border-color: var(--ink); color: var(--ink); }
+.edit-banner { background: var(--amber-lt); border-left: 3px solid var(--amber); color: var(--amber); font-size: 12px; padding: 0.6rem 0.9rem; border-radius: var(--radius); margin-bottom: 1rem; }
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn-approve { padding: 10px; background: var(--g); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-weight: 600; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: opacity .15s; }
+.btn-approve:hover { opacity: .85; }
+.btn-return { padding: 10px; background: var(--card); color: var(--red); border: 1.5px solid var(--red); border-radius: var(--radius); font-size: 13px; font-weight: 600; font-family: 'Instrument Sans', sans-serif; cursor: pointer; transition: background .15s; }
+.btn-return:hover { background: var(--red-lt); }
+
+/* HISTORY / CASE ROWS */
+.filter-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; gap: 8px; flex-wrap: wrap; }
+.filter-row span { font-size: 13px; color: var(--muted); }
+.filter-row select { font-size: 12px; font-family: 'Instrument Sans', sans-serif; padding: 5px 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); color: var(--ink); outline: none; }
+.case-list { display: flex; flex-direction: column; gap: 6px; }
+.case-row { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.7rem 1rem; display: flex; align-items: flex-start; gap: 10px; }
+.case-date { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; min-width: 76px; padding-top: 2px; flex-shrink: 0; }
+.case-info { flex: 1; min-width: 0; }
+.case-proc { font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.case-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.case-comment { font-size: 11px; color: var(--red); margin-top: 5px; font-style: italic; background: var(--red-lt); padding: 4px 8px; border-radius: 4px; line-height: 1.45; }
+.case-badges { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; white-space: nowrap; letter-spacing: .03em; }
+.badge-1st { background: var(--g-lt); color: var(--g-dk); }
+.badge-2nd { background: var(--amber-lt); color: var(--amber); }
+.badge-approved { background: var(--g-lt); color: var(--g-dk); }
+.badge-pending { background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+.badge-returned { background: var(--red-lt); color: var(--red); }
+.del-btn { border: none; background: none; cursor: pointer; color: var(--muted); padding: 3px 5px; border-radius: 4px; font-size: 15px; line-height: 1; transition: color .15s; }
+.del-btn:hover { color: var(--red); }
+.empty { text-align: center; padding: 2.5rem; color: var(--muted); font-size: 13px; }
+
+/* REQUIREMENTS */
+.source-note { font-size: 11px; color: var(--muted); line-height: 1.6; background: var(--surface); border-radius: var(--radius); padding: 0.65rem 0.9rem; margin-bottom: 1.25rem; border-left: 3px solid var(--border); }
+.readiness-card { background: var(--surface); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+.readiness-pct { font-size: 36px; font-weight: 500; font-family: 'DM Mono', monospace; line-height: 1; }
+.req-section { margin-bottom: 1.25rem; }
+.req-row { display: flex; align-items: center; gap: 10px; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+.req-row:last-child { border-bottom: none; }
+.req-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.req-text { flex: 1; font-size: 13px; }
+.req-val { font-size: 12px; font-family: 'DM Mono', monospace; font-weight: 500; }
+.req-ok { color: var(--g); } .req-pend { color: var(--amber); } .req-danger { color: var(--red); }
+
+/* PRECEPTOR QUEUE CARDS */
+.queue-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem 1.25rem; margin-bottom: 0.85rem; }
+.qc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
+.qc-name { font-size: 14px; font-weight: 600; }
+.qc-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.criteria-list { margin-bottom: 0.85rem; }
+.ci { display: flex; gap: 7px; font-size: 12px; margin-bottom: 4px; line-height: 1.4; }
+.ci:last-child { margin-bottom: 0; }
+.ci-ok { color: var(--g); font-weight: 700; flex-shrink: 0; }
+.ci-no { color: var(--red); font-weight: 700; flex-shrink: 0; }
+
+@media (max-width: 500px) {
+  .field-row { grid-template-columns: 1fr; }
+  .metric-val { font-size: 22px; }
+  .btn-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="role-bar">
+  <div>
+    <h1>Surgical Tech Case Logger</h1>
+    <div class="sub">NCCT TS-C &middot; Case Documentation</div>
+  </div>
+  <div>
+    <div style="font-size:10px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;text-align:center">Viewing as</div>
+    <div class="role-toggle">
+      <button class="role-btn active" id="role-learner" onclick="setRole('learner')">Learner</button>
+      <button class="role-btn" id="role-preceptor" onclick="setRole('preceptor')">Preceptor</button>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- LEARNER NAV -->
+  <nav class="nav" id="learner-nav">
+    <button class="nav-btn active" onclick="showView('dashboard')">&#9638; Dashboard</button>
+    <button class="nav-btn" onclick="showView('log')">+ Log case</button>
+    <button class="nav-btn" onclick="showView('history')">&#9776; History</button>
+    <button class="nav-btn" onclick="showView('requirements')">&#10003; Requirements</button>
+  </nav>
+
+  <!-- PRECEPTOR NAV -->
+  <nav class="nav" id="preceptor-nav" style="display:none">
+    <button class="nav-btn active" onclick="showPreceptorView('queue')">&#9636; Review queue <span class="dot" id="queue-dot" style="display:none"></span></button>
+    <button class="nav-btn" onclick="showPreceptorView('reviewed')">&#10003; Reviewed</button>
+  </nav>
+
+  <!-- ===== LEARNER VIEWS ===== -->
+
+  <div class="view active" id="view-dashboard">
+    <div class="metric-row" id="metrics"></div>
+    <div id="prog-bars"></div>
+    <div class="sect-label">Specialty breakdown (approved cases)</div>
+    <div class="spec-grid" id="spec-grid"></div>
+    <p class="hint">Progress counts approved cases only. Pending cases are shown separately. Specialties with at least 1 approved case are highlighted.</p>
+  </div>
+
+  <div class="view" id="view-log">
+    <div class="log-form">
+      <div class="form-title" id="form-title">Log a new case</div>
+      <div class="edit-banner" id="edit-banner" style="display:none">&#9998; Editing a submitted case &mdash; make your changes and resubmit for review.</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Date <span style="color:var(--red)">*</span></label>
+          <input type="date" id="f-date" required>
+        </div>
+        <div class="field">
+          <label>Procedure name</label>
+          <input type="text" id="f-proc" placeholder="e.g. laparoscopic cholecystectomy">
+        </div>
+      </div>
+      <div class="field">
+        <label>Category <span style="color:var(--red)">*</span></label>
+        <select id="f-cat" onchange="handleCatChange()">
+          <option value="">— select category —</option>
+          <option value="general">General surgery</option>
+          <option value="Gynecology">Gynecology</option>
+          <option value="Obstetrics">Obstetrics</option>
+          <option value="Genitourinary">Genitourinary</option>
+          <option value="Cardiovascular">Cardiovascular</option>
+          <option value="Neurosurgery">Neurosurgery</option>
+          <option value="Thoracic">Thoracic</option>
+          <option value="Peripheral Vascular">Peripheral vascular</option>
+          <option value="Ophthalmology">Ophthalmology</option>
+          <option value="Otorhinolaryngology">Otorhinolaryngology (ENT)</option>
+          <option value="Orthopedic">Orthopedic</option>
+          <option value="Plastic/Reconstructive">Plastic / reconstructive</option>
+          <option value="Diagnostic Scopes">Diagnostic scopes</option>
+          <option value="Other">Other specialty</option>
+        </select>
+      </div>
+      <div id="cat-alert" class="alert" style="display:none"></div>
+      <div class="scrub-check">
+        <div class="scrub-check-title">1st scrub criteria — check all that apply</div>
+        <div class="check-item" onclick="toggleCheck('c1')"><div class="cb" id="c1"></div><div class="check-label">Verified supplies and equipment needed for the procedure</div></div>
+        <div class="check-item" onclick="toggleCheck('c2')"><div class="cb" id="c2"></div><div class="check-label">Set up the sterile field with instruments, supplies, medications, and solutions</div></div>
+        <div class="check-item" onclick="toggleCheck('c3')"><div class="cb" id="c3"></div><div class="check-label">Performed counts with the circulator</div></div>
+        <div class="check-item" onclick="toggleCheck('c4')"><div class="cb" id="c4"></div><div class="check-label">Passed instruments and supplies to the surgical team during the procedure</div></div>
+        <div class="check-item" onclick="toggleCheck('c5')"><div class="cb" id="c5"></div><div class="check-label">Maintained sterile technique throughout (with knowledge to correct any breaks)</div></div>
+      </div>
+      <div class="scrub-verdict" id="verdict">Check criteria above to determine scrub type</div>
+      <div class="field">
+        <label>Assign to preceptor <span style="color:var(--red)">*</span></label>
+        <select id="f-preceptor" onchange="updateVerdict()">
+          <option value="">— select preceptor —</option>
+          <option value="Dr. Sandra Okafor">Dr. Sandra Okafor</option>
+          <option value="RN Marcus Webb">RN Marcus Webb</option>
+          <option value="Dr. Priya Nambiar">Dr. Priya Nambiar</option>
+          <option value="RN Tomas Herrera">RN Tomas Herrera</option>
+          <option value="Dr. Lisa Fontaine">Dr. Lisa Fontaine</option>
+        </select>
+      </div>
+      <button class="btn-primary" id="submit-btn" onclick="submitCase()" disabled>Submit for review</button>
+      <button class="btn-cancel" id="cancel-btn" onclick="cancelEdit()" style="display:none">Cancel edit</button>
+    </div>
+  </div>
+
+  <div class="view" id="view-history">
+    <div class="filter-row">
+      <span id="history-count"></span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <select id="filter-status" onchange="renderHistory()">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="returned">Returned</option>
+        </select>
+        <select id="filter-cat" onchange="renderHistory()">
+          <option value="">All categories</option>
+          <option value="general">General surgery</option>
+          <option value="Gynecology">Gynecology</option>
+          <option value="Obstetrics">Obstetrics</option>
+          <option value="Genitourinary">Genitourinary</option>
+          <option value="Cardiovascular">Cardiovascular</option>
+          <option value="Neurosurgery">Neurosurgery</option>
+          <option value="Thoracic">Thoracic</option>
+          <option value="Peripheral Vascular">Peripheral vascular</option>
+          <option value="Ophthalmology">Ophthalmology</option>
+          <option value="Otorhinolaryngology">Otorhinolaryngology (ENT)</option>
+          <option value="Orthopedic">Orthopedic</option>
+          <option value="Plastic/Reconstructive">Plastic / reconstructive</option>
+          <option value="Diagnostic Scopes">Diagnostic scopes</option>
+          <option value="Other">Other specialty</option>
+        </select>
+      </div>
+    </div>
+    <div class="case-list" id="case-list"></div>
+  </div>
+
+  <div class="view" id="view-requirements">
+    <div class="source-note">Requirements sourced verbatim from the NCCT TS-C Critical Skills Competency/Qualification form (2025, form TE-0204CSQE). Progress counts approved cases only. No per-specialty case minimum is stated — only that the 75–95 specialty case total must span at least 3 different categories.</div>
+    <div id="req-content"></div>
+  </div>
+
+  <!-- ===== PRECEPTOR VIEWS ===== -->
+
+  <div class="view" id="view-queue">
+    <div class="field" style="margin-bottom:1rem">
+      <label>Reviewing as</label>
+      <select id="p-who" onchange="renderQueue()">
+        <option value="">— select your name —</option>
+        <option value="Dr. Sandra Okafor">Dr. Sandra Okafor</option>
+        <option value="RN Marcus Webb">RN Marcus Webb</option>
+        <option value="Dr. Priya Nambiar">Dr. Priya Nambiar</option>
+        <option value="RN Tomas Herrera">RN Tomas Herrera</option>
+        <option value="Dr. Lisa Fontaine">Dr. Lisa Fontaine</option>
+      </select>
+    </div>
+    <div id="queue-list"></div>
+  </div>
+
+  <div class="view" id="view-reviewed">
+    <div class="field" style="margin-bottom:1rem">
+      <label>Reviewing as</label>
+      <select id="p-who-reviewed" onchange="renderReviewed()">
+        <option value="">— select your name —</option>
+        <option value="Dr. Sandra Okafor">Dr. Sandra Okafor</option>
+        <option value="RN Marcus Webb">RN Marcus Webb</option>
+        <option value="Dr. Priya Nambiar">Dr. Priya Nambiar</option>
+        <option value="RN Tomas Herrera">RN Tomas Herrera</option>
+        <option value="Dr. Lisa Fontaine">Dr. Lisa Fontaine</option>
+      </select>
+    </div>
+    <div id="reviewed-list"></div>
+  </div>
+
+</div>
+
+<script>
+const CHECKS = ['c1','c2','c3','c4','c5'];
+const CHECK_LABELS = [
+  'Verified supplies and equipment',
+  'Set up sterile field',
+  'Performed counts with circulator',
+  'Passed instruments during procedure',
+  'Maintained sterile technique'
+];
+const SPECIALTIES = ['Gynecology','Obstetrics','Genitourinary','Cardiovascular','Neurosurgery','Thoracic','Peripheral Vascular','Ophthalmology','Otorhinolaryngology','Orthopedic','Plastic/Reconstructive','Diagnostic Scopes','Other'];
+
+let cases = [];
+try { cases = JSON.parse(localStorage.getItem('surg_cases_v3') || '[]'); } catch(e) {}
+let checks = {c1:false,c2:false,c3:false,c4:false,c5:false};
+let editingIdx = null;
+
+function save() { try { localStorage.setItem('surg_cases_v3', JSON.stringify(cases)); } catch(e) {} }
+
+function stats() {
+  const approved = cases.filter(c => c.status === 'approved');
+  const active = cases.filter(c => c.status !== 'returned');
+  const specCounts = {};
+  SPECIALTIES.forEach(s => { specCounts[s] = approved.filter(c => c.cat === s).length; });
+  const scopeCount = specCounts['Diagnostic Scopes'] || 0;
+  const specTotal = SPECIALTIES.reduce((acc, s) => acc + (s === 'Diagnostic Scopes' ? Math.min(specCounts[s]||0, 15) : (specCounts[s]||0)), 0);
+  const specsWithCases = SPECIALTIES.filter(s => s !== 'Other' && (specCounts[s]||0) > 0);
+  return {
+    total: approved.length,
+    first: approved.filter(c => c.scrub === 1).length,
+    general: approved.filter(c => c.cat === 'general').length,
+    generalActive: active.filter(c => c.cat === 'general').length,
+    scopeActive: active.filter(c => c.cat === 'Diagnostic Scopes').length,
+    specCounts, scopeCount, specTotal, specsWithCases,
+    pending: cases.filter(c => c.status === 'pending').length
+  };
+}
+
+function pct(v, max) { return Math.min(100, Math.round(v/max*100)); }
+
+// ROLE
+function setRole(role) {
+  document.getElementById('role-learner').classList.toggle('active', role === 'learner');
+  document.getElementById('role-preceptor').classList.toggle('active', role === 'preceptor');
+  document.getElementById('learner-nav').style.display = role === 'learner' ? 'flex' : 'none';
+  document.getElementById('preceptor-nav').style.display = role === 'preceptor' ? 'flex' : 'none';
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  if (role === 'learner') showView('dashboard');
+  else showPreceptorView('queue');
+}
+
+// LEARNER
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  document.querySelectorAll('#learner-nav .nav-btn').forEach(b => b.classList.remove('active'));
+  ['dashboard','log','history','requirements'].indexOf(id) >= 0 &&
+    document.querySelectorAll('#learner-nav .nav-btn')[['dashboard','log','history','requirements'].indexOf(id)].classList.add('active');
+  if (id==='dashboard') renderDash();
+  if (id==='log' && editingIdx === null) resetForm();
+  if (id==='history') renderHistory();
+  if (id==='requirements') renderRequirements();
+}
+
+function renderDash() {
+  const s = stats();
+  document.getElementById('metrics').innerHTML = `
+    <div class="metric"><div class="metric-label">Approved cases</div><div class="metric-val ${s.total>=125?'ok':s.total>=90?'warn':''}">${s.total}</div><div class="metric-sub">of 125 required</div></div>
+    <div class="metric"><div class="metric-label">1st scrub</div><div class="metric-val ${s.first>=90?'ok':s.first>=60?'warn':'danger'}">${s.first}</div><div class="metric-sub">of 90 required</div></div>
+    <div class="metric"><div class="metric-label">Specialty cases</div><div class="metric-val ${s.specTotal>=75&&s.specTotal<=95?'ok':s.specTotal>95?'warn':''}">${s.specTotal}</div><div class="metric-sub">target 75&ndash;95</div></div>
+    <div class="metric"><div class="metric-label">Pending review</div><div class="metric-val ${s.pending>0?'warn':''}">${s.pending}</div><div class="metric-sub">awaiting preceptor</div></div>`;
+
+  document.getElementById('prog-bars').innerHTML = `
+    <div class="prog-block"><div class="prog-head"><span class="prog-title">Approved cases</span><span class="prog-count">${s.total} / 125</span></div><div class="track"><div class="fill fill-ok" style="width:${pct(s.total,125)}%"></div></div></div>
+    <div class="prog-block"><div class="prog-head"><span class="prog-title">1st scrub minimum</span><span class="prog-count">${s.first} / 90</span></div><div class="track"><div class="fill ${s.first>=90?'fill-ok':'fill-warn'}" style="width:${pct(s.first,90)}%"></div></div></div>
+    <div class="prog-block"><div class="prog-head"><span class="prog-title">General surgery (30&ndash;50 range)</span><span class="prog-count ${s.generalActive>50?'danger':''}">${s.general} approved &middot; ${s.generalActive} active</span></div><div class="track"><div class="fill ${s.generalActive>50?'fill-over':s.general>=30?'fill-ok':'fill-warn'}" style="width:${pct(s.generalActive,50)}%"></div></div></div>
+    <div class="prog-block"><div class="prog-head"><span class="prog-title">Specialty cases (approved)</span><span class="prog-count">${s.specTotal} / 75 min</span></div><div class="track"><div class="fill ${s.specTotal>=75?'fill-ok':'fill-warn'}" style="width:${pct(s.specTotal,95)}%"></div></div></div>
+    <div class="prog-block"><div class="prog-head"><span class="prog-title">Diagnostic scopes (15 cap)</span><span class="prog-count ${s.scopeActive>15?'danger':''}">${s.scopeActive} active / 15 max</span></div><div class="track"><div class="fill ${s.scopeActive>15?'fill-over':s.scopeActive>12?'fill-warn':'fill-ok'}" style="width:${pct(s.scopeActive,15)}%"></div></div></div>`;
+
+  document.getElementById('spec-grid').innerHTML = SPECIALTIES.filter(s2=>s2!=='Other').map(sp => {
+    const cnt = s.specCounts[sp]||0;
+    return `<div class="spec-card ${cnt>0?'has-cases':''}"><div class="spec-name">${sp}</div><div class="spec-cnt">${cnt} approved${sp==='Diagnostic Scopes'?' (max 15)':''}</div></div>`;
+  }).join('');
+}
+
+function renderHistory() {
+  const fs = document.getElementById('filter-status').value;
+  const fc = document.getElementById('filter-cat').value;
+  let list = [...cases];
+  if (fs) list = list.filter(c => c.status === fs);
+  if (fc) list = list.filter(c => c.cat === fc);
+  list.sort((a,b) => new Date(b.date) - new Date(a.date));
+  document.getElementById('history-count').textContent = `${list.length} case${list.length!==1?'s':''}`;
+  if (!list.length) { document.getElementById('case-list').innerHTML = '<div class="empty">No cases match this filter.</div>'; return; }
+  document.getElementById('case-list').innerHTML = list.map(c => {
+    const idx = cases.indexOf(c);
+    const label = c.cat==='general'?'General surgery':c.cat;
+    const sb = c.status==='approved'?'<span class="badge badge-approved">&#10003; Approved</span>':c.status==='returned'?'<span class="badge badge-returned">&#8617; Returned</span>':'<span class="badge badge-pending">&#9679; Pending</span>';
+    const scrub = `<span class="badge ${c.scrub===1?'badge-1st':'badge-2nd'}">${c.scrub===1?'1st':'2nd'} scrub</span>`;
+    const comment = c.reviewComment ? `<div class="case-comment">&#8617; ${c.reviewComment}</div>` : '';
+    const editBtn = c.status !== 'approved' ? `<button class="del-btn" onclick="editCase(${idx})" title="Edit" style="color:var(--muted)">&#9998;</button>` : '';
+    return `<div class="case-row">
+      <div class="case-date">${c.date||'&mdash;'}</div>
+      <div class="case-info">
+        <div class="case-proc">${c.proc||'Unnamed procedure'}</div>
+        <div class="case-meta">${label} &middot; ${c.preceptor||'&mdash;'}</div>
+        ${comment}
+      </div>
+      <div class="case-badges">${sb}${scrub}${editBtn}<button class="del-btn" onclick="deleteCase(${idx})" title="Delete">&#10005;</button></div>
+    </div>`;
+  }).join('');
+}
+
+function renderRequirements() {
+  const s = stats();
+  const reqs = [
+    {label:'Total cases: minimum 125', met:s.total>=125, val:`${s.total} / 125`},
+    {label:'1st scrub: minimum 90 of 125 cases', met:s.first>=90, val:`${s.first} / 90`},
+    {label:'General surgery: 30&ndash;50 cases', met:s.general>=30&&s.general<=50, val:`${s.general}`, warn:s.general>50},
+    {label:'Specialty cases: 75&ndash;95 total (excl. general)', met:s.specTotal>=75&&s.specTotal<=95, val:`${s.specTotal} / 75&ndash;95`, warn:s.specTotal>95},
+    {label:'Specialty cases span at least 3 different categories', met:s.specsWithCases.length>=3, val:`${s.specsWithCases.length} / 3`},
+    {label:'Diagnostic scopes: 15 case maximum', met:s.scopeCount<=15, val:`${s.scopeCount} / 15`, warn:s.scopeCount>15},
+  ];
+  const readiness = Math.min(100, Math.round(
+    Math.min(s.total/125,1)*35 + Math.min(s.first/90,1)*35 +
+    (s.specsWithCases.length>=3&&s.specTotal>=75?1:(Math.min(s.specTotal/75,1)*0.5+Math.min(s.specsWithCases.length/3,1)*0.5))*20 +
+    (s.general>=30&&s.general<=50?1:Math.min(s.general/30,1))*10
+  ));
+  const reqRows = reqs.map(r => {
+    const ic = r.warn?'&#9651;':r.met?'&#10003;':'&#9675;';
+    const cls = r.warn?'req-danger':r.met?'req-ok':'req-pend';
+    const col = r.warn?'var(--red)':r.met?'var(--g)':'var(--muted)';
+    return `<div class="req-row"><div class="req-icon" style="color:${col}">${ic}</div><div class="req-text">${r.label}</div><div class="req-val ${cls}">${r.val}</div></div>`;
+  }).join('');
+  const catRows = s.specsWithCases.length
+    ? s.specsWithCases.map(sp=>`<div class="req-row"><div class="req-icon" style="color:var(--g)">&#10003;</div><div class="req-text">${sp}</div><div class="req-val req-ok">${s.specCounts[sp]||0} cases</div></div>`).join('')
+    : '<div style="font-size:13px;color:var(--muted);padding:.5rem 0">No approved specialty cases yet.</div>';
+  document.getElementById('req-content').innerHTML = `
+    <div class="readiness-card"><div class="readiness-pct" style="color:${readiness>=100?'var(--g)':'var(--ink)'}">${readiness}%</div><div><div style="font-size:14px;font-weight:600">Certification readiness</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Based on approved cases only</div></div></div>
+    <div class="req-section"><div class="sect-label">Case documentation requirements</div>${reqRows}</div>
+    <div class="req-section"><div class="sect-label">Qualifying specialty categories (${s.specsWithCases.length} of 3 min)</div>${catRows}</div>
+    <div class="req-section"><div class="sect-label">1st scrub definition &mdash; all 5 criteria required</div>${['Verified supplies and equipment needed for the procedure','Set up the sterile field with instruments, supplies, medications, and solutions','Performed counts with the circulator','Passed instruments and supplies to the surgical team during the procedure','Maintained sterile technique throughout (with knowledge to correct any breaks)'].map(c=>`<div class="req-row"><div class="req-icon" style="color:var(--muted)">&#8901;</div><div class="req-text">${c}</div></div>`).join('')}</div>`;
+}
+
+// FORM
+function getCatStatus(cat) {
+  if (!cat) return null;
+  const s = stats();
+  if (cat==='Diagnostic Scopes') {
+    if (s.scopeActive>=15) return {capped:true, message:"You've reached the 15-case maximum for Diagnostic Scopes. This requirement is complete — log remaining cases under a different specialty."};
+    if (s.scopeActive>=12) return {capped:false, message:`Heads up: ${15-s.scopeActive} Diagnostic Scope case${15-s.scopeActive!==1?'s':''} remaining before the cap.`};
+  }
+  if (cat==='general') {
+    if (s.generalActive>=50) return {capped:true, message:"You've reached the 50-case maximum for General Surgery. This requirement is complete — additional general surgery cases will not count toward certification."};
+    if (s.generalActive>=45) return {capped:false, message:`Heads up: ${50-s.generalActive} General Surgery case${50-s.generalActive!==1?'s':''} remaining before the cap.`};
+  }
+  return null;
+}
+
+function handleCatChange() {
+  const cat = document.getElementById('f-cat').value;
+  const status = getCatStatus(cat);
+  const el = document.getElementById('cat-alert');
+  if (status) { el.style.display='block'; el.className='alert '+(status.capped?'alert-cap':'alert-warn'); el.innerHTML=(status.capped?'&#10003; ':'&#9651; ')+status.message; }
+  else { el.style.display='none'; }
+  updateVerdict();
+}
+
+function toggleCheck(id) { checks[id]=!checks[id]; document.getElementById(id).classList.toggle('checked',checks[id]); updateVerdict(); }
+
+function updateVerdict() {
+  const all = CHECKS.every(c=>checks[c]);
+  const any = CHECKS.some(c=>checks[c]);
+  const cat = document.getElementById('f-cat').value;
+  const date = document.getElementById('f-date').value;
+  const preceptor = document.getElementById('f-preceptor').value;
+  const atCap = (getCatStatus(cat)||{}).capped;
+  const v = document.getElementById('verdict');
+  document.getElementById('submit-btn').disabled = !cat||!any||!date||!preceptor||atCap;
+  if (all) { v.className='scrub-verdict verdict-1st'; v.textContent='✓ 1st scrub — all criteria met'; }
+  else if (any) { v.className='scrub-verdict verdict-2nd'; v.textContent='⚠ 2nd scrub — not all criteria met'; }
+  else { v.className='scrub-verdict'; v.textContent='Check criteria above to determine scrub type'; }
+}
+
+function editCase(idx) {
+  const c = cases[idx];
+  editingIdx = idx;
+  // Populate all fields
+  document.getElementById('f-date').value = c.date || '';
+  document.getElementById('f-proc').value = c.proc || '';
+  document.getElementById('f-cat').value = c.cat || '';
+  document.getElementById('f-preceptor').value = c.preceptor || '';
+  // Restore checkboxes
+  CHECKS.forEach(ck => {
+    checks[ck] = c.checks ? !!c.checks[ck] : false;
+    document.getElementById(ck).classList.toggle('checked', checks[ck]);
+  });
+  // Update form UI for edit mode
+  document.getElementById('form-title').textContent = 'Edit case';
+  document.getElementById('edit-banner').style.display = 'block';
+  document.getElementById('submit-btn').textContent = 'Resubmit for review';
+  document.getElementById('cancel-btn').style.display = 'block';
+  // Trigger cat change to show/hide any cap alerts
+  handleCatChange();
+  showView('log');
+  window.scrollTo(0, 0);
+}
+
+function cancelEdit() {
+  editingIdx = null;
+  resetForm();
+  showView('history');
+}
+
+function resetForm() {
+  editingIdx = null;
+  CHECKS.forEach(c => { checks[c] = false; document.getElementById(c).classList.remove('checked'); });
+  document.getElementById('f-cat').value = '';
+  document.getElementById('f-proc').value = '';
+  document.getElementById('f-preceptor').value = '';
+  document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('f-date').style.borderColor = '';
+  document.getElementById('cat-alert').style.display = 'none';
+  document.getElementById('form-title').textContent = 'Log a new case';
+  document.getElementById('edit-banner').style.display = 'none';
+  document.getElementById('submit-btn').textContent = 'Submit for review';
+  document.getElementById('cancel-btn').style.display = 'none';
+  updateVerdict();
+}
+
+function submitCase() {
+  const cat = document.getElementById('f-cat').value;
+  const proc = document.getElementById('f-proc').value.trim();
+  const date = document.getElementById('f-date').value;
+  const preceptor = document.getElementById('f-preceptor').value;
+  if (!cat||!preceptor) return;
+  if (!date) { const df=document.getElementById('f-date'); df.style.borderColor='var(--red)'; df.focus(); return; }
+  if ((getCatStatus(cat)||{}).capped && editingIdx === null) return;
+  const scrubType = CHECKS.every(c=>checks[c])?1:2;
+  if (editingIdx !== null) {
+    // Update existing case, reset to pending for re-review
+    const existing = cases[editingIdx];
+    cases[editingIdx] = { ...existing, cat, proc: proc||'Unnamed procedure', date, scrub: scrubType, checks: {...checks}, preceptor, status: 'pending', reviewComment: '' };
+  } else {
+    cases.push({id:Date.now(), cat, proc:proc||'Unnamed procedure', date, scrub:scrubType, checks:{...checks}, preceptor, status:'pending', reviewComment:''});
+  }
+  save();
+  resetForm();
+  updateQueueDot();
+  showView('dashboard');
+}
+
+function deleteCase(idx) {
+  if (confirm('Delete this case? This cannot be undone.')) { cases.splice(idx,1); save(); renderHistory(); }
+}
+
+// PRECEPTOR
+function showPreceptorView(id) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  document.querySelectorAll('#preceptor-nav .nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#preceptor-nav .nav-btn')[id==='queue'?0:1].classList.add('active');
+  if (id==='queue') renderQueue();
+  if (id==='reviewed') renderReviewed();
+}
+
+function updateQueueDot() {
+  const n = cases.filter(c=>c.status==='pending').length;
+  document.getElementById('queue-dot').style.display = n>0?'inline-block':'none';
+}
+
+function renderQueue() {
+  const who = document.getElementById('p-who').value;
+  updateQueueDot();
+  const el = document.getElementById('queue-list');
+  if (!who) { el.innerHTML='<div class="empty">Select your name above to see your review queue.</div>'; return; }
+  const pending = cases.filter(c=>c.preceptor===who&&c.status==='pending').sort((a,b)=>new Date(a.date)-new Date(b.date));
+  if (!pending.length) { el.innerHTML='<div class="empty">&#10003; No cases pending your review.</div>'; return; }
+  el.innerHTML = pending.map(c => {
+    const idx = cases.indexOf(c);
+    const label = c.cat==='general'?'General surgery':c.cat;
+    const criteria = CHECKS.map((ck,i)=>`<div class="ci"><span class="${c.checks[ck]?'ci-ok':'ci-no'}">${c.checks[ck]?'&#10003;':'&#10007;'}</span><span>${CHECK_LABELS[i]}</span></div>`).join('');
+    return `<div class="queue-card">
+      <div class="qc-head">
+        <div><div class="qc-name">${c.proc||'Unnamed procedure'}</div><div class="qc-meta">${c.date} &middot; ${label}</div></div>
+        <span class="badge ${c.scrub===1?'badge-1st':'badge-2nd'}">${c.scrub===1?'1st':'2nd'} scrub</span>
+      </div>
+      <div class="criteria-list">${criteria}</div>
+      <div class="field" style="margin-bottom:0.75rem">
+        <label>Comment for learner (optional)</label>
+        <textarea id="cmt-${idx}" placeholder="Add feedback or reason for return..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-approve" onclick="reviewCase(${idx},'approved')">&#10003; Approve</button>
+        <button class="btn-return" onclick="reviewCase(${idx},'returned')">&#8617; Return</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderReviewed() {
+  const who = document.getElementById('p-who-reviewed').value;
+  const el = document.getElementById('reviewed-list');
+  if (!who) { el.innerHTML='<div class="empty">Select your name above to see cases you have reviewed.</div>'; return; }
+  const done = cases.filter(c=>c.preceptor===who&&c.status!=='pending').sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if (!done.length) { el.innerHTML='<div class="empty">No reviewed cases yet.</div>'; return; }
+  el.innerHTML = done.map(c => {
+    const label = c.cat==='general'?'General surgery':c.cat;
+    const sb = c.status==='approved'?'<span class="badge badge-approved">&#10003; Approved</span>':'<span class="badge badge-returned">&#8617; Returned</span>';
+    return `<div class="case-row">
+      <div class="case-date">${c.date||'&mdash;'}</div>
+      <div class="case-info">
+        <div class="case-proc">${c.proc||'Unnamed procedure'}</div>
+        <div class="case-meta">${label}</div>
+        ${c.reviewComment?`<div class="case-comment">&#8617; ${c.reviewComment}</div>`:''}
+      </div>
+      <div class="case-badges">${sb}<span class="badge ${c.scrub===1?'badge-1st':'badge-2nd'}">${c.scrub===1?'1st':'2nd'} scrub</span></div>
+    </div>`;
+  }).join('');
+}
+
+function reviewCase(idx, decision) {
+  const cmtEl = document.getElementById('cmt-'+idx);
+  cases[idx].status = decision;
+  cases[idx].reviewComment = cmtEl ? cmtEl.value.trim() : '';
+  save();
+  updateQueueDot();
+  renderQueue();
+}
+
+// INIT
+document.getElementById('f-date').addEventListener('change', function() { this.style.borderColor=''; updateVerdict(); });
+updateQueueDot();
+resetForm();
+renderDash();
+</script>
+</body>
+</html>

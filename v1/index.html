@@ -310,7 +310,6 @@
   }
 
   .alert-warn { background: var(--amber-lt); color: var(--amber); }
-  .alert-cap { background: var(--g-lt); color: var(--g-dk); border-left: 3px solid var(--g); }
 
   /* BUTTON */
   .btn-primary {
@@ -494,8 +493,8 @@
 
       <div class="field-row">
         <div class="field">
-          <label>Date <span style="color:var(--red)">*</span></label>
-          <input type="date" id="f-date" required>
+          <label>Date</label>
+          <input type="date" id="f-date">
         </div>
         <div class="field">
           <label>Procedure name</label>
@@ -524,7 +523,9 @@
         </select>
       </div>
 
-      <div id="cat-alert" class="alert" style="display:none"></div>
+      <div id="scope-alert" class="alert alert-warn" style="display:none">
+        &#9651; Diagnostic scopes count toward the 75-case specialty minimum but are capped at 15 total. You have used <strong><span id="scope-used">0</span></strong> of 15.
+      </div>
 
       <div class="scrub-check">
         <div class="scrub-check-title">1st scrub criteria — check all that apply</div>
@@ -815,12 +816,8 @@
   function updateVerdict() {
     const all = CHECKS.every(c => checks[c]);
     const any = CHECKS.some(c => checks[c]);
-    const cat = document.getElementById('f-cat').value;
-    const date = document.getElementById('f-date').value;
-    const status = getCatStatus(cat);
-    const atCap = status && status.capped;
     const v = document.getElementById('verdict');
-    document.getElementById('submit-btn').disabled = !cat || !any || !date || atCap;
+    document.getElementById('submit-btn').disabled = !document.getElementById('f-cat').value || !any;
     if (all) {
       v.className = 'scrub-verdict verdict-1st';
       v.textContent = '✓ 1st scrub — all criteria met';
@@ -833,32 +830,11 @@
     }
   }
 
-  // Returns null if ok, or {capped, message, isComplete} if at/near a hard cap
-  function getCatStatus(cat) {
-    if (!cat) return null;
-    const s = stats();
-    if (cat === 'Diagnostic Scopes') {
-      if (s.scopeCount >= 15) return { capped: true, message: 'You\'ve reached the 15-case maximum for Diagnostic Scopes. This requirement is complete — log remaining cases under a different specialty category.' };
-      if (s.scopeCount >= 12) return { capped: false, message: `Heads up: you have ${15 - s.scopeCount} Diagnostic Scope case${15 - s.scopeCount !== 1 ? 's' : ''} remaining before the 15-case cap. Cases beyond 15 will not count toward certification.` };
-    }
-    if (cat === 'general') {
-      if (s.general >= 50) return { capped: true, message: 'You\'ve reached the 50-case maximum for General Surgery. This requirement is complete — additional general surgery cases will not count toward certification.' };
-      if (s.general >= 45) return { capped: false, message: `Heads up: you have ${50 - s.general} General Surgery case${50 - s.general !== 1 ? 's' : ''} remaining before the 50-case cap.` };
-    }
-    return null;
-  }
-
   function handleCatChange() {
     const cat = document.getElementById('f-cat').value;
-    const status = getCatStatus(cat);
-    const alertEl = document.getElementById('cat-alert');
-    if (status) {
-      alertEl.style.display = 'block';
-      alertEl.className = 'alert ' + (status.capped ? 'alert-cap' : 'alert-warn');
-      alertEl.innerHTML = (status.capped ? '&#10003; ' : '&#9651; ') + status.message;
-    } else {
-      alertEl.style.display = 'none';
-    }
+    const s = stats();
+    document.getElementById('scope-used').textContent = s.scopeCount;
+    document.getElementById('scope-alert').style.display = cat === 'Diagnostic Scopes' ? 'block' : 'none';
     updateVerdict();
   }
 
@@ -867,22 +843,13 @@
     const proc = document.getElementById('f-proc').value.trim();
     const date = document.getElementById('f-date').value;
     if (!cat) return;
-    if (!date) {
-      const dateField = document.getElementById('f-date');
-      dateField.style.borderColor = 'var(--red)';
-      dateField.focus();
-      return;
-    }
-    const status = getCatStatus(cat);
-    if (status && status.capped) return;
     const scrubType = CHECKS.every(c => checks[c]) ? 1 : 2;
     cases.push({ cat, proc: proc || 'Unnamed procedure', date, scrub: scrubType, checks: { ...checks } });
     save();
     CHECKS.forEach(c => { checks[c] = false; document.getElementById(c).classList.remove('checked'); });
     document.getElementById('f-cat').value = '';
     document.getElementById('f-proc').value = '';
-    document.getElementById('f-date').style.borderColor = '';
-    document.getElementById('cat-alert').style.display = 'none';
+    document.getElementById('scope-alert').style.display = 'none';
     document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
     updateVerdict();
     showView('dashboard');
@@ -897,10 +864,6 @@
   }
 
   document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
-  document.getElementById('f-date').addEventListener('change', function() {
-    this.style.borderColor = '';
-    updateVerdict();
-  });
   renderDash();
 </script>
 </body>

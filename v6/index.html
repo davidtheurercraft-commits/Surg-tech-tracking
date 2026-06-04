@@ -225,6 +225,3038 @@ h1, h2, h3 { font-family: var(--font-sora); color: var(--navy); letter-spacing: 
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 50%, transparent); }
 .field textarea { resize: vertical; min-height: 80px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* Role cards (Add person) */
+.role-cards { display: flex; flex-direction: column; gap: 8px; }
+.role-card { display: flex; align-items: center; gap: 12px; text-align: left; background: #fff; border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 12px 14px; cursor: pointer; transition: border-color .12s, box-shadow .12s; font-family: var(--font-dm-sans); }
+.role-card:hover { border-color: var(--accent); }
+.role-card.sel { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.role-card .rc-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: var(--radius-md); background: var(--accent-light); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
+.role-card .rc-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.role-card .rc-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+.role-card .rc-desc { font-size: 12px; color: var(--slate); line-height: 1.4; }
+.role-card .rc-radio { width: 18px; height: 18px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center; }
+.role-card.sel .rc-radio { border-color: var(--accent); }
+.role-card .rc-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.field-row .field { margin-bottom: 0; }
+
+/* ---------- Scrub checklist ---------- */
+.scrub-check { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 16px; }
+.scrub-check-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); margin-bottom: 12px; }
+.check-item { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 11px; cursor: pointer; user-select: none; }
+.check-item:last-child { margin-bottom: 0; }
+.cb { width: 20px; height: 20px; border: 1.5px solid var(--border-strong); border-radius: var(--radius-sm); flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; transition: all .15s; background: #fff; }
+.cb.checked { background: var(--success); border-color: var(--success); }
+.cb.checked::after { content: ''; display: block; width: 5px; height: 10px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px,-1px); }
+.check-label { font-size: 14px; line-height: 1.45; color: var(--navy); }
+
+/* ---------- Verdict ---------- */
+.scrub-verdict { padding: 10px 14px; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; background: var(--bg-subtle); color: var(--slate); border: 1px solid var(--border); }
+.scrub-verdict svg { width: 16px; height: 16px; flex-shrink: 0; }
+.verdict-1st { background: var(--success-light); color: var(--success); border-color: transparent; }
+.verdict-2nd { background: var(--warning-light); color: var(--warning); border-color: transparent; }
+
+/* ---------- Alerts ---------- */
+.alert { padding: 11px 14px; border-radius: var(--radius); font-size: 13px; line-height: 1.5; margin-bottom: 16px; display: flex; gap: 9px; align-items: flex-start; }
+.alert svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+.alert-warn { background: var(--warning-light); color: var(--warning); }
+.alert-cap { background: var(--success-light); color: var(--success); }
+.edit-banner { background: var(--info-light); color: var(--info); font-size: 13px; padding: 11px 14px; border-radius: var(--radius); margin-bottom: 18px; display: flex; gap: 9px; align-items: center; }
+.edit-banner svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ---------- History / case rows ---------- */
+.filter-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 10px; flex-wrap: wrap; }
+.filter-row .count { font-size: 14px; color: var(--slate); }
+.filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-group select { font-size: 13px; font-family: var(--font-dm-sans); padding: 7px 10px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: #fff; color: var(--navy); outline: none; box-shadow: var(--shadow-xs); cursor: pointer; }
+.case-list { display: flex; flex-direction: column; gap: 10px; }
+.case-row { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 14px 18px; display: flex; align-items: flex-start; gap: 14px; }
+.case-date { font-size: 12px; color: var(--slate); min-width: 84px; padding-top: 2px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.case-info { flex: 1; min-width: 0; }
+.case-proc { font-size: 14px; font-weight: 500; color: var(--navy); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.case-meta { font-size: 12px; color: var(--slate); margin-top: 3px; }
+.case-comment { font-size: 12px; color: var(--error); margin-top: 8px; background: var(--error-light); padding: 7px 10px; border-radius: var(--radius); line-height: 1.45; display: flex; gap: 7px; align-items: flex-start; }
+.case-comment svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
+.case-badges { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.case-actions { display: flex; gap: 4px; margin-top: 2px; }
+.icon-btn { border: none; background: none; cursor: pointer; color: var(--slate); padding: 4px; border-radius: var(--radius-sm); display: inline-flex; transition: all .12s; }
+.icon-btn svg { width: 15px; height: 15px; }
+.icon-btn:hover { background: var(--bg-action-hover); color: var(--navy); }
+.icon-btn.danger:hover { background: var(--error-light); color: var(--error); }
+.empty { text-align: center; padding: 48px 24px; color: var(--slate); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.empty svg { width: 28px; height: 28px; stroke: var(--border-strong); }
+
+/* ---------- Requirements ---------- */
+.source-note { font-size: 12px; color: var(--slate); line-height: 1.6; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 20px; }
+.readiness-card { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px; }
+.readiness-score { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 18px 20px; }
+.readiness-score-label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--navy); margin-bottom: 8px; }
+.readiness-pct { font-family: var(--font-sora); font-size: 38px; font-weight: 600; letter-spacing: -.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.readiness-score-sub { font-size: 12px; color: var(--slate); margin-top: 8px; line-height: 1.4; }
+.req-section { margin-bottom: 24px; }
+.req-section:last-child { margin-bottom: 0; }
+.req-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.req-row:last-child { border-bottom: none; }
+.req-icon { width: 20px; height: 20px; flex-shrink: 0; display: inline-flex; }
+.req-icon svg { width: 18px; height: 18px; }
+.req-text { flex: 1; font-size: 14px; color: var(--navy); }
+.req-val { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.req-ok { color: var(--success); } .req-pend { color: var(--slate); } .req-danger { color: var(--error); }
+.req-pending-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: var(--radius-full); background: var(--pending-light); color: var(--pending); white-space: nowrap; }
+.req-pending-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.req-togo { color: var(--slate); font-weight: 500; }
+.req-togo.over { color: var(--error); }
+
+/* ---------- Certification goal banner (learner) ---------- */
+.cert-goal { display: flex; align-items: center; justify-content: space-between; gap: 28px; background: var(--navy); border-radius: var(--radius-xl); padding: 26px 30px; box-shadow: var(--shadow-sm); }
+.cert-goal.done { background: linear-gradient(110deg, #064a33 0%, #06764d 100%); }
+.cg-main { flex: 1; min-width: 0; }
+.cg-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: var(--lime); margin-bottom: 6px; }
+.cg-main h2 { color: #fff; font-family: var(--font-sora); font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+.cg-sub { color: rgba(255,255,255,.7); font-size: 13px; margin-top: 5px; }
+.cg-done { display: flex; align-items: center; gap: 9px; margin-top: 16px; color: #fff; font-size: 14px; font-weight: 500; }
+.cg-done svg { stroke: var(--lime); flex-shrink: 0; }
+.cg-remaining { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.cg-pill { background: rgba(255,255,255,.12); color: #fff; font-size: 13px; padding: 6px 12px; border-radius: var(--radius-full); }
+.cg-pill strong { font-weight: 700; color: var(--lime); }
+.cg-pill.subtle { color: rgba(255,255,255,.8); }
+.cg-meter { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+.cg-meter-cap { font-size: 11px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .05em; }
+
+/* ---------- NCCT Section C table (Craft style) ---------- */
+.ncct-header { margin-bottom: 4px; }
+.ncct-org { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--slate); font-weight: 600; margin-bottom: 6px; }
+.ncct-title { font-family: var(--font-sora); font-size: 20px; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; }
+.ncct-subtitle { font-size: 13px; color: var(--slate); margin-top: 3px; }
+.ncct-note { font-size: 13px; color: var(--slate-700); line-height: 1.6; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; margin: 16px 0; }
+.ncct-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ncct-table th { background: var(--bg-subtle); text-align: center; padding: 11px 12px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--slate); border-bottom: 1px solid var(--border); }
+.ncct-table th:first-child { text-align: left; width: 56%; }
+.ncct-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--navy); }
+.ncct-table td:not(:first-child) { text-align: center; font-variant-numeric: tabular-nums; font-weight: 500; }
+.ncct-table tr.section-head td { background: #fff; font-size: 11px; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: .05em; padding: 9px 12px; }
+.ncct-table tr.totals-row td { background: var(--bg-subtle); font-weight: 600; border-top: 2px solid var(--border-strong); border-bottom: none; color: var(--navy); }
+.ncct-table tr.totals-row td:not(:first-child) { font-size: 15px; }
+.ncct-val-ok { color: var(--success); }
+.ncct-val-warn { color: var(--warning); }
+.ncct-val-zero { color: #cbd5e1; }
+.ncct-cap-note { font-size: 11px; color: var(--slate); display: block; font-weight: 400; margin-top: 2px; }
+.ncct-table tr.totals-row .ncct-cap-note { color: var(--navy-soft); }
+.ncct-status-bar { display: flex; gap: 14px; padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.ncct-stat { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--slate); }
+.ncct-stat strong { color: var(--navy); }
+.ncct-stat-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.ncct-pending-note { font-size: 12px; padding: 11px 14px; border-radius: var(--radius); background: var(--pending-light); color: var(--pending); line-height: 1.5; margin-top: 16px; display: flex; gap: 9px; align-items: flex-start; }
+.ncct-pending-note svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ---------- Preceptor queue cards ---------- */
+.queue-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 18px 20px; margin-bottom: 14px; }
+.qc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
+.qc-who { display: flex; align-items: center; gap: 11px; }
+.qc-name { font-size: 15px; font-weight: 600; color: var(--navy); }
+.qc-meta { font-size: 12px; color: var(--slate); margin-top: 2px; }
+.criteria-list { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 13px 15px; margin-bottom: 14px; }
+.ci { display: flex; gap: 9px; font-size: 13px; margin-bottom: 8px; line-height: 1.4; align-items: flex-start; color: var(--navy); }
+.ci:last-child { margin-bottom: 0; }
+.ci svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; }
+.ci-ok svg { stroke: var(--success); }
+.ci-no svg { stroke: var(--error); }
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ============================================================
+   OJL module additions (v2) — shells, sheet, role-scoped UI
+   ============================================================ */
+
+.ico { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.stack { display: flex; flex-direction: column; gap: 20px; }
+.sect-divider { height: 1px; background: var(--border); margin: 4px 0; }
+.side-nav { display: flex; flex-direction: column; gap: 2px; }
+.nav-group { display: flex; flex-direction: column; gap: 2px; }
+.side-secondary { display: flex; flex-direction: column; gap: 2px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+.canvas, .page { background: var(--bg-subtle); }
+.header { background: var(--bg-subtle); }
+.link-btn { background: none; border: none; font-family: var(--font-dm-sans); font-size: 13px; font-weight: 500; color: var(--accent); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; padding: 4px 2px; }
+.link-btn:hover { color: var(--accent-dark); }
+.back-link { align-self: flex-start; font-size: 14px; color: var(--slate); padding: 0; }
+.back-link:hover { color: var(--navy); }
+
+/* ---------- Tab-bar shell (learner) ---------- */
+.tb-shell { min-height: 100vh; display: flex; flex-direction: column; background: #fbfcfe; }
+.tb-header { background: #fff; border-bottom: 1px solid var(--border); }
+.tb-header-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 64px; padding: 0 24px; max-width: 1100px; margin: 0 auto; width: 100%; }
+.tb-logo { height: 26px; justify-self: center; }
+.tb-header-right { justify-self: end; display: flex; align-items: center; gap: 12px; }
+.tb-iconbtn { background: none; border: none; color: var(--slate); cursor: pointer; padding: 7px; border-radius: var(--radius); display: inline-flex; }
+.tb-iconbtn:hover { background: var(--bg-action-hover); color: var(--navy); }
+.tb-user { display: flex; align-items: center; gap: 8px; }
+.tb-user-name { font-size: 14px; font-weight: 500; color: var(--navy); }
+.tb-tabwrap { background: #fff; border-bottom: 1px solid var(--border); }
+.tb-tabs { display: flex; gap: 4px; max-width: 880px; margin: 0 auto; padding: 0 24px; }
+.tb-tab { flex: 1; max-width: 200px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 12px; border: none; border-bottom: 2px solid transparent; background: none; font-family: var(--font-dm-sans); font-size: 14px; font-weight: 500; color: var(--slate); cursor: pointer; transition: color .12s, border-color .12s; }
+.tb-tab:hover { color: var(--navy); }
+.tb-tab.active { color: var(--navy); font-weight: 600; border-bottom-color: var(--navy); }
+.tb-main { max-width: 880px; width: 100%; margin: 0 auto; padding: 28px 24px 80px; flex: 1; }
+
+/* ---------- Greeting ---------- */
+.greeting h1 { font-size: 26px; font-weight: 700; }
+.greeting p { font-size: 14px; color: var(--slate); margin-top: 5px; }
+
+/* ---------- Module hero (learner home, 'hero' style) ---------- */
+.module-hero { background: var(--navy); border-radius: var(--radius-xl); padding: 28px 30px; display: flex; gap: 28px; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); }
+.module-hero-main { flex: 1; min-width: 0; }
+.module-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: var(--slate); margin-bottom: 6px; }
+.module-kicker.lime { color: var(--lime); }
+.module-hero-main h2 { color: #fff; font-size: 28px; font-weight: 700; letter-spacing: -.02em; }
+.module-hero-sub { color: rgba(255,255,255,.7); font-size: 14px; margin-top: 6px; }
+.hero-stats { display: flex; gap: 28px; margin: 20px 0 18px; }
+.hero-stat .hs-val { font-family: var(--font-sora); font-size: 30px; font-weight: 700; letter-spacing: -.02em; color: #fff; line-height: 1; }
+.hero-stat .hs-lbl { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 5px; text-transform: uppercase; letter-spacing: .05em; }
+.module-hero-ring { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+.ring .ring-pct { font-family: var(--font-sora); font-size: 30px; font-weight: 700; fill: #fff; letter-spacing: -.02em; }
+.ring .ring-sub { font-size: 11px; fill: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .08em; }
+.ring-cap { font-size: 11px; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .06em; }
+.btn-lime { background: var(--lime); color: var(--navy); font-weight: 600; }
+.btn-lime:hover { background: #86d040; }
+
+/* ---------- Module card (learner home, 'tiles' style) ---------- */
+.module-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 16px; }
+.module-id { display: flex; align-items: center; gap: 12px; }
+.module-ico { width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--accent-light); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.module-card .module-id h2 { font-size: 18px; font-weight: 600; }
+.module-card .module-kicker { margin-bottom: 2px; }
+
+/* ---------- Program hero (program/history headers) ---------- */
+.program-hero { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.program-hero h1 { font-size: 24px; font-weight: 700; }
+.program-hero-sub { font-size: 13px; color: var(--slate); margin-top: 5px; }
+
+/* ---------- Module detail card + subtabs ---------- */
+.module-detail-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 22px 24px; }
+.md-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+.md-readiness { font-family: var(--font-sora); font-size: 30px; font-weight: 700; letter-spacing: -.02em; color: var(--success); display: flex; align-items: baseline; gap: 6px; }
+.md-readiness span { font-family: var(--font-dm-sans); font-size: 12px; font-weight: 500; color: var(--slate); text-transform: uppercase; letter-spacing: .05em; }
+.subtabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.subtab { padding: 10px 14px; border: none; border-bottom: 2px solid transparent; background: none; font-family: var(--font-dm-sans); font-size: 13px; font-weight: 500; color: var(--slate); cursor: pointer; }
+.subtab:hover { color: var(--navy); }
+.subtab.active { color: var(--navy); font-weight: 600; border-bottom-color: var(--accent); }
+
+/* ---------- Slide-over sheet ---------- */
+.sheet-overlay { position: fixed; inset: 0; background: rgba(0,40,85,.32); z-index: 200; display: flex; justify-content: flex-end; opacity: 1; }
+@keyframes slideIn { from { transform: translateX(24px); } to { transform: translateX(0); } }
+.sheet { background: var(--bg-card); height: 100vh; max-width: 94vw; display: flex; flex-direction: column; box-shadow: -8px 0 30px -10px rgba(0,40,85,.3); animation: slideIn .2s ease; }
+.sheet-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 24px 16px; border-bottom: 1px solid var(--border); }
+.sheet-head h2 { font-size: 19px; font-weight: 600; }
+.sheet-sub { font-size: 13px; color: var(--slate); margin-top: 4px; }
+.sheet-body { padding: 22px 24px; overflow-y: auto; flex: 1; }
+.sheet-foot { padding: 16px 24px; border-top: 1px solid var(--border); background: var(--bg-subtle); }
+
+/* ---------- Submission review specifics ---------- */
+.sr-top { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.sr-name { font-size: 16px; font-weight: 600; color: var(--navy); }
+.sr-meta { font-size: 12px; color: var(--slate); margin-top: 2px; }
+.sr-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0; }
+.sr-facts > div { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 11px 13px; }
+.sr-facts dt { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--slate); font-weight: 600; }
+.sr-facts dd { margin: 4px 0 0; font-size: 14px; font-weight: 500; color: var(--navy); }
+
+/* ---------- Data tables ---------- */
+table.data { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.data th { text-align: left; padding: 11px 14px; font-weight: 600; color: var(--slate); border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; background: var(--bg-subtle); }
+table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--navy); }
+table.data tbody tr:hover td { background: var(--bg-action-hover); cursor: pointer; }
+table.data tr:last-child td { border-bottom: 0; }
+.cell-person { display: flex; align-items: center; gap: 10px; }
+.cell-person span { font-weight: 500; color: var(--navy); }
+.cell-prog { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+.cell-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.cell-chip { font-size: 12px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 2px 9px; color: var(--navy); white-space: nowrap; }
+.prog-ico { width: 30px; height: 30px; border-radius: var(--radius-md); background: var(--accent-light); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.you-tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); background: var(--accent-light); padding: 1px 6px; border-radius: var(--radius-full); margin-left: 8px; }
+.table-cap { padding: 16px 18px; border-bottom: 1px solid var(--border); }
+.table-cap h2 { font-size: 16px; font-weight: 600; }
+.table-cap-flex { display: flex; justify-content: space-between; align-items: center; }
+.sect-heading { font-family: var(--font-sora); font-size: 18px; font-weight: 600; color: var(--navy); letter-spacing: -.01em; margin-bottom: 12px; }
+.see-all-row { width: 100%; border: none; border-top: 1px solid var(--border); background: var(--bg-subtle); color: var(--accent); font-family: var(--font-dm-sans); font-size: 13px; font-weight: 600; padding: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background .12s; }
+.see-all-row:hover { background: var(--accent-light); }
+.mini-prog { display: flex; align-items: center; gap: 8px; }
+.mini-track { width: 90px; height: 6px; border-radius: var(--radius-full); background: var(--border); overflow: hidden; }
+.mini-fill { height: 100%; background: var(--accent); border-radius: var(--radius-full); }
+.mini-prog span { font-size: 12px; color: var(--slate); }
+
+/* ---------- Search box ---------- */
+.search-box { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 7px 12px; box-shadow: var(--shadow-xs); }
+.search-box svg { stroke: var(--slate); }
+.search-box input { border: none; outline: none; font-family: var(--font-dm-sans); font-size: 13px; color: var(--navy); background: none; width: 180px; }
+
+/* ---------- Two-column dashboard ---------- */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+
+/* ---------- Admin dashboard: quick actions ---------- */
+.quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.qa-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 22px 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.qa-icon { width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--accent-light); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.qa-title { font-family: var(--font-sora); font-size: 18px; font-weight: 600; color: var(--navy); letter-spacing: -.01em; }
+.qa-desc { font-size: 13px; color: var(--slate); margin-bottom: 14px; }
+
+/* ---------- Admin dashboard: summary metrics ---------- */
+.metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.metric-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 22px 26px; }
+.metric-card .m-label { font-size: 15px; font-weight: 500; color: var(--slate-700); }
+.metric-card .m-val { font-family: var(--font-sora); font-size: 48px; font-weight: 700; letter-spacing: -.03em; color: var(--navy); line-height: 1.1; margin: 8px 0 6px; }
+.metric-card .m-sub { font-size: 13px; color: var(--slate); }
+
+/* ---------- Admin dashboard: list cards ---------- */
+.list-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 22px 24px; }
+.list-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.list-card-head h2 { font-family: var(--font-sora); font-size: 19px; font-weight: 700; color: var(--navy); letter-spacing: -.01em; }
+.mini-list { display: flex; flex-direction: column; gap: 12px; }
+.mini-card { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; transition: border-color .12s, box-shadow .12s; }
+.mini-card.clickable { cursor: pointer; }
+.mini-card.clickable:hover { border-color: var(--accent); box-shadow: var(--shadow-xs); }
+.mini-card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.mc-name { font-size: 15px; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+.mc-ico { width: 26px; height: 26px; border-radius: var(--radius-sm); background: var(--accent-light); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mc-meta { display: flex; gap: 18px; flex-wrap: wrap; }
+.mc-meta-item { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--slate); }
+.mc-meta-item svg { stroke: var(--slate); }
+
+/* ---------- Admin dashboard: activity v2 ---------- */
+.activity-v2 { display: flex; flex-direction: column; }
+.activity-row-v2 { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.activity-row-v2:first-child { padding-top: 0; }
+.activity-row-v2:last-child { border-bottom: none; padding-bottom: 0; }
+.ar-text { font-size: 14px; color: var(--navy); line-height: 1.5; }
+.ar-text strong { font-weight: 600; }
+.ar-link { color: var(--accent); font-weight: 500; }
+.ar-meta { font-size: 12px; color: var(--slate); margin-top: 4px; }
+
+/* ---------- Program detail (admin) ---------- */
+.pd-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.pd-action { display: flex; align-items: center; gap: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 18px 20px; cursor: pointer; transition: border-color .12s, box-shadow .12s; }
+.pd-action:hover { border-color: var(--accent); box-shadow: var(--shadow-xs); }
+.pd-action .pa-icon { width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--accent-light); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pd-action .pa-label { font-size: 15px; font-weight: 600; color: var(--navy); }
+.pd-tabs { overflow-x: auto; }
+.pd-tabs .subtab { white-space: nowrap; position: relative; }
+.tab-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--error); margin-left: 6px; vertical-align: super; }
+.pd-section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.pd-section-head h2 { font-family: var(--font-sora); font-size: 18px; font-weight: 700; color: var(--navy); }
+.pinfo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+.pinfo-col { display: flex; flex-direction: column; gap: 20px; }
+.pi-label { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.pi-val { font-size: 14px; color: var(--slate); }
+.pd-desc { font-size: 14px; color: var(--slate); line-height: 1.6; }
+.manager-row { display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 18px; }
+.mgr-name { font-size: 15px; font-weight: 600; color: var(--navy); }
+.mgr-email { font-size: 13px; color: var(--slate); margin-top: 2px; }
+
+/* ---------- Programs list (card grid) ---------- */
+.programs-wrap { padding: 22px 24px; }
+.programs-filter { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+.programs-search { flex: 1; min-width: 220px; max-width: 380px; }
+.programs-search input { width: 100%; }
+.programs-filter-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pf-select { font-family: var(--font-dm-sans); font-size: 13px; padding: 8px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: #fff; color: var(--navy); box-shadow: var(--shadow-xs); cursor: pointer; min-width: 130px; }
+.pf-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--slate); cursor: pointer; }
+.pf-switch { width: 34px; height: 20px; border-radius: var(--radius-full); background: var(--border); position: relative; flex-shrink: 0; transition: background .15s; }
+.pf-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-xs); }
+.programs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.program-card { border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 22px 24px; transition: border-color .12s, box-shadow .12s; }
+.program-card.clickable { cursor: pointer; }
+.program-card.clickable:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+.pc-badges { display: flex; gap: 8px; margin-bottom: 14px; }
+.pc-name { font-family: var(--font-sora); font-size: 20px; font-weight: 700; color: var(--navy); letter-spacing: -.01em; }
+.pc-desc { font-size: 14px; color: var(--slate); margin: 5px 0 18px; line-height: 1.5; }
+.pc-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+.pc-meta-item { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--slate); }
+.pc-meta-item svg { stroke: var(--slate); }
+
+/* ---------- Activity feed ---------- */
+.activity { display: flex; flex-direction: column; }
+.act-row { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.act-row:last-child { border-bottom: none; }
+.act-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.act-dot.success { background: var(--success); } .act-dot.error { background: var(--error); } .act-dot.pending { background: var(--pending); }
+.act-body { flex: 1; min-width: 0; }
+.act-text { font-size: 13px; color: var(--navy); line-height: 1.4; }
+.act-text strong { font-weight: 600; }
+.act-cat { color: var(--slate); }
+.act-meta { font-size: 12px; color: var(--slate); margin-top: 2px; }
+.act-date { font-size: 12px; color: var(--slate); flex-shrink: 0; }
+
+/* ---------- Module row (admin program detail) ---------- */
+.module-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; }
+a.btn { text-decoration: none; }
+.ms-inline-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--info); background: var(--info-light); padding: 2px 7px; border-radius: var(--radius-full); margin-left: 8px; vertical-align: middle; }
+.md-edit-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+/* ---------- Row actions dropdown ---------- */
+.rowmenu { position: relative; display: inline-flex; }
+.rowmenu-backdrop { position: fixed; inset: 0; z-index: 40; }
+.rowmenu-pop { position: absolute; top: calc(100% + 4px); z-index: 41; min-width: 210px; max-height: 60vh; overflow-y: auto; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 10px 30px -8px rgba(0,40,85,.25); padding: 6px; display: flex; flex-direction: column; gap: 1px; }
+.rowmenu-pop.right { right: 0; } .rowmenu-pop.left { left: 0; }
+.rowmenu-item { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: none; border: none; font-family: var(--font-dm-sans); font-size: 13px; color: var(--navy); padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; }
+.rowmenu-item:hover { background: var(--bg-action-hover); }
+.rowmenu-item:disabled { color: var(--slate); opacity: .5; cursor: default; }
+.rowmenu-item.danger { color: var(--error); }
+.rowmenu-item.danger:hover { background: var(--error-light); }
+.rmi-check { width: 14px; display: inline-flex; flex-shrink: 0; color: var(--success); }
+.rowmenu-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); padding: 8px 10px 4px; }
+.rowmenu-div { height: 1px; background: var(--border); margin: 4px 0; }
+.data-static tbody tr:hover td { background: transparent; cursor: default; }
+.row-archived td { opacity: .55; }
+.row-archived td:last-child { opacity: 1; }
+
+/* ---------- Manage (chip picker) modal ---------- */
+.manage-overlay { position: fixed; inset: 0; background: rgba(0,40,85,.32); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 1; }
+.manage-modal { background: #fff; border-radius: var(--radius-xl); box-shadow: 0 20px 50px -12px rgba(0,40,85,.4); width: 560px; max-width: 100%; display: flex; flex-direction: column; }
+.manage-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 24px 14px; }
+.manage-head h2 { font-family: var(--font-sora); font-size: 19px; font-weight: 700; color: var(--navy); }
+.manage-sub { font-size: 13px; color: var(--slate); margin-top: 4px; }
+.manage-body { padding: 4px 24px 8px; }
+.manage-field-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); margin-bottom: 8px; }
+.chip-box { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 48px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 9px 11px; background: #fff; }
+.chip-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.assign-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent-dark); border-radius: var(--radius-full); padding: 4px 6px 4px 12px; font-size: 13px; font-weight: 500; }
+.assign-chip button { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: none; background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent-dark); border-radius: 50%; cursor: pointer; }
+.assign-chip button:hover { background: color-mix(in srgb, var(--accent) 32%, transparent); }
+.chip-input { flex: 1; min-width: 120px; border: none; outline: none; font-family: var(--font-dm-sans); font-size: 14px; color: var(--navy); background: none; padding: 4px; }
+.chip-suggest { margin-top: 8px; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); max-height: 220px; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 1px; }
+.chip-suggest-item { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; border: none; background: none; font-family: var(--font-dm-sans); font-size: 13px; color: var(--navy); padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; }
+.chip-suggest-item:hover { background: var(--accent-light); }
+.chip-suggest-item svg { stroke: var(--accent); }
+.chip-suggest-empty { font-size: 13px; color: var(--slate); padding: 10px; }
+.manage-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 24px 20px; }
+
+/* ---------- Proof-of-concept banner ---------- */
+.poc-banner { position: sticky; top: 0; z-index: 400; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; height: 34px; padding: 0 16px; background: #2a1a05; color: #ffe6b8; font-size: 12.5px; line-height: 1; text-align: center; }
+.poc-banner svg { stroke: #f5b740; flex-shrink: 0; }
+.poc-banner .poc-strong { font-weight: 600; color: #ffd98a; }
+.poc-banner .poc-soft { color: #e8c895; }
+.poc-banner .poc-dot { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .5; }
+body.poc-on .sidebar { top: 34px; height: calc(100vh - 34px); }
+body.poc-on .tb-header { position: sticky; top: 34px; }
+body.poc-on .sheet { height: calc(100vh - 34px); margin-top: 34px; }
+@media (max-width: 560px) {
+  .poc-banner { height: auto; min-height: 34px; padding: 7px 14px; }
+  .poc-banner .poc-dot { display: none; }
+}
+.ms-inline-badge svg { stroke: var(--info); }
+
+/* ---------- Module target editor (shared: standalone page + inline) ---------- */
+.ms-note { display: flex; gap: 10px; align-items: flex-start; background: var(--info-light); border: 1px solid color-mix(in srgb, var(--info) 22%, transparent); border-radius: var(--radius-md); padding: 14px 16px; font-size: 13px; line-height: 1.55; color: var(--slate-700); }
+.ms-note svg { stroke: var(--info); flex-shrink: 0; margin-top: 1px; }
+.ms-card { padding: 4px 24px 8px; }
+.ms-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0 14px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.ms-card-head h2 { font-family: var(--font-sora); font-size: 18px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+.ms-summary { font-size: 12px; color: var(--slate); font-variant-numeric: tabular-nums; }
+.target-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.target-row:last-child { border-bottom: none; }
+.tr-info { flex: 1; min-width: 0; }
+.tr-title { font-size: 15px; font-weight: 600; color: var(--navy); }
+.tr-desc { font-size: 13px; color: var(--slate); margin-top: 3px; line-height: 1.45; }
+.tr-controls { display: flex; gap: 20px; flex-shrink: 0; }
+.bound { display: flex; flex-direction: column; gap: 8px; width: 96px; }
+.bound-head { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: .04em; }
+.bound.off .bound-head span { color: var(--slate); }
+.bound input { width: 100%; font-family: var(--font-dm-sans); font-size: 15px; font-weight: 600; text-align: center; padding: 8px 10px; border: 1px solid var(--border-strong); border-radius: var(--radius); background: #fff; color: var(--navy); outline: none; font-variant-numeric: tabular-nums; transition: all .15s; }
+.bound input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent); }
+.bound.off input { background: var(--bg-subtle); color: var(--slate); opacity: .55; }
+.tgl { width: 34px; height: 20px; border-radius: var(--radius-full); background: var(--border); border: none; position: relative; cursor: pointer; flex-shrink: 0; transition: background .15s; padding: 0; }
+.tgl.on { background: var(--success); }
+.tgl-knob { position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-xs); transition: transform .15s; }
+.tgl.on .tgl-knob { transform: translateX(14px); }
+.ms-locked { background: var(--bg-subtle); }
+.ms-lock { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-dm-sans); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--slate); background: #fff; border: 1px solid var(--border); padding: 3px 8px; border-radius: var(--radius-full); }
+.ms-lock svg { stroke: var(--slate); }
+.ms-locked-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 18px 0 6px; }
+.ms-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.ms-chip { font-size: 12px; color: var(--slate-700); background: #fff; border: 1px solid var(--border); border-radius: var(--radius-full); padding: 4px 11px; white-space: nowrap; }
+.ms-criteria { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ms-criteria li { display: flex; gap: 8px; font-size: 13px; color: var(--slate-700); line-height: 1.4; }
+.ms-criteria svg { stroke: var(--success); flex-shrink: 0; margin-top: 2px; }
+.ms-savebar { display: flex; align-items: center; justify-content: space-between; gap: 16px; position: sticky; bottom: 0; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); padding: 14px 18px; }
+.ms-savebar-right { display: flex; align-items: center; gap: 16px; }
+.ms-saved { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--success); }
+.ms-saved svg { stroke: var(--success); }
+@media (max-width: 640px) {
+  .target-row { flex-direction: column; align-items: stretch; gap: 14px; }
+  .tr-controls { justify-content: flex-start; }
+  .ms-locked-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+.md-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+.md-sub { font-size: 12px; color: var(--slate); margin-top: 3px; }
+
+/* ---------- Report bars ---------- */
+.report-bars { display: flex; flex-direction: column; gap: 12px; }
+.report-bar-row { display: grid; grid-template-columns: 150px 1fr 48px 92px; align-items: center; gap: 14px; }
+.rb-name { font-size: 13px; font-weight: 500; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rb-track { height: 8px; border-radius: var(--radius-full); background: var(--border); overflow: hidden; }
+.rb-fill { height: 100%; background: var(--accent); border-radius: var(--radius-full); transition: width .4s ease; }
+.rb-fill.done { background: var(--success); }
+.rb-val { font-size: 13px; font-weight: 600; color: var(--navy); text-align: right; }
+.rb-status { justify-self: start; }
+
+/* ---------- Demo role switcher ---------- */
+.role-switcher { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--navy); border-radius: var(--radius-full); padding: 6px 6px 6px 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px -8px rgba(0,40,85,.5); z-index: 150; }
+.rs-label { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.65); white-space: nowrap; }
+.rs-label svg { stroke: var(--lime); }
+.rs-pills { display: flex; gap: 3px; }
+.rs-pills button { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: none; color: rgba(255,255,255,.65); font-family: var(--font-dm-sans); font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: var(--radius-full); cursor: pointer; transition: all .12s; }
+.rs-pills button:hover { color: #fff; }
+.rs-pills button.on { background: #fff; color: var(--navy); font-weight: 600; }
+.rs-pills button.on svg { stroke: var(--navy); }
+
+/* ---------- Tweaks panel ---------- */
+.tweaks-panel { position: fixed; top: 16px; right: 16px; width: 252px; z-index: 160; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: 0 10px 30px -8px rgba(0,40,85,.25); padding: 16px; font-family: var(--font-dm-sans); display: none; }
+.tweaks-panel.on { display: block; }
+.tweaks-panel .tp-title { font-family: var(--font-sora); font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 14px; }
+.tweaks-panel .tp-group { margin-bottom: 16px; }
+.tweaks-panel .tp-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); margin-bottom: 8px; }
+.tweaks-panel .tp-swatches { display: flex; gap: 8px; }
+.tweaks-panel .tp-sw { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); transition: transform .12s; }
+.tweaks-panel .tp-sw:hover { transform: scale(1.08); }
+.tweaks-panel .tp-sw.sel { border-color: var(--navy); }
+.tweaks-panel .tp-seg { display: flex; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius); padding: 3px; gap: 3px; }
+.tweaks-panel .tp-seg button { flex: 1; border: none; background: transparent; font-family: var(--font-dm-sans); font-size: 12px; font-weight: 500; color: var(--slate); padding: 6px 8px; border-radius: var(--radius-sm); cursor: pointer; }
+.tweaks-panel .tp-seg button.sel { background: #fff; color: var(--navy); box-shadow: var(--shadow-xs); }
+.tweaks-panel .tp-hint { font-size: 11px; color: var(--slate); margin-top: 7px; line-height: 1.4; }
+.tweaks-panel .tp-reset { width: 100%; background: var(--bg-subtle); border: 1px solid var(--border); color: var(--slate); font-family: var(--font-dm-sans); font-size: 12px; font-weight: 500; padding: 8px; border-radius: var(--radius); cursor: pointer; }
+.tweaks-panel .tp-reset:hover { background: var(--error-light); color: var(--error); border-color: var(--error-light); }
+
+/* ---------- Density: compact ---------- */
+body[data-density="compact"] .tb-main, body[data-density="compact"] .page { padding-top: 16px; }
+body[data-density="compact"] .stack { gap: 14px; }
+body[data-density="compact"] .tile { padding: 12px 14px; }
+body[data-density="compact"] .tile .val { font-size: 27px; }
+body[data-density="compact"] .card-ui, body[data-density="compact"] .module-detail-card { padding: 16px 18px; }
+body[data-density="compact"] .module-hero { padding: 20px 22px; }
+body[data-density="compact"] .case-row { padding: 11px 14px; }
+
+@media (max-width: 880px) {
+  .two-col { grid-template-columns: 1fr; }
+  .quick-actions { grid-template-columns: 1fr; }
+  .metric-row { grid-template-columns: 1fr; }
+  .pd-actions { grid-template-columns: 1fr 1fr; }
+  .programs-grid { grid-template-columns: 1fr; }
+  .pinfo-grid { grid-template-columns: 1fr; gap: 20px; }
+  .sr-facts { grid-template-columns: 1fr; }
+  .report-bar-row { grid-template-columns: 110px 1fr 44px; }
+  .report-bar-row .rb-status { display: none; }
+}
+@media (max-width: 720px) {
+  .sidebar { display: none; }
+  .page { padding: 20px 16px 40px; }
+  .header { padding: 14px 16px; }
+  .field-row { grid-template-columns: 1fr; }
+  .readiness-card { grid-template-columns: 1fr; }
+  .module-hero { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .cert-goal { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .role-switcher { flex-direction: column; gap: 6px; padding: 10px 12px; bottom: 10px; }
+}
+
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body data-density="comfortable">
+<div id="root"></div>
+
+<script>
+/* data.js */
+/* ============================================================
+   OJL Tracker — Surgical Case Log module
+   Shared data layer: NCCT rules, roster, seeded cases, stats
+   Vanilla JS, attached to window for use by all JSX modules.
+   ============================================================ */
+
+/* ---------- NCCT TS-C certification rules ----------
+   Structure is standardized by NCCT and fixed. The program admin can only
+   edit the TARGET for each item (the number a learner must reach to complete
+   it). A per-item toggle turns the single target into a min–max RANGE: the
+   item is complete only within the range, and attempts beyond the max are
+   rejected (no longer needed). Edits persist and drive the learner views.
+
+   Field convention per item:
+     <name>Target  = the number required to complete (the minimum)
+     <name>MaxOn   = range mode on/off (adds a maximum)
+     <name>Max     = the maximum (completions beyond this are rejected)
+   Diagnostic scopes is a pure cap (no target, max only). */
+const DEFAULT_TARGETS = {
+  totalTarget: 125, totalMaxOn: false, totalMax: 150,
+  firstTarget: 90, firstMaxOn: false, firstMax: 110,
+  generalTarget: 30, generalMaxOn: true, generalMax: 50,
+  specTarget: 75, specMaxOn: true, specMax: 95,
+  distinctTarget: 3, distinctMaxOn: false, distinctMax: 6,
+  scopeTarget: 0, scopeMaxOn: true, scopeMax: 15,
+};
+const TARGETS_KEY = 'ojl_ncct_targets_v2';
+const NCCT = { ...DEFAULT_TARGETS };
+try { const raw = localStorage.getItem(TARGETS_KEY); if (raw) Object.assign(NCCT, JSON.parse(raw)); } catch (e) {}
+function saveTargets(patch) { if (patch) Object.assign(NCCT, patch); try { localStorage.setItem(TARGETS_KEY, JSON.stringify(NCCT)); } catch (e) {} }
+function resetTargets() { Object.assign(NCCT, DEFAULT_TARGETS); saveTargets(); }
+
+const SPECIALTIES = ['Gynecology', 'Obstetrics', 'Genitourinary', 'Cardiovascular', 'Neurosurgery', 'Thoracic', 'Peripheral Vascular', 'Ophthalmology', 'Otorhinolaryngology', 'Orthopedic', 'Plastic/Reconstructive', 'Diagnostic Scopes', 'Other'];
+
+const CATEGORY_OPTIONS = [
+  { value: 'general', label: 'General surgery' },
+  { value: 'Gynecology', label: 'Gynecology' },
+  { value: 'Obstetrics', label: 'Obstetrics' },
+  { value: 'Genitourinary', label: 'Genitourinary' },
+  { value: 'Cardiovascular', label: 'Cardiovascular' },
+  { value: 'Neurosurgery', label: 'Neurosurgery' },
+  { value: 'Thoracic', label: 'Thoracic' },
+  { value: 'Peripheral Vascular', label: 'Peripheral vascular' },
+  { value: 'Ophthalmology', label: 'Ophthalmology' },
+  { value: 'Otorhinolaryngology', label: 'Otorhinolaryngology (ENT)' },
+  { value: 'Orthopedic', label: 'Orthopedic' },
+  { value: 'Plastic/Reconstructive', label: 'Plastic / reconstructive' },
+  { value: 'Diagnostic Scopes', label: 'Diagnostic scopes' },
+  { value: 'Other', label: 'Other specialty' },
+];
+
+const CHECK_LABELS = [
+  'Verified supplies and equipment needed for the procedure',
+  'Set up the sterile field with instruments, supplies, medications, and solutions',
+  'Performed counts with the circulator',
+  'Passed instruments and supplies to the surgical team during the procedure',
+  'Maintained sterile technique throughout (with knowledge to correct any breaks)',
+];
+const CHECK_LABELS_SHORT = [
+  'Verified supplies and equipment',
+  'Set up sterile field',
+  'Performed counts with circulator',
+  'Passed instruments during procedure',
+  'Maintained sterile technique',
+];
+const CHECKS = ['c1', 'c2', 'c3', 'c4', 'c5'];
+
+function catLabel(cat) {
+  const o = CATEGORY_OPTIONS.find(c => c.value === cat);
+  return o ? o.label : cat;
+}
+
+/* ---------- People ---------- */
+// The demo identities. `me` flags the participant the Learner role acts as.
+const REVIEWERS = ['Priya Sharma', 'Dr. Sandra Okafor', 'RN Marcus Webb', 'Dr. Lisa Fontaine'];
+const SEED_REVIEWERS = REVIEWERS.slice();
+const DEMO_REVIEWER = 'Priya Sharma';
+const SURG_PROGRAM_ID = 'prog-surg';
+
+// Preceptors as people (program-scoped via programIds; can serve several programs).
+const PRECEPTOR_PEOPLE = SEED_REVIEWERS.map((name, i) => ({ id: 'r' + (i + 1), name, programIds: [SURG_PROGRAM_ID], archived: false }));
+// Program managers as people.
+const PROGRAM_MANAGERS = [
+  { id: 'm1', name: 'Avery Chen', programIds: [SURG_PROGRAM_ID], archived: false },
+];
+
+const PARTICIPANTS = [
+  { id: 'p1', name: 'Jordan Mercado', me: true,  reviewer: 'Priya Sharma',     site: 'Mercy General Hospital', cohort: 'Surgical Technology — Cohort 7', started: 'Sep 2, 2025' },
+  { id: 'p2', name: 'Alex Park',      me: false, reviewer: 'Priya Sharma',     site: 'Mercy General Hospital', cohort: 'Surgical Technology — Cohort 7', started: 'Sep 2, 2025' },
+  { id: 'p3', name: 'Ren Takahashi',  me: false, reviewer: 'Priya Sharma',     site: 'St. Luke\u2019s Medical Center', cohort: 'Surgical Technology — Cohort 7', started: 'Sep 2, 2025' },
+  { id: 'p4', name: 'Harper Quinn',   me: false, reviewer: 'Dr. Sandra Okafor', site: 'Mercy General Hospital', cohort: 'Surgical Technology — Cohort 6', started: 'Mar 4, 2025' },
+  { id: 'p5', name: 'Maya Okonkwo',   me: false, reviewer: 'Dr. Lisa Fontaine', site: 'Valley Regional', cohort: 'Surgical Technology — Cohort 6', started: 'Mar 4, 2025' },
+  { id: 'p6', name: 'Diego Salazar',  me: false, reviewer: 'RN Marcus Webb',    site: 'Valley Regional', cohort: 'Surgical Technology — Cohort 7', started: 'Sep 2, 2025' },
+];
+PARTICIPANTS.forEach(p => { p.programIds = [SURG_PROGRAM_ID]; p.reviewers = p.reviewer ? [p.reviewer] : []; p.archived = false; });
+const ME = PARTICIPANTS.find(p => p.me);
+
+/* Back-compat: PRECEPTORS as [{name, programId}] derived from PRECEPTOR_PEOPLE. */
+function _preceptorPairs() {
+  const out = [];
+  PRECEPTOR_PEOPLE.forEach(r => { if (!r.archived) r.programIds.forEach(pid => out.push({ name: r.name, programId: pid })); });
+  return out;
+}
+
+function participantsFor(programId) { return PARTICIPANTS.filter(p => !p.archived && (p.programIds || []).includes(programId)); }
+function preceptorsFor(programId) { return PRECEPTOR_PEOPLE.filter(r => !r.archived && r.programIds.includes(programId)).map(r => r.name); }
+
+/* Unified people list for the global People table. role: Participant | Preceptor | Program Manager.
+   Each row: { kind, id, name, role, programIds, archived, stats? } */
+function getPeople({ includeArchived = false } = {}) {
+  const rows = [];
+  PARTICIPANTS.forEach(p => { if (includeArchived || !p.archived) rows.push({ kind: 'participant', id: p.id, name: p.name, role: 'Participant', programIds: p.programIds || [], archived: !!p.archived, me: p.me, site: p.site, stats: statsFor(p.id) }); });
+  PRECEPTOR_PEOPLE.forEach(r => { if (includeArchived || !r.archived) rows.push({ kind: 'preceptor', id: r.id, name: r.name, role: 'Preceptor', programIds: r.programIds, archived: !!r.archived }); });
+  PROGRAM_MANAGERS.forEach(m => { if (includeArchived || !m.archived) rows.push({ kind: 'manager', id: m.id, name: m.name, role: 'Program Manager', programIds: m.programIds, archived: !!m.archived }); });
+  return rows;
+}
+
+function _personRef(kind, id) {
+  if (kind === 'participant') return PARTICIPANTS.find(x => x.id === id);
+  if (kind === 'preceptor') return PRECEPTOR_PEOPLE.find(x => x.id === id);
+  if (kind === 'manager') return PROGRAM_MANAGERS.find(x => x.id === id);
+  return null;
+}
+function setPersonPrograms(kind, id, programIds) {
+  const ref = _personRef(kind, id);
+  if (!ref) return;
+  const ids = (programIds || []).slice();
+  ref.programIds = ids;
+  if (kind === 'participant') ref.programId = ids[0] || '';
+  saveRoster();
+}
+function archivePerson(kind, id, archived = true) {
+  const ref = _personRef(kind, id);
+  if (ref) { ref.archived = archived; saveRoster(); }
+}
+function addManager(name, programId) {
+  const id = 'm-' + Date.now();
+  PROGRAM_MANAGERS.push({ id, name: name.trim(), programIds: programId ? [programId] : [], archived: false });
+  saveRoster();
+  return id;
+}
+
+const PROGRAM_NAME = 'Surgical Technology';
+const MODULE_NAME = 'Surgical Case Log';
+
+/* ---------- Seed cases ---------- */
+// Deterministic generator so the prototype always looks alive.
+const PROC_BY_CAT = {
+  general: ['Laparoscopic cholecystectomy', 'Open inguinal hernia repair', 'Appendectomy', 'Colon resection', 'Mastectomy', 'Hemorrhoidectomy', 'Exploratory laparotomy'],
+  Gynecology: ['Total abdominal hysterectomy', 'Laparoscopic salpingectomy', 'Dilation & curettage', 'Myomectomy'],
+  Obstetrics: ['Cesarean section', 'Cerclage placement'],
+  Genitourinary: ['Transurethral resection of prostate', 'Cystoscopy with biopsy', 'Nephrectomy'],
+  Cardiovascular: ['CABG x3', 'AV fistula creation', 'Pacemaker insertion'],
+  Neurosurgery: ['Craniotomy for tumor', 'Lumbar laminectomy', 'VP shunt placement'],
+  Thoracic: ['VATS wedge resection', 'Mediastinoscopy'],
+  'Peripheral Vascular': ['Femoral-popliteal bypass', 'Carotid endarterectomy', 'AAA repair'],
+  Ophthalmology: ['Phacoemulsification cataract', 'Trabeculectomy'],
+  Otorhinolaryngology: ['Tonsillectomy & adenoidectomy', 'Functional endoscopic sinus surgery', 'Tympanoplasty'],
+  Orthopedic: ['Total knee arthroplasty', 'ORIF distal radius', 'Arthroscopic ACL repair', 'Total hip arthroplasty'],
+  'Plastic/Reconstructive': ['Split-thickness skin graft', 'Breast reconstruction', 'Carpal tunnel release'],
+  'Diagnostic Scopes': ['Diagnostic laparoscopy', 'Colonoscopy', 'Arthroscopy — diagnostic'],
+  Other: ['Dental extraction (OR)', 'Burn debridement'],
+};
+
+function dateNDaysAgo(n) {
+  const d = new Date(2026, 4, 28); // anchor near "today" (May 28 2026)
+  d.setDate(d.getDate() - n);
+  return d.toISOString().split('T')[0];
+}
+
+function makeChecks(allTrue) {
+  const c = {};
+  CHECKS.forEach((k, i) => { c[k] = allTrue ? true : i < 3; });
+  return c;
+}
+
+let _seedId = 1000;
+function seedCase(participant, reviewer, cat, status, scrub, dayOffset, comment) {
+  const procs = PROC_BY_CAT[cat] || ['Procedure'];
+  const proc = procs[(_seedId) % procs.length];
+  return {
+    id: ++_seedId,
+    participantId: participant.id,
+    participant: participant.name,
+    cat, proc, date: dateNDaysAgo(dayOffset),
+    scrub, checks: makeChecks(scrub === 1),
+    reviewer, status, reviewComment: comment || '',
+  };
+}
+
+function buildSeed() {
+  const out = [];
+  let day = 4;
+
+  // ---- Jordan Mercado (the Learner "me") — ~85% to certification ----
+  const jordan = PARTICIPANTS[0];
+  // General surgery: 32 approved (mostly 1st scrub), well within 30-50
+  for (let i = 0; i < 32; i++) out.push(seedCase(jordan, jordan.reviewer, 'general', 'approved', i < 26 ? 1 : 2, (day += 2)));
+  // Specialties approved — spread across 6 categories, total ~58
+  const jSpec = [['Orthopedic', 14], ['Gynecology', 11], ['Cardiovascular', 9], ['Genitourinary', 8], ['Neurosurgery', 8], ['Diagnostic Scopes', 8]];
+  jSpec.forEach(([cat, n]) => {
+    for (let i = 0; i < n; i++) out.push(seedCase(jordan, jordan.reviewer, cat, 'approved', i % 5 === 0 ? 2 : 1, (day += 1)));
+  });
+  // Pending (awaiting Priya) — 7
+  out.push(seedCase(jordan, jordan.reviewer, 'Orthopedic', 'pending', 1, 3));
+  out.push(seedCase(jordan, jordan.reviewer, 'general', 'pending', 1, 2));
+  out.push(seedCase(jordan, jordan.reviewer, 'Cardiovascular', 'pending', 2, 2));
+  out.push(seedCase(jordan, jordan.reviewer, 'Gynecology', 'pending', 1, 1));
+  out.push(seedCase(jordan, jordan.reviewer, 'Thoracic', 'pending', 1, 1));
+  out.push(seedCase(jordan, jordan.reviewer, 'Genitourinary', 'pending', 1, 0));
+  out.push(seedCase(jordan, jordan.reviewer, 'Peripheral Vascular', 'pending', 2, 0));
+  // Returned — 1, with feedback
+  out.push(seedCase(jordan, jordan.reviewer, 'Ophthalmology', 'returned', 2, 5, 'Procedure date is missing the surgeon of record. Please add it and resubmit \u2014 otherwise this looks complete.'));
+
+  // ---- Other participants (for reviewer queue + admin views) ----
+  const seedOther = (p, approvedN, pendingDefs) => {
+    for (let i = 0; i < approvedN; i++) {
+      const cats = ['general', 'Orthopedic', 'Gynecology', 'general', 'Cardiovascular', 'general'];
+      out.push(seedCase(p, p.reviewer, cats[i % cats.length], 'approved', i % 4 === 0 ? 2 : 1, (day += 1)));
+    }
+    pendingDefs.forEach(([cat, scrub, off]) => out.push(seedCase(p, p.reviewer, cat, 'pending', scrub, off)));
+  };
+  seedOther(PARTICIPANTS[1], 41, [['Neurosurgery', 1, 2], ['general', 1, 1]]);           // Alex Park (Priya)
+  seedOther(PARTICIPANTS[2], 18, [['Orthopedic', 1, 1], ['Gynecology', 2, 0], ['general', 1, 0]]); // Ren Takahashi (Priya)
+  seedOther(PARTICIPANTS[3], 96, [['Thoracic', 1, 3]]);                                  // Harper Quinn (Okafor)
+  seedOther(PARTICIPANTS[4], 73, []);                                                    // Maya Okonkwo (Fontaine)
+  seedOther(PARTICIPANTS[5], 29, [['general', 1, 1]]);                                   // Diego Salazar (Webb)
+
+  return out;
+}
+
+/* ---------- Persistence ---------- */
+const STORE_KEY = 'ojl_surg_cases_v1';
+let cases = [];
+try {
+  const raw = localStorage.getItem(STORE_KEY);
+  cases = raw ? JSON.parse(raw) : buildSeed();
+} catch (e) { cases = buildSeed(); }
+function saveCases() { try { localStorage.setItem(STORE_KEY, JSON.stringify(cases)); } catch (e) {} }
+
+/* ---------- Roster persistence (added people + mutable assignments) ----------
+   Centralized so the next dev step can swap localStorage for DB/API calls. */
+const ROSTER_KEY = 'ojl_roster_v2';
+function saveRoster() {
+  try {
+    const addedParticipants = PARTICIPANTS.filter(p => p.added).map(p => ({ id: p.id, name: p.name, site: p.site, cohort: p.cohort, started: p.started }));
+    const addedPreceptors = PRECEPTOR_PEOPLE.filter(r => !SEED_REVIEWERS.includes(r.name)).map(r => ({ id: r.id, name: r.name }));
+    const addedManagers = PROGRAM_MANAGERS.filter(m => m.id !== 'm1').map(m => ({ id: m.id, name: m.name }));
+    const pState = {}; PARTICIPANTS.forEach(p => { pState[p.id] = { programIds: p.programIds || [], reviewers: p.reviewers || [], archived: !!p.archived }; });
+    const rState = {}; PRECEPTOR_PEOPLE.forEach(r => { rState[r.id] = { programIds: r.programIds, archived: !!r.archived }; });
+    const mState = {}; PROGRAM_MANAGERS.forEach(m => { mState[m.id] = { programIds: m.programIds, archived: !!m.archived }; });
+    localStorage.setItem(ROSTER_KEY, JSON.stringify({ addedParticipants, addedPreceptors, addedManagers, pState, rState, mState }));
+  } catch (e) {}
+}
+(function loadRoster() {
+  try {
+    const r = JSON.parse(localStorage.getItem(ROSTER_KEY) || '{}');
+    (r.addedParticipants || []).forEach(p => { if (!PARTICIPANTS.find(x => x.id === p.id)) PARTICIPANTS.push({ ...p, me: false, reviewer: '', reviewers: [], programIds: [], archived: false, added: true }); });
+    (r.addedPreceptors || []).forEach(p => { if (!PRECEPTOR_PEOPLE.find(x => x.id === p.id)) { PRECEPTOR_PEOPLE.push({ id: p.id, name: p.name, programIds: [], archived: false }); if (!REVIEWERS.includes(p.name)) REVIEWERS.push(p.name); } });
+    (r.addedManagers || []).forEach(p => { if (!PROGRAM_MANAGERS.find(x => x.id === p.id)) PROGRAM_MANAGERS.push({ id: p.id, name: p.name, programIds: [], archived: false }); });
+    if (r.pState) PARTICIPANTS.forEach(p => { const s = r.pState[p.id]; if (s) { p.programIds = s.programIds || p.programIds; p.reviewers = s.reviewers || []; p.reviewer = p.reviewers[0] || ''; p.archived = !!s.archived; } });
+    if (r.rState) PRECEPTOR_PEOPLE.forEach(x => { const s = r.rState[x.id]; if (s) { x.programIds = s.programIds || x.programIds; x.archived = !!s.archived; } });
+    if (r.mState) PROGRAM_MANAGERS.forEach(x => { const s = r.mState[x.id]; if (s) { x.programIds = s.programIds || x.programIds; x.archived = !!s.archived; } });
+  } catch (e) {}
+})();
+function resetData() { cases.length = 0; buildSeed().forEach(c => cases.push(c)); saveCases(); }
+
+/* ---------- Stats (per participant) ---------- */
+function statsFor(participantId) {
+  const mine = cases.filter(c => c.participantId === participantId);
+  const approved = mine.filter(c => c.status === 'approved');
+  const pending = mine.filter(c => c.status === 'pending');
+  const returned = mine.filter(c => c.status === 'returned');
+  const active = mine.filter(c => c.status !== 'returned');
+
+  const specCounts = {}, pendingSpecCounts = {};
+  SPECIALTIES.forEach(s => {
+    specCounts[s] = approved.filter(c => c.cat === s).length;
+    pendingSpecCounts[s] = pending.filter(c => c.cat === s).length;
+  });
+  const scopeCount = specCounts['Diagnostic Scopes'] || 0;
+  const scopeActive = active.filter(c => c.cat === 'Diagnostic Scopes').length;
+  const specTotal = SPECIALTIES.reduce((a, s) => a + (s === 'Diagnostic Scopes' && NCCT.scopeMaxOn ? Math.min(specCounts[s] || 0, NCCT.scopeMax) : (specCounts[s] || 0)), 0);
+  const specsWithCases = SPECIALTIES.filter(s => s !== 'Other' && (specCounts[s] || 0) > 0);
+  const pendingSpec = SPECIALTIES.reduce((acc, s) => {
+    if (s === 'Other') return acc;
+    const ap = specCounts[s] || 0, pn = pendingSpecCounts[s] || 0;
+    const cap = s === 'Diagnostic Scopes' && NCCT.scopeMaxOn ? Math.max(0, NCCT.scopeMax - ap) : pn;
+    return acc + Math.min(pn, cap);
+  }, 0);
+
+  const total = approved.length;
+  const first = approved.filter(c => c.scrub === 1).length;
+  const general = approved.filter(c => c.cat === 'general').length;
+  const readiness = calcReadiness(total, first, general, specTotal, specsWithCases.length);
+
+  return {
+    total, first, general,
+    generalActive: active.filter(c => c.cat === 'general').length,
+    scopeActive, scopeCount, specTotal, specCounts, pendingSpecCounts, specsWithCases,
+    pendingCount: pending.length,
+    pendingFirst: pending.filter(c => c.scrub === 1).length,
+    pendingGeneral: pending.filter(c => c.cat === 'general').length,
+    pendingSpec,
+    returnedCount: returned.length,
+    readiness,
+    caseCount: mine.length,
+  };
+}
+
+function calcReadiness(total, first, general, specTotal, specsCount) {
+  return Math.min(100, Math.round(
+    Math.min(total / NCCT.totalTarget, 1) * 35 +
+    Math.min(first / NCCT.firstTarget, 1) * 35 +
+    (specsCount >= NCCT.distinctTarget && specTotal >= NCCT.specTarget ? 1 : (Math.min(specTotal / NCCT.specTarget, 1) * 0.5 + Math.min(specsCount / NCCT.distinctTarget, 1) * 0.5)) * 20 +
+    (general >= NCCT.generalTarget ? 1 : Math.min(general / NCCT.generalTarget, 1)) * 10
+  ));
+}
+
+/* ---------- Mutations ---------- */
+function addCase(c) { cases.push({ id: Date.now(), status: 'pending', reviewComment: '', ...c }); saveCases(); }
+function updateCase(id, patch) { const i = cases.findIndex(c => c.id === id); if (i >= 0) { cases[i] = { ...cases[i], ...patch }; saveCases(); } }
+function deleteCase(id) { const i = cases.findIndex(c => c.id === id); if (i >= 0) cases.splice(i, 1); saveCases(); }
+function getCase(id) { return cases.find(c => c.id === id); }
+
+/* ---------- Cap helpers (for the log form) ---------- */
+function catCapStatus(participantId, cat) {
+  if (!cat) return null;
+  const s = statsFor(participantId);
+  if (cat === 'Diagnostic Scopes' && NCCT.scopeMaxOn) {
+    if (s.scopeActive >= NCCT.scopeMax) return { capped: true, message: `You've reached the ${NCCT.scopeMax}-case maximum for Diagnostic Scopes. This requirement is complete \u2014 log remaining cases under a different specialty.` };
+    if (s.scopeActive >= NCCT.scopeMax - 3) return { capped: false, message: `Heads up: ${NCCT.scopeMax - s.scopeActive} Diagnostic Scope case${NCCT.scopeMax - s.scopeActive !== 1 ? 's' : ''} remaining before the cap.` };
+  }
+  if (cat === 'general' && NCCT.generalMaxOn) {
+    if (s.generalActive >= NCCT.generalMax) return { capped: true, message: `You've reached the ${NCCT.generalMax}-case maximum for General Surgery. This requirement is complete \u2014 additional general cases will not count toward certification.` };
+    if (s.generalActive >= NCCT.generalMax - 5) return { capped: false, message: `Heads up: ${NCCT.generalMax - s.generalActive} General Surgery case${NCCT.generalMax - s.generalActive !== 1 ? 's' : ''} remaining before the cap.` };
+  }
+  return null;
+}
+
+function addParticipant({ name, site, reviewers, programId }) {
+  const id = 'p-' + Date.now();
+  const revs = reviewers ? reviewers.slice() : [];
+  const pid = programId || SURG_PROGRAM_ID;
+  PARTICIPANTS.push({ id, name: name.trim(), me: false, reviewer: revs[0] || '', reviewers: revs, site: site || '', cohort: PROGRAM_NAME, started: '', programId: pid, programIds: [pid], archived: false, added: true });
+  saveRoster();
+  return id;
+}
+function addReviewer(name, programId) {
+  const n = (name || '').trim();
+  if (!n) return n;
+  if (!REVIEWERS.includes(n)) REVIEWERS.push(n);
+  const pid = programId || SURG_PROGRAM_ID;
+  let rec = PRECEPTOR_PEOPLE.find(x => x.name === n);
+  if (!rec) { rec = { id: 'r-' + Date.now(), name: n, programIds: [], archived: false }; PRECEPTOR_PEOPLE.push(rec); }
+  if (!rec.programIds.includes(pid)) rec.programIds.push(pid);
+  rec.archived = false;
+  saveRoster();
+  return n;
+}
+function setParticipantReviewers(participantId, names) {
+  const p = PARTICIPANTS.find(x => x.id === participantId);
+  if (p) { p.reviewers = (names || []).slice(); p.reviewer = p.reviewers[0] || ''; saveRoster(); }
+}
+
+Object.assign(window, {
+  NCCT, SPECIALTIES, CATEGORY_OPTIONS, CHECK_LABELS, CHECK_LABELS_SHORT, CHECKS, catLabel,
+  REVIEWERS, DEMO_REVIEWER, PARTICIPANTS, ME, PROGRAM_NAME, MODULE_NAME,
+  SURG_PROGRAM_ID, PRECEPTOR_PEOPLE, PROGRAM_MANAGERS, participantsFor, preceptorsFor,
+  getPeople, setPersonPrograms, archivePerson, addManager,
+  cases,
+  statsFor, calcReadiness, addCase, updateCase, deleteCase, getCase, catCapStatus,
+  saveCases, resetData,
+  DEFAULT_TARGETS, saveTargets, resetTargets,
+  addParticipant, addReviewer, setParticipantReviewers,
+});
+
+</script>
+
+<script type="text/babel">
+/* kit.jsx */
+/* ============================================================
+   Shared UI kit — Craft primitives (Lucide subset + components)
+   ============================================================ */
+
+const ICON_PATHS = {
+  home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+  grid: '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
+  plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  history: '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/>',
+  clipboardCheck: '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  clipboardList: '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
+  table: '<path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/>',
+  inbox: '<polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+  checkCircle: '<path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  cornerUpLeft: '<polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/>',
+  pencil: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  trash: '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  circle: '<circle cx="12" cy="12" r="10"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  dot: '<circle cx="12" cy="12" r="3"/>',
+  chevronRight: '<path d="m9 18 6-6-6-6"/>',
+  chevronLeft: '<path d="m15 18-6-6 6-6"/>',
+  chevronDown: '<path d="m6 9 6 6 6-6"/>',
+  chevronUp: '<path d="m18 15-6-6-6 6"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  user: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  userCheck: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/>',
+  graduationCap: '<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
+  pieChart: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+  briefcase: '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
+  settings: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/>',
+  filter: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>',
+  search: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+  download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
+  arrowRight: '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  award: '<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',
+  activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  trendingUp: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  stethoscope: '<path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-2"/><circle cx="20" cy="10" r="2"/>',
+  layers: '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.49 1.6a1 1 0 0 0 0 1.81l8.59 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.49-1.59"/><path d="m6.08 14.5-3.49 1.6a1 1 0 0 0 0 1.81l8.59 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.49-1.59"/>',
+  building: '<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
+  menu: '<line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>',
+  send: '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>',
+  eye: '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+};
+
+function Icon({ name, size = 16, strokeWidth = 1.75, className = '', style }) {
+  return (
+    <svg className={`ico ${className}`} width={size} height={size} viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"
+      style={style} dangerouslySetInnerHTML={{ __html: ICON_PATHS[name] || '' }} />
+  );
+}
+
+function initials(name) {
+  return (name || '').split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase();
+}
+const AV_COLORS = ['#E8F2FF', '#E5FDCF', '#E6D8FB', '#DEF3FF', '#FEF0C7', '#FEE4E2'];
+function avColor(name) {
+  let h = 0; for (let i = 0; i < (name || '').length; i++) h = (h * 31 + name.charCodeAt(i)) % 997;
+  return AV_COLORS[h % AV_COLORS.length];
+}
+function Avatar({ name = 'UR', size = 30 }) {
+  return (
+    <span className="avatar" style={{ width: size, height: size, flex: `0 0 ${size}px`, fontSize: Math.round(size * 0.38), background: avColor(name), color: '#002855' }}>
+      {initials(name)}
+    </span>
+  );
+}
+
+function Badge({ tone = 'neutral', dot = false, children }) {
+  return <span className={`badge ${tone}`}>{dot && <span className="dot" />}{children}</span>;
+}
+
+function Button({ variant = 'primary', size, icon, iconAfter, children, onClick, disabled, type = 'button', block, ...rest }) {
+  return (
+    <button type={type} disabled={disabled} onClick={onClick}
+      className={`btn btn-${variant} ${size === 'sm' ? 'btn-sm' : ''} ${block ? 'btn-block' : ''}`} {...rest}>
+      {icon && <Icon name={icon} />}{children}{iconAfter && <Icon name={iconAfter} />}
+    </button>
+  );
+}
+
+function Tile({ label, value, sub, delta, deltaTone = 'pending', valClass = '' }) {
+  return (
+    <div className="tile">
+      <div className="lbl">{label}</div>
+      <div className={`val ${valClass}`}>{value}</div>
+      {sub && <div className="sub">{sub}</div>}
+      {delta && <div className={`delta delta-${deltaTone}`}><span className="dot" />{delta}</div>}
+    </div>
+  );
+}
+
+/* Stacked approved/pending progress bar with optional min/max markers */
+function ProgressBar({ approved, pending = 0, max, minMarkerPct, minLabel, maxLabel, over }) {
+  if (over) {
+    return <div className="track-wrap"><div className="track"><div className="fill-over" style={{ width: '100%' }} /></div></div>;
+  }
+  const aPct = Math.min(approved / max * 100, 100);
+  const pPct = Math.min(pending / max * 100, Math.max(0, 100 - aPct));
+  const hasMarkers = minMarkerPct != null;
+  return (
+    <div className={`track-wrap ${hasMarkers ? 'has-markers' : ''}`}>
+      <div className="track">
+        <div className={`fill-approved${aPct >= 100 && pPct === 0 ? ' solo' : ''}`} style={{ width: `${aPct}%` }} />
+        {pPct > 0 && <div className="fill-pending" style={{ width: `${pPct}%` }} />}
+      </div>
+      {hasMarkers && <>
+        <div className="marker" style={{ left: `${minMarkerPct}%` }} />
+        <div className="marker-label" style={{ left: `${minMarkerPct}%` }}>{minLabel}</div>
+        <div className="marker" style={{ left: '100%' }} />
+        <div className="marker-label" style={{ left: '100%', transform: 'translateX(-100%)' }}>{maxLabel}</div>
+      </>}
+    </div>
+  );
+}
+
+function Empty({ icon = 'inbox', children }) {
+  return <div className="empty"><Icon name={icon} size={28} /><span>{children}</span></div>;
+}
+
+/* Row actions dropdown. items: {label, icon?, onClick, danger?, disabled?} | {type:'label'|'divider', label?, checked?} */
+function RowMenu({ items, trigger = 'chevronRight' }) {
+  const [open, setOpen] = React.useState(false);
+  const [pos, setPos] = React.useState({ top: -9999, right: 0 });
+  const btnRef = React.useRef(null);
+  const popRef = React.useRef(null);
+
+  const place = React.useCallback(() => {
+    if (!btnRef.current) return;
+    const r = btnRef.current.getBoundingClientRect();
+    const h = popRef.current ? popRef.current.offsetHeight : 0;
+    const right = Math.max(8, window.innerWidth - r.right);
+    let top = r.bottom + 4;
+    if (h && top + h > window.innerHeight - 8) top = Math.max(8, r.top - 4 - h); // flip up
+    if (h && top + h > window.innerHeight - 8) top = Math.max(8, window.innerHeight - 8 - h); // clamp
+    setPos({ top, right });
+  }, []);
+
+  React.useLayoutEffect(() => { if (open) place(); }, [open, place]);
+  React.useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    window.addEventListener('scroll', close, true);
+    window.addEventListener('resize', close);
+    return () => { window.removeEventListener('scroll', close, true); window.removeEventListener('resize', close); };
+  }, [open]);
+
+  const menu = open ? ReactDOM.createPortal(
+    <>
+      <div className="rowmenu-backdrop" onClick={() => setOpen(false)} />
+      <div ref={popRef} className="rowmenu-pop" style={{ position: 'fixed', top: pos.top, right: pos.right }} onClick={e => e.stopPropagation()}>
+        {items.map((it, i) => {
+          if (it.type === 'divider') return <div className="rowmenu-div" key={i} />;
+          if (it.type === 'label') return <div className="rowmenu-label" key={i}>{it.label}</div>;
+          return (
+            <button key={i} className={`rowmenu-item ${it.danger ? 'danger' : ''}`} disabled={it.disabled} onClick={() => { setOpen(false); it.onClick && it.onClick(); }}>
+              <span className="rmi-check">{it.checked && <Icon name="check" size={14} />}</span>
+              {it.icon && <Icon name={it.icon} size={15} />}<span>{it.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </>, document.body) : null;
+
+  return (
+    <div className="rowmenu" onClick={e => e.stopPropagation()}>
+      <button ref={btnRef} className="icon-btn" aria-label="Row actions" onClick={() => setOpen(o => !o)}><Icon name={trigger} size={16} /></button>
+      {menu}
+    </div>
+  );
+}
+
+/* Readiness ring — white track + lime fill, sits on a dark/navy surface */
+function ReadinessRing({ pct, size = 132 }) {
+  const stroke = Math.round(size / 12);
+  const r = size / 2 - stroke - 2;
+  const cx = size / 2;
+  const circ = 2 * Math.PI * r;
+  const off = circ * (1 - Math.min(pct, 100) / 100);
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="ring">
+      <circle cx={cx} cy={cx} r={r} fill="none" stroke="rgba(255,255,255,.18)" strokeWidth={stroke} />
+      <circle cx={cx} cy={cx} r={r} fill="none" stroke="#97e152" strokeWidth={stroke} strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={off} transform={`rotate(-90 ${cx} ${cx})`} style={{ transition: 'stroke-dashoffset .6s ease' }} />
+      <text x={cx} y={cx - size * 0.03} textAnchor="middle" className="ring-pct">{pct}%</text>
+      <text x={cx} y={cx + size * 0.13} textAnchor="middle" className="ring-sub">ready</text>
+    </svg>
+  );
+}
+
+/* Slide-over sheet (right side), used for Log a Case + Submission review */
+function Sheet({ open, onClose, title, subtitle, width = 520, children, footer }) {
+  if (!open) return null;
+  return (
+    <div className="sheet-overlay" onClick={onClose}>
+      <div className="sheet" style={{ width }} onClick={e => e.stopPropagation()}>
+        <div className="sheet-head">
+          <div>
+            <h2>{title}</h2>
+            {subtitle && <div className="sheet-sub">{subtitle}</div>}
+          </div>
+          <button className="icon-btn" onClick={onClose} aria-label="Close"><Icon name="x" size={18} /></button>
+        </div>
+        <div className="sheet-body">{children}</div>
+        {footer && <div className="sheet-foot">{footer}</div>}
+      </div>
+    </div>
+  );
+}
+
+/* Chip-based multi-assign modal. options: [{value,label}]; assigned: [value].
+   Stages edits locally and commits the full array on Save. */
+function ManagePicker({ open, title, subtitle, assigned = [], options = [], placeholder = 'Type to add…', onSave, onClose }) {
+  const [working, setWorking] = React.useState([]);
+  const [q, setQ] = React.useState('');
+  React.useEffect(() => { if (open) { setWorking(assigned.slice()); setQ(''); } }, [open]);
+  if (!open) return null;
+  const labelFor = (v) => (options.find(o => o.value === v) || {}).label || v;
+  const suggestions = options.filter(o => !working.includes(o.value) && o.label.toLowerCase().includes(q.toLowerCase()));
+  const add = (v) => { setWorking(w => [...w, v]); setQ(''); };
+  const remove = (v) => setWorking(w => w.filter(x => x !== v));
+  return (
+    <div className="manage-overlay" onClick={onClose}>
+      <div className="manage-modal" onClick={e => e.stopPropagation()}>
+        <div className="manage-head">
+          <div><h2>{title}</h2>{subtitle && <div className="manage-sub">{subtitle}</div>}</div>
+          <button className="icon-btn" onClick={onClose} aria-label="Close"><Icon name="x" size={18} /></button>
+        </div>
+        <div className="manage-body">
+          <div className="manage-field-label">{working.length} assigned</div>
+          <div className="chip-box">
+            {working.map(v => (
+              <span className="assign-chip" key={v}>{labelFor(v)}<button onClick={() => remove(v)} aria-label={`Remove ${labelFor(v)}`}><Icon name="x" size={12} /></button></span>
+            ))}
+            <input className="chip-input" value={q} onChange={e => setQ(e.target.value)} placeholder={working.length ? '' : placeholder} />
+          </div>
+          {q && (
+            <div className="chip-suggest">
+              {suggestions.length ? suggestions.slice(0, 8).map(o => (
+                <button className="chip-suggest-item" key={o.value} onClick={() => add(o.value)}><Icon name="plus" size={13} />{o.label}</button>
+              )) : <div className="chip-suggest-empty">No matches</div>}
+            </div>
+          )}
+        </div>
+        <div className="manage-foot">
+          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button variant="primary" icon="check" onClick={() => { onSave(working); onClose(); }}>Save</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { ManagePicker });
+Object.assign(window, { Icon, Avatar, Badge, Button, Tile, ProgressBar, ReadinessRing, Empty, RowMenu, Sheet, initials, avColor });
+
+
+/* shells.jsx */
+/* ============================================================
+   App shells — Sidebar (reviewer/admin) + TabBar (learner)
+   plus the demo-only RoleSwitcher
+   ============================================================ */
+
+/* ---------- Sidebar shell (reviewer + admin) ---------- */
+function SidebarShell({ menuGroups, secondary, activeKey, onNav, user, title, crumbs, right, children }) {
+  return (
+    <div className="shell">
+      <aside className="sidebar">
+        <div className="brand"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32' fill='none'%3E%3Crect width='32' height='32' rx='6' fill='%23002855'/%3E%3Cpath d='M8 16a8 8 0 1 1 16 0' stroke='%2397e152' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230070f0'/%3E%3Ctext x='38' y='22' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='%23002855'%3ECraft%3C/text%3E%3C/svg%3E" alt="Craft" /></div>
+
+        <nav className="side-nav">
+          {menuGroups.map((g, gi) => (
+            <div className="nav-group" key={gi}>
+              {menuGroups.length > 1 && <div className="group">{g.label}</div>}
+              {g.items.map(it => (
+                <button key={it.key} className={`nav ${activeKey === it.key ? 'active' : ''}`} onClick={() => onNav(it.key)}>
+                  <Icon name={it.icon} size={17} />
+                  <span style={{ flex: 1 }}>{it.label}</span>
+                  {it.badge != null && it.badge > 0 && <span className="count-pill">{it.badge}</span>}
+                </button>
+              ))}
+            </div>
+          ))}
+        </nav>
+
+        {secondary.length > 0 && (
+          <div className="side-secondary">
+            {secondary.map((it, i) => (
+              <button key={i} className="nav" onClick={it.onClick}>
+                <Icon name={it.icon} size={17} />
+                <span style={{ flex: 1 }}>{it.label}</span>
+                {it.badge != null && it.badge > 0 && <span className="count-pill">{it.badge}</span>}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="foot">
+          <Avatar name={user.name} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div className="foot-name">{user.name}</div>
+            <div className="foot-role">{user.role}</div>
+          </div>
+          <button className="icon-btn" title="Log out"><Icon name="logout" size={16} /></button>
+        </div>
+      </aside>
+
+      <div className="canvas">
+        <div className="header">
+          <div>
+            <h1>{title}</h1>
+          </div>
+          {right && <div className="header-right">{right}</div>}
+        </div>
+        <div className="page">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Tab-bar shell (learner / participant) ---------- */
+function TabBarShell({ tabs, activeKey, onNav, user, children }) {
+  return (
+    <div className="tb-shell">
+      <header className="tb-header">
+        <div className="tb-header-inner">
+          <div className="tb-header-left" />
+          <img className="tb-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32' fill='none'%3E%3Crect width='32' height='32' rx='6' fill='%23002855'/%3E%3Cpath d='M8 16a8 8 0 1 1 16 0' stroke='%2397e152' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230070f0'/%3E%3Ctext x='38' y='22' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='%23002855'%3ECraft%3C/text%3E%3C/svg%3E" alt="Craft" />
+          <div className="tb-header-right">
+            <div className="tb-user">
+              <Avatar name={user.name} size={30} />
+              <span className="tb-user-name">{user.name.split(' ')[0]}</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="tb-tabwrap">
+        <nav className="tb-tabs" aria-label="Main navigation">
+          {tabs.map(t => (
+            <button key={t.key} className={`tb-tab ${activeKey === t.key ? 'active' : ''}`} onClick={() => onNav(t.key)}>
+              <Icon name={t.icon} size={16} />{t.label}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      <main className="tb-main">{children}</main>
+    </div>
+  );
+}
+
+/* ---------- Demo role switcher (not part of production) ---------- */
+function RoleSwitcher({ role, onChange }) {
+  const ROLES = [
+    { key: 'learner', label: 'Learner', icon: 'graduationCap' },
+    { key: 'reviewer', label: 'Preceptor', icon: 'clipboardCheck' },
+    { key: 'admin', label: 'Program Mgr', icon: 'briefcase' },
+  ];
+  return (
+    <div className="role-switcher" role="group" aria-label="Demo role switcher">
+      <div className="rs-label"><Icon name="eye" size={13} /> Demo · view as</div>
+      <div className="rs-pills">
+        {ROLES.map(r => (
+          <button key={r.key} className={r.key === role ? 'on' : ''} onClick={() => onChange(r.key)}>
+            <Icon name={r.icon} size={14} />{r.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { SidebarShell, TabBarShell, RoleSwitcher });
+
+
+/* progress.jsx */
+/* ============================================================
+   Shared module-progress components (NCCT case counting)
+   Used by Learner program detail, Reviewer reports, Admin detail.
+   ============================================================ */
+
+/* ---- range label helper (adapts to which bounds are enabled) ---- */
+function rangeText(minOn, min, maxOn, max) {
+  if (minOn && maxOn) return `${min}\u2013${max}`;
+  if (minOn) return `min ${min}`;
+  if (maxOn) return `max ${max}`;
+  return 'no limit';
+}
+
+/* ---- Stacked progress bars (approved + pending vs targets) ---- */
+function TargetBar({ title, approved, pending, target, hasMax, max, over }) {
+  const barMax = hasMax ? Math.max(max, 1) : Math.max(target, 1);
+  const count = hasMax ? `${approved} approved · ${pending} pending · ${target}\u2013${max}` : `${approved} approved · ${pending} pending · target ${target}`;
+  return (
+    <div className="prog-block">
+      <div className="prog-head"><span className="prog-title">{title}</span><span className={`prog-count tabnum ${over ? 'danger' : ''}`}>{count}</span></div>
+      {over
+        ? <ProgressBar over />
+        : <ProgressBar approved={approved} pending={pending} max={barMax} minMarkerPct={hasMax ? target / max * 100 : null} minLabel={`min ${target}`} maxLabel={`max ${max}`} />}
+    </div>
+  );
+}
+
+function ProgressBars({ s }) {
+  return (
+    <div>
+      <TargetBar title="Total cases" approved={s.total} pending={s.pendingCount} target={NCCT.totalTarget} hasMax={NCCT.totalMaxOn} max={NCCT.totalMax} over={NCCT.totalMaxOn && s.total > NCCT.totalMax} />
+      <div className="prog-total-divider" />
+      <TargetBar title="1st scrub" approved={s.first} pending={s.pendingFirst} target={NCCT.firstTarget} hasMax={NCCT.firstMaxOn} max={NCCT.firstMax} over={NCCT.firstMaxOn && s.first > NCCT.firstMax} />
+      <TargetBar title="General surgery" approved={s.general} pending={s.pendingGeneral} target={NCCT.generalTarget} hasMax={NCCT.generalMaxOn} max={NCCT.generalMax} over={NCCT.generalMaxOn && s.generalActive > NCCT.generalMax} />
+      <TargetBar title="Specialty cases" approved={s.specTotal} pending={s.pendingSpec} target={NCCT.specTarget} hasMax={NCCT.specMaxOn} max={NCCT.specMax} over={NCCT.specMaxOn && s.specTotal > NCCT.specMax} />
+      <TargetBar title="Diagnostic scopes" approved={s.scopeCount} pending={s.scopeActive - s.scopeCount} target={NCCT.scopeTarget} hasMax={NCCT.scopeMaxOn} max={NCCT.scopeMax} over={NCCT.scopeMaxOn && s.scopeActive > NCCT.scopeMax} />
+      <div className="dash-legend">
+        <div className="legend-item"><div className="legend-swatch" style={{ background: 'var(--success)' }} />Approved</div>
+        <div className="legend-item"><div className="legend-swatch" style={{ background: 'var(--pending)' }} />Pending review</div>
+        <div className="legend-item"><div className="legend-tick" />Min / max marker</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---- Readiness scores (approved + projection) ---- */
+function ReadinessCard({ s }) {
+  const projTotal = Math.min(s.total + s.pendingCount, NCCT.totalTarget);
+  const projFirst = Math.min(s.first + s.pendingFirst, NCCT.firstTarget);
+  const projGeneral = Math.min(s.general + s.pendingGeneral, NCCT.generalMax);
+  const projSpecTotal = Math.min(s.specTotal + s.pendingSpec, NCCT.specMax);
+  const projSpecsWith = SPECIALTIES.filter((sp) => sp !== 'Other' && (s.specCounts[sp] || 0) + (s.pendingSpecCounts[sp] || 0) > 0).length;
+  const proj = calcReadiness(projTotal, projFirst, projGeneral, projSpecTotal, projSpecsWith);
+  return (
+    <div className="readiness-card">
+      <div className="readiness-score">
+        <div className="readiness-score-label">Approved</div>
+        <div className="readiness-pct tabnum" style={{ color: s.readiness >= 100 ? 'var(--success)' : 'var(--navy)' }}>{s.readiness}%</div>
+        <div className="readiness-score-sub">Based on approved cases only</div>
+      </div>
+      <div className="readiness-score">
+        <div className="readiness-score-label">If all pending approved</div>
+        <div className="readiness-pct tabnum" style={{ color: proj >= 100 ? 'var(--success)' : proj > s.readiness ? 'var(--pending)' : 'var(--navy)' }}>{proj}%</div>
+        <div className="readiness-score-sub">Projection if all {s.pendingCount} pending case{s.pendingCount !== 1 ? 's' : ''} approved</div>
+      </div>
+    </div>);
+
+}
+
+/* ---- Specialty breakdown grid ---- */
+function SpecialtyGrid({ s }) {
+  return (
+    <div className="spec-grid">
+      {SPECIALTIES.filter((sp) => sp !== 'Other').map((sp) => {
+        const cnt = s.specCounts[sp] || 0,pnd = s.pendingSpecCounts[sp] || 0;
+        return (
+          <div key={sp} className={`spec-card ${cnt > 0 ? 'has-cases' : ''}`}>
+            <div className="spec-name">{sp}</div>
+            <div className="spec-cnt tabnum">{cnt} approved{pnd > 0 ? ` · +${pnd} pending` : ''}{sp === 'Diagnostic Scopes' ? ' (max 15)' : ''}</div>
+          </div>);
+
+      })}
+    </div>);
+
+}
+
+/* ---- Requirements model (target = complete-at; optional max = range, over rejected) ---- */
+function targetItem(label, count, target, hasMax, max, unit, pending) {
+  const over = hasMax && count > max;
+  const met = count >= target && !over;
+  const rangeLabel = hasMax ? `${target}\u2013${max}` : `target ${target}`;
+  return { label: `${label} — ${rangeLabel}`, met, warn: over, val: hasMax ? `${count}` : `${count} / ${target}`, remaining: Math.max(0, target - count), unit, pending };
+}
+
+function buildRequirements(s) {
+  const r = [];
+  r.push(targetItem('Total cases', s.total, NCCT.totalTarget, NCCT.totalMaxOn, NCCT.totalMax, 'case', s.pendingCount));
+  r.push(targetItem('1st scrub', s.first, NCCT.firstTarget, NCCT.firstMaxOn, NCCT.firstMax, '1st-scrub case', s.pendingFirst));
+  r.push(targetItem('General surgery', s.general, NCCT.generalTarget, NCCT.generalMaxOn, NCCT.generalMax, 'general case', s.pendingGeneral));
+  r.push(targetItem('Specialty cases', s.specTotal, NCCT.specTarget, NCCT.specMaxOn, NCCT.specMax, 'specialty case', s.pendingSpec));
+  r.push(targetItem('Distinct specialties', s.specsWithCases.length, NCCT.distinctTarget, NCCT.distinctMaxOn, NCCT.distinctMax, 'specialty', 0));
+  r.push(targetItem('Diagnostic scopes', s.scopeCount, NCCT.scopeTarget, NCCT.scopeMaxOn, NCCT.scopeMax, 'scope case', Math.max(0, s.scopeActive - s.scopeCount)));
+  return r;
+}
+
+/* ---- Certification goal banner — "what you're working toward & when you're done" ---- */
+function CertGoal({ s, programName }) {
+  const reqs = buildRequirements(s);
+  const total = reqs.length;
+  const metCount = reqs.filter((r) => r.met).length;
+  const done = metCount === total && total > 0;
+  // top remaining drivers (unmet mins with a remaining count), largest first
+  const drivers = reqs.filter((r) => !r.met && r.remaining > 0).sort((a, b) => b.remaining - a.remaining).slice(0, 2);
+  return (
+    <div className={`cert-goal ${done ? 'done' : ''}`}>
+      <div className="cg-main">
+        <div className="cg-kicker">{done ? 'Certification ready' : 'Working toward'}</div>
+        <h2>Tech in Surgery–Certified (TS-C)</h2>
+        <div className="cg-sub">Requirements set by {programName} · {metCount} of {total} met</div>
+        {done ?
+        <div className="cg-done"><Icon name="checkCircle" size={18} /><span>You've met every requirement — you're ready to submit your TS-C application.</span></div> :
+
+        <div className="cg-remaining">
+            {drivers.length ? drivers.map((d, i) =>
+          <span className="cg-pill" key={i}><strong>{d.remaining}</strong> more {d.unit}{d.remaining !== 1 ? 's' : ''}</span>
+          ) : <span className="cg-pill subtle">Within range — keep approved cases coming</span>}
+          </div>
+        }
+      </div>
+      <div className="cg-meter">
+        <ReadinessRing pct={s.readiness} size={116} />
+        <div className="cg-meter-cap">{metCount}/{total} requirements</div>
+      </div>
+    </div>);
+
+}
+
+/* ---- Requirements checklist (remaining-focused, toggle-aware) ---- */
+function RequirementsList({ s }) {
+  const reqs = buildRequirements(s);
+  return (
+    <div>
+      {reqs.map((r, i) => {
+        const iconName = r.warn ? 'alert' : r.met ? 'check' : 'circle';
+        const cls = r.warn ? 'req-danger' : r.met ? 'req-ok' : 'req-pend';
+        const col = r.warn ? 'var(--error)' : r.met ? 'var(--success)' : 'var(--slate)';
+        return (
+          <div className="req-row" key={i}>
+            <div className="req-icon" style={{ color: col }}><Icon name={iconName} size={18} /></div>
+            <div className="req-text">
+              {r.label}
+              {!r.met && !r.warn && r.remaining > 0 && <span className="req-togo"> · {r.remaining} to go</span>}
+              {r.warn && <span className="req-togo over"> · over maximum</span>}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+              <div className={`req-val tabnum ${cls}`}>{r.val}</div>
+              {!r.met && r.pending > 0 && <span className="req-pending-pill"><span className="dot" />+{r.pending} pending</span>}
+            </div>
+          </div>);
+
+      })}
+    </div>);
+
+}
+
+/* ---- NCCT Section C table ---- */
+function SectionCTable({ participantId }) {
+  const mine = cases.filter((c) => c.participantId === participantId);
+  const approved = mine.filter((c) => c.status === 'approved');
+  const pending = mine.filter((c) => c.status === 'pending');
+  const pendingCount = pending.length;
+
+  const scrubCounts = (fn) => {
+    const sub = approved.filter(fn);
+    return { first: sub.filter((c) => c.scrub === 1).length, second: sub.filter((c) => c.scrub === 2).length };
+  };
+  const cell = (first, second, pFirst, pSecond, capNote) => [
+  <td key="f">{first > 0 ? <span className="ncct-val-ok">{first}</span> : <span className="ncct-val-zero">—</span>}{pFirst > 0 && <span className="ncct-cap-note">+{pFirst} pending</span>}{capNote}</td>,
+  <td key="s">{second > 0 ? <span className="ncct-val-ok">{second}</span> : <span className="ncct-val-zero">—</span>}{pSecond > 0 && <span className="ncct-cap-note">+{pSecond} pending</span>}</td>];
+
+
+  const gen = scrubCounts((c) => c.cat === 'general');
+  const genPend = pending.filter((c) => c.cat === 'general');
+  const genCap = gen.first + gen.second >= 50 ? <span className="ncct-cap-note" style={{ color: 'var(--warning)' }}>Max 50 reached</span> : null;
+
+  const specOrder = ['Gynecology', 'Genitourinary', 'Cardiovascular', 'Neurosurgery', 'Obstetrics', 'Thoracic', 'Peripheral Vascular', 'Ophthalmology', 'Otorhinolaryngology', 'Orthopedic', 'Plastic/Reconstructive', 'Diagnostic Scopes', 'Other'];
+  const sumScrub = (scr) => specOrder.reduce((acc, sp) => {
+    const cnt = approved.filter((c) => c.cat === sp && c.scrub === scr).length;
+    return acc + (sp === 'Diagnostic Scopes' ? Math.min(cnt, 15) : cnt);
+  }, 0);
+  const totalFirst = gen.first + sumScrub(1);
+  const totalSecond = gen.second + sumScrub(2);
+  const grandTotal = totalFirst + totalSecond;
+
+  return (
+    <div className="card-ui">
+      <div className="ncct-header">
+        <div className="ncct-org">NCCT — TE-0204CSQE (2025)</div>
+        <div className="ncct-title">Section C: Critical Skill Performance Competency</div>
+        <div className="ncct-subtitle">Tech in Surgery-Certified (NCCT) — populated from approved cases</div>
+      </div>
+      <div className="ncct-note">Candidates are required to complete a total of 125 cases, with a minimum of 90 as the 1st scrub. Case mix should include 30 to 50 general surgeries and 75 to 95 in at least three (3) different specialties. Verifiers must document the number of surgical cases the applicant has successfully and safely completed under their direct supervision.</div>
+      <table className="ncct-table">
+        <thead><tr><th>Category</th><th>*1st Scrub</th><th>**2nd Scrub</th></tr></thead>
+        <tbody>
+          <tr className="section-head"><td colSpan={3}>General Surgery</td></tr>
+          <tr><td>General Surgeries <span className="ncct-cap-note">Minimum 30 required; maximum 50</span></td>{cell(gen.first, gen.second, genPend.filter((c) => c.scrub === 1).length, genPend.filter((c) => c.scrub === 2).length, genCap)}</tr>
+          <tr className="section-head"><td colSpan={3}>Specialties — select at least three (75 to 95 total)</td></tr>
+          {specOrder.map((sp) => {
+            const sc = scrubCounts((c) => c.cat === sp);
+            const spPend = pending.filter((c) => c.cat === sp);
+            const isScope = sp === 'Diagnostic Scopes';
+            const capNote = isScope && sc.first + sc.second >= 15 ? <span className="ncct-cap-note" style={{ color: 'var(--warning)' }}>Max 15 reached</span> : null;
+            return <tr key={sp}><td>{sp === 'Other' ? <>Other <span style={{ fontSize: 11, color: 'var(--slate)' }}>(specify on form)</span></> : sp}{isScope && <span style={{ fontSize: 11, color: 'var(--slate)' }}> (max 15)</span>}</td>{cell(sc.first, sc.second, spPend.filter((c) => c.scrub === 1).length, spPend.filter((c) => c.scrub === 2).length, capNote)}</tr>;
+          })}
+          <tr className="totals-row">
+            <td>TOTALS <span className="ncct-cap-note">Minimum 125 total · minimum 90 as 1st scrub</span></td>
+            <td><span className={totalFirst >= 90 ? 'ncct-val-ok' : totalFirst > 0 ? 'ncct-val-warn' : 'ncct-val-zero'}>{totalFirst}</span></td>
+            <td><span className={totalSecond > 0 ? 'ncct-val-warn' : 'ncct-val-zero'}>{totalSecond}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      {pendingCount > 0 && <div className="ncct-pending-note"><Icon name="alert" size={16} /><span>{pendingCount} case{pendingCount !== 1 ? 's are' : ' is'} pending preceptor approval and not reflected above. Totals will update when cases are approved.</span></div>}
+      <div className="ncct-status-bar">
+        <div className="ncct-stat"><div className="ncct-stat-dot" style={{ background: 'var(--success)' }} />1st scrub total: <strong>{totalFirst}</strong> / 90 min</div>
+        <div className="ncct-stat"><div className="ncct-stat-dot" style={{ background: 'var(--navy-soft)' }} />Grand total: <strong>{grandTotal}</strong> / 125 min</div>
+        <div className="ncct-stat" style={{ marginLeft: 'auto', fontStyle: 'italic' }}>Approved cases only</div>
+      </div>
+    </div>);
+
+}
+
+Object.assign(window, { ProgressBars, ReadinessCard, SpecialtyGrid, RequirementsList, SectionCTable, CertGoal, buildRequirements });
+
+/* module-editor.jsx */
+/* ============================================================
+   Shared module target editor — used by the standalone
+   Module Builder page AND inline in the Program Manager's
+   program detail (Module tab). Structure is locked; only the
+   per-item target + optional max are editable.
+   ============================================================ */
+
+function Toggle({ on, onChange }) {
+  return (
+    <button type="button" className={`tgl ${on ? 'on' : ''}`} role="switch" aria-checked={on} onClick={() => onChange(!on)}>
+      <span className="tgl-knob" />
+    </button>
+  );
+}
+
+/* A bound field. `fixed` = always-on target (no toggle); otherwise a
+   toggleable maximum that disables its input when off. */
+function Bound({ label, on, value, onToggle, onValue, fixed }) {
+  const active = fixed || on;
+  return (
+    <div className={`bound ${active ? '' : 'off'}`}>
+      <div className="bound-head">{!fixed && <Toggle on={on} onChange={onToggle} />}<span>{label}</span></div>
+      <input type="number" min="0" value={value} disabled={!active} onChange={e => onValue(Math.max(0, parseInt(e.target.value || '0', 10)))} />
+    </div>
+  );
+}
+
+function TargetRow({ title, desc, children }) {
+  return (
+    <div className="target-row">
+      <div className="tr-info"><div className="tr-title">{title}</div><div className="tr-desc">{desc}</div></div>
+      <div className="tr-controls">{children}</div>
+    </div>
+  );
+}
+
+/* Read-only preview of the standardized (locked) structure */
+function StructureLocked() {
+  const specs = SPECIALTIES.filter(s => s !== 'Other');
+  return (
+    <div className="card-ui ms-card ms-locked">
+      <div className="ms-card-head">
+        <h2>Structure <span className="ms-lock"><Icon name="shield" size={13} /> Standardized · locked</span></h2>
+      </div>
+      <div className="ms-locked-grid">
+        <div>
+          <div className="sect-label">Case categories</div>
+          <div className="ms-chips">
+            <span className="ms-chip">General surgery</span>
+            {specs.map(s => <span className="ms-chip" key={s}>{s}</span>)}
+            <span className="ms-chip">Other (specify)</span>
+          </div>
+        </div>
+        <div>
+          <div className="sect-label">1st scrub criteria — all five required</div>
+          <ol className="ms-criteria">
+            {CHECK_LABELS.map((c, i) => <li key={i}><Icon name="check" size={14} />{c}</li>)}
+          </ol>
+        </div>
+      </div>
+      <p className="hint">These are fixed by the NCCT TS-C Critical Skill Competency form (TE-0204CSQE) and aren't editable here.</p>
+    </div>
+  );
+}
+
+/* The editable targets + locked structure + save bar.
+   `note` toggles the intro paragraph (shown on the standalone page). */
+function ModuleTargetsEditor({ note = true, onSaved }) {
+  const [t, setT] = React.useState(() => ({ ...NCCT }));
+  const [saved, setSaved] = React.useState(false);
+  const set = (patch) => { setT(p => ({ ...p, ...patch })); setSaved(false); };
+  const doSave = () => { saveTargets(t); setSaved(true); if (onSaved) onSaved(); };
+  const doReset = () => { setT({ ...DEFAULT_TARGETS }); setSaved(false); };
+
+  const range = (target, hasMax, max) => hasMax ? `${target}\u2013${max}` : `${target}+`;
+  const summary = [
+    `${range(t.totalTarget, t.totalMaxOn, t.totalMax)} total`,
+    `${range(t.firstTarget, t.firstMaxOn, t.firstMax)} 1st scrub`,
+    `general ${range(t.generalTarget, t.generalMaxOn, t.generalMax)}`,
+    `specialty ${range(t.specTarget, t.specMaxOn, t.specMax)}`,
+    `${range(t.distinctTarget, t.distinctMaxOn, t.distinctMax)} specialties`,
+    `scopes ${range(t.scopeTarget, t.scopeMaxOn, t.scopeMax)}`,
+  ].join(' · ');
+  const dirty = JSON.stringify(t) !== JSON.stringify(NCCT);
+
+  return (
+    <React.Fragment>
+      {note && (
+        <div className="ms-note">
+          <Icon name="info" size={16} />
+          <span>This is a <strong>standardized NCCT module</strong>. The case categories, 1st/2nd-scrub criteria, and the entry form are set by NCCT and can't be changed. You set the <strong>target</strong> for each item — the number a learner must reach to complete it. Turn on <strong>Max</strong> to add an upper limit (a range): the learner is complete only within the range, and any case logged beyond the maximum is rejected as no longer needed. Changes apply to every learner in this program.</span>
+        </div>
+      )}
+
+      <div className="card-ui ms-card">
+        <div className="ms-card-head">
+          <h2>Targets</h2>
+          <span className="ms-summary">{summary}</span>
+        </div>
+
+        <TargetRow title="Total cases" desc="Total approved cases a learner must reach to complete this item.">
+          <Bound fixed label="Target" value={t.totalTarget} onValue={v => set({ totalTarget: v })} />
+          <Bound label="Max" on={t.totalMaxOn} value={t.totalMax} onToggle={v => set({ totalMaxOn: v })} onValue={v => set({ totalMax: v })} />
+        </TargetRow>
+
+        <TargetRow title="1st scrub cases" desc="Cases performed in the 1st-scrub role (a subset of the total).">
+          <Bound fixed label="Target" value={t.firstTarget} onValue={v => set({ firstTarget: v })} />
+          <Bound label="Max" on={t.firstMaxOn} value={t.firstMax} onToggle={v => set({ firstMaxOn: v })} onValue={v => set({ firstMax: v })} />
+        </TargetRow>
+
+        <TargetRow title="General surgery" desc="General surgery cases counting toward the total.">
+          <Bound fixed label="Target" value={t.generalTarget} onValue={v => set({ generalTarget: v })} />
+          <Bound label="Max" on={t.generalMaxOn} value={t.generalMax} onToggle={v => set({ generalMaxOn: v })} onValue={v => set({ generalMax: v })} />
+        </TargetRow>
+
+        <TargetRow title="Specialty cases (total)" desc="Combined cases across all specialty categories (excludes general surgery).">
+          <Bound fixed label="Target" value={t.specTarget} onValue={v => set({ specTarget: v })} />
+          <Bound label="Max" on={t.specMaxOn} value={t.specMax} onToggle={v => set({ specMaxOn: v })} onValue={v => set({ specMax: v })} />
+        </TargetRow>
+
+        <TargetRow title="Distinct specialties" desc="Different specialty categories that must each have at least one case.">
+          <Bound fixed label="Target" value={t.distinctTarget} onValue={v => set({ distinctTarget: v })} />
+          <Bound label="Max" on={t.distinctMaxOn} value={t.distinctMax} onToggle={v => set({ distinctMaxOn: v })} onValue={v => set({ distinctMax: v })} />
+        </TargetRow>
+
+        <TargetRow title="Diagnostic scopes" desc="Scope cases counting toward the specialty total. Often a target of 0 with a cap — set what your program needs.">
+          <Bound fixed label="Target" value={t.scopeTarget} onValue={v => set({ scopeTarget: v })} />
+          <Bound label="Max" on={t.scopeMaxOn} value={t.scopeMax} onToggle={v => set({ scopeMaxOn: v })} onValue={v => set({ scopeMax: v })} />
+        </TargetRow>
+      </div>
+
+      <StructureLocked />
+
+      <div className="ms-savebar">
+        <button className="link-btn" onClick={doReset}><Icon name="history" size={14} /> Reset to NCCT defaults</button>
+        <div className="ms-savebar-right">
+          {saved && !dirty && <span className="ms-saved"><Icon name="checkCircle" size={15} /> Saved · learners updated</span>}
+          <button className="btn btn-primary" disabled={!dirty} onClick={doSave}><Icon name="check" size={16} /> Save targets</button>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+}
+
+Object.assign(window, { Toggle, Bound, TargetRow, StructureLocked, ModuleTargetsEditor });
+
+
+/* learner.jsx */
+/* ============================================================
+   Learner (participant) experience — tab-bar shell
+   Home · My Program · History  +  Log a Case sheet
+   (PROGRAM_NAME / MODULE_NAME come from data.js globals)
+   ============================================================ */
+
+/* ---------- Log a Case slide-over ---------- */
+function LogCaseSheet({ open, onClose, editId, onSaved }) {
+  const existing = editId != null ? getCase(editId) : null;
+  const [date, setDate] = React.useState('');
+  const [proc, setProc] = React.useState('');
+  const [cat, setCat] = React.useState('');
+  const [reviewer, setReviewer] = React.useState(ME.reviewer);
+  const [checks, setChecks] = React.useState({ c1: false, c2: false, c3: false, c4: false, c5: false });
+
+  React.useEffect(() => {
+    if (!open) return;
+    if (existing) {
+      setDate(existing.date || ''); setProc(existing.proc || ''); setCat(existing.cat || '');
+      setReviewer(existing.reviewer || ME.reviewer);
+      setChecks(existing.checks || { c1: false, c2: false, c3: false, c4: false, c5: false });
+    } else {
+      setDate(new Date().toISOString().split('T')[0]); setProc(''); setCat(''); setReviewer(ME.reviewer);
+      setChecks({ c1: false, c2: false, c3: false, c4: false, c5: false });
+    }
+  }, [open, editId]);
+
+  const allChecked = CHECKS.every(c => checks[c]);
+  const anyChecked = CHECKS.some(c => checks[c]);
+  const cap = catCapStatus(ME.id, cat);
+  const capped = cap && cap.capped && editId == null;
+  const canSubmit = cat && anyChecked && date && reviewer && !capped;
+
+  const submit = () => {
+    if (!canSubmit) return;
+    const scrub = allChecked ? 1 : 2;
+    const payload = { cat, proc: proc.trim() || 'Unnamed procedure', date, scrub, checks: { ...checks }, reviewer, status: 'pending', reviewComment: '' };
+    if (editId != null) updateCase(editId, payload);
+    else addCase({ participantId: ME.id, participant: ME.name, ...payload });
+    onSaved();
+    onClose();
+  };
+
+  return (
+    <Sheet open={open} onClose={onClose} width={560}
+      title={editId != null ? 'Edit Case' : 'Log a New Case'}
+      subtitle={`${MODULE_NAME} · ${PROGRAM_NAME}`}
+      footer={
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button variant="primary" icon={allChecked ? 'checkCircle' : 'send'} disabled={!canSubmit} onClick={submit}>
+            {editId != null ? 'Resubmit for Review' : 'Submit for Review'}
+          </Button>
+        </div>
+      }>
+      {editId != null && <div className="edit-banner"><Icon name="pencil" size={16} /><span>Editing a submitted case — make your changes and resubmit for review.</span></div>}
+
+      <div className="field-row" style={{ marginBottom: 16 }}>
+        <div className="field" style={{ marginBottom: 0 }}>
+          <label>Date <span className="req-star">*</span></label>
+          <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+        </div>
+        <div className="field" style={{ marginBottom: 0 }}>
+          <label>Procedure Name</label>
+          <input type="text" value={proc} onChange={e => setProc(e.target.value)} placeholder="e.g. laparoscopic cholecystectomy" />
+        </div>
+      </div>
+
+      <div className="field">
+        <label>Category <span className="req-star">*</span></label>
+        <select value={cat} onChange={e => setCat(e.target.value)}>
+          <option value="">Select category</option>
+          {CATEGORY_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+      </div>
+
+      {cap && <div className={`alert ${capped ? 'alert-cap' : 'alert-warn'}`}><Icon name={capped ? 'check' : 'alert'} size={16} /><span>{cap.message}</span></div>}
+
+      <div className="scrub-check">
+        <div className="scrub-check-title">1st Scrub Criteria — check all that apply</div>
+        {CHECK_LABELS.map((label, i) => {
+          const id = CHECKS[i];
+          return (
+            <div className="check-item" key={id} onClick={() => setChecks(c => ({ ...c, [id]: !c[id] }))}>
+              <div className={`cb ${checks[id] ? 'checked' : ''}`} />
+              <div className="check-label">{label}</div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className={`scrub-verdict ${allChecked ? 'verdict-1st' : anyChecked ? 'verdict-2nd' : ''}`}>
+        {allChecked ? <><Icon name="checkCircle" size={16} /><span>1st scrub — all criteria met</span></>
+          : anyChecked ? <><Icon name="alert" size={16} /><span>2nd scrub — not all criteria met</span></>
+          : <span>Check criteria above to determine scrub type</span>}
+      </div>
+
+      <div className="field" style={{ marginBottom: 0 }}>
+        <label>Assign to Preceptor <span className="req-star">*</span></label>
+        <select value={reviewer} onChange={e => setReviewer(e.target.value)}>
+          <option value="">Select preceptor</option>
+          {preceptorsFor((ME.programIds || [])[0] || SURG_PROGRAM_ID).map(r => <option key={r} value={r}>{r}</option>)}
+        </select>
+      </div>
+    </Sheet>
+  );
+}
+
+/* ---------- Home ---------- */
+function GreetingHeader() {
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  return (
+    <div className="greeting">
+      <h1>{greeting}, {ME.name.split(' ')[0]}</h1>
+      <p>{PROGRAM_NAME} · {ME.site}</p>
+    </div>
+  );
+}
+
+function ModuleHero({ s, onLog, style }) {
+  if (style === 'tiles') {
+    return (
+      <div className="card-ui module-card">
+        <div className="module-card-head">
+          <div className="module-id"><span className="module-ico"><Icon name="stethoscope" size={18} /></span><div><div className="module-kicker">Active module</div><h2>{MODULE_NAME}</h2></div></div>
+          <Button variant="primary" icon="plus" onClick={onLog}>Log a Case</Button>
+        </div>
+        <div className="tile-row" style={{ margin: '4px 0 0' }}>
+          <Tile label="Total cases" value={s.total} sub={`target ${NCCT.totalTarget}`} valClass={s.total >= NCCT.totalTarget ? 'ok' : ''} delta={s.pendingCount > 0 ? `+${s.pendingCount} pending` : null} />
+          <Tile label="1st scrub" value={s.first} sub={`target ${NCCT.firstTarget}`} valClass={s.first >= NCCT.firstTarget ? 'ok' : ''} delta={s.pendingFirst > 0 ? `+${s.pendingFirst} pending` : null} />
+          <Tile label="Specialty" value={s.specTotal} sub={`${NCCT.specTarget}\u2013${NCCT.specMax}`} valClass={s.specTotal >= NCCT.specTarget && !(NCCT.specMaxOn && s.specTotal > NCCT.specMax) ? 'ok' : (NCCT.specMaxOn && s.specTotal > NCCT.specMax) ? 'warn' : ''} delta={s.pendingSpec > 0 ? `+${s.pendingSpec} pending` : null} />
+          <Tile label="Readiness" value={`${s.readiness}%`} sub="approved cases only" valClass={s.readiness >= 100 ? 'ok' : ''} />
+        </div>
+      </div>
+    );
+  }
+  // 'hero' (default): navy hero with readiness + inline progress
+  return (
+    <div className="module-hero">
+      <div className="module-hero-main">
+        <div className="module-kicker lime">Active module</div>
+        <h2>{MODULE_NAME}</h2>
+        <div className="module-hero-sub">{s.total} of {NCCT.totalTarget} cases approved · {s.pendingCount} pending review</div>
+        <div className="hero-stats">
+          <div className="hero-stat"><div className="hs-val tabnum">{s.total}</div><div className="hs-lbl">Total · /{NCCT.totalTarget}</div></div>
+          <div className="hero-stat"><div className="hs-val tabnum">{s.first}</div><div className="hs-lbl">1st scrub · /{NCCT.firstTarget}</div></div>
+          <div className="hero-stat"><div className="hs-val tabnum">{s.specTotal}</div><div className="hs-lbl">Specialty · {NCCT.specTarget}{'\u2013'}{NCCT.specMax}</div></div>
+        </div>
+        <Button variant="lime" icon="plus" onClick={onLog}>Log a Case</Button>
+      </div>
+      <div className="module-hero-ring">
+        <ReadinessRing pct={s.readiness} />
+        <div className="ring-cap">Certification readiness</div>
+      </div>
+    </div>
+  );
+}
+
+function ReadinessRing__removed() { return null; }
+
+function TakeAction({ returned, onResolve }) {
+  if (!returned.length) return null;
+  return (
+    <div className="card-ui">
+      <div className="card-head"><h2>Needs your attention</h2><Badge tone="error" dot>{returned.length} returned</Badge></div>
+      <div className="case-list">
+        {returned.map(c => (
+          <div className="case-row" key={c.id}>
+            <div className="case-date tabnum">{c.date}</div>
+            <div className="case-info">
+              <div className="case-proc">{c.proc}</div>
+              <div className="case-meta">{catLabel(c.cat)} · {c.reviewer}</div>
+              {c.reviewComment && <div className="case-comment"><Icon name="cornerUpLeft" size={14} /><span>{c.reviewComment}</span></div>}
+            </div>
+            <div className="case-badges">
+              <Button variant="outline" size="sm" icon="pencil" onClick={() => onResolve(c.id)}>Fix & resubmit</Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LearnerHome({ onLog, onEdit, homeStyle, onGoProgram }) {
+  const s = statsFor(ME.id);
+  const returned = cases.filter(c => c.participantId === ME.id && c.status === 'returned');
+  return (
+    <div className="stack">
+      <GreetingHeader />
+      <ModuleHero s={s} onLog={onLog} style={homeStyle} />
+      <TakeAction returned={returned} onResolve={onEdit} />
+      <div className="card-ui">
+        <div className="card-head"><h2>Progress toward certification</h2><button className="link-btn" onClick={onGoProgram}>View module details <Icon name="arrowRight" size={14} /></button></div>
+        <ProgressBars s={s} />
+      </div>
+    </div>
+  );
+}
+
+/* ---------- My Program (module detail) ---------- */
+function LearnerProgram() {
+  const [sub, setSub] = React.useState('casemix');
+  const s = statsFor(ME.id);
+  return (
+    <div className="stack">
+      <CertGoal s={s} programName={PROGRAM_NAME} />
+
+      <div className="module-detail-card">
+        <div className="md-head">
+          <div className="module-id"><span className="module-ico"><Icon name="stethoscope" size={18} /></span><div><div className="module-kicker">Module · {PROGRAM_NAME} · {ME.site}</div><h2>{MODULE_NAME}</h2></div></div>
+          <Badge tone="success" dot>Active</Badge>
+        </div>
+        <div className="subtabs">
+          {[['casemix', 'Case Mix'], ['sectionc', 'NCCT Section C']].map(([k, l]) => (
+            <button key={k} className={`subtab ${sub === k ? 'active' : ''}`} onClick={() => setSub(k)}>{l}</button>
+          ))}
+        </div>
+
+        {sub === 'casemix' && (
+          <div className="stack">
+            <ProgressBars s={s} />
+            <div className="sect-divider" />
+            <div className="sect-label">Specialty breakdown — approved cases</div>
+            <SpecialtyGrid s={s} />
+          </div>
+        )}
+        {sub === 'sectionc' && (
+          <div className="stack">
+            <div className="source-note">Sourced verbatim from the NCCT TS-C Critical Skills Competency / Qualification form (2025, form TE-0204CSQE). Progress counts approved cases only.</div>
+            <SectionCTable participantId={ME.id} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- History ---------- */
+function LearnerHistory({ onEdit, onLog }) {
+  const [status, setStatus] = React.useState('');
+  const [cat, setCat] = React.useState('');
+  let list = cases.filter(c => c.participantId === ME.id);
+  if (status) list = list.filter(c => c.status === status);
+  if (cat) list = list.filter(c => c.cat === cat);
+  list = [...list].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const badge = (c) => c.status === 'approved' ? <Badge tone="success"><Icon name="check" size={12} /> Approved</Badge>
+    : c.status === 'returned' ? <Badge tone="error"><Icon name="cornerUpLeft" size={12} /> Returned</Badge>
+    : <Badge tone="pending" dot>Pending</Badge>;
+
+  return (
+    <div className="stack">
+      <div className="program-hero">
+        <div><h1>Case History</h1><div className="program-hero-sub">{cases.filter(c => c.participantId === ME.id).length} cases logged in {MODULE_NAME}</div></div>
+        <Button variant="primary" icon="plus" onClick={onLog}>Log a Case</Button>
+      </div>
+      <div className="filter-row">
+        <span className="count">{list.length} case{list.length !== 1 ? 's' : ''}</span>
+        <div className="filter-group">
+          <select value={status} onChange={e => setStatus(e.target.value)}>
+            <option value="">All statuses</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="returned">Returned</option>
+          </select>
+          <select value={cat} onChange={e => setCat(e.target.value)}>
+            <option value="">All categories</option>
+            {CATEGORY_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
+      </div>
+      {!list.length ? <Empty icon="inbox">No cases match this filter.</Empty> : (
+        <div className="case-list">
+          {list.map(c => (
+            <div className="case-row" key={c.id}>
+              <div className="case-date tabnum">{c.date}</div>
+              <div className="case-info">
+                <div className="case-proc">{c.proc}</div>
+                <div className="case-meta">{catLabel(c.cat)} · {c.reviewer}</div>
+                {c.reviewComment && <div className="case-comment"><Icon name="cornerUpLeft" size={14} /><span>{c.reviewComment}</span></div>}
+              </div>
+              <div className="case-badges">
+                {badge(c)}
+                <Badge tone={c.scrub === 1 ? 'info' : 'outline'}>{c.scrub === 1 ? '1st' : '2nd'} scrub</Badge>
+                <div className="case-actions">
+                  {c.status !== 'approved' && <button className="icon-btn" title="Edit case" onClick={() => onEdit(c.id)}><Icon name="pencil" size={15} /></button>}
+                  <button className="icon-btn danger" title="Delete case" onClick={() => { if (confirm('Delete this case? This cannot be undone.')) { deleteCase(c.id); onEdit(null, true); } }}><Icon name="trash" size={15} /></button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ---------- Learner app (owns tab + sheet state) ---------- */
+function LearnerApp({ tweaks }) {
+  const [tab, setTab] = React.useState('home');
+  const [sheet, setSheet] = React.useState({ open: false, editId: null });
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
+
+  const tabs = [
+    { key: 'home', label: 'Home', icon: 'home' },
+    { key: 'program', label: 'My Program', icon: 'graduationCap' },
+    { key: 'history', label: 'History', icon: 'clock' },
+  ];
+  const openLog = (editId = null) => setSheet({ open: true, editId });
+
+  return (
+    <TabBarShell tabs={tabs} activeKey={tab} onNav={setTab} user={{ name: ME.name, role: 'Learner' }}>
+      {tab === 'home' && <LearnerHome onLog={() => openLog()} onEdit={(id) => openLog(id)} homeStyle={tweaks.learnerHome} onGoProgram={() => setTab('program')} />}
+      {tab === 'program' && <LearnerProgram />}
+      {tab === 'history' && <LearnerHistory onEdit={(id, justRefresh) => justRefresh ? refresh() : openLog(id)} onLog={() => openLog()} />}
+      <LogCaseSheet open={sheet.open} editId={sheet.editId} onClose={() => setSheet({ open: false, editId: null })} onSaved={() => { refresh(); setTab('home'); }} />
+    </TabBarShell>
+  );
+}
+
+Object.assign(window, { LearnerApp });
+
+
+/* reviewer.jsx */
+/* ============================================================
+   Reviewer (preceptor) experience — sidebar shell
+   Home · Needs Review · Assigned Participants · History
+   ============================================================ */
+
+const REVIEWER = { name: DEMO_REVIEWER, role: 'Preceptor' };
+
+/* ---------- Submission review slide-over ---------- */
+function SubmissionReview({ caseId, open, onClose, onDecided }) {
+  const c = caseId != null ? getCase(caseId) : null;
+  const [comment, setComment] = React.useState('');
+  React.useEffect(() => { if (open) setComment(c ? c.reviewComment || '' : ''); }, [open, caseId]);
+  if (!c) return null;
+  const p = PARTICIPANTS.find(x => x.id === c.participantId) || {};
+  const decide = (status) => { updateCase(c.id, { status, reviewComment: comment.trim() }); onDecided(); onClose(); };
+
+  return (
+    <Sheet open={open} onClose={onClose} width={580}
+      title="Submission Review" subtitle={`${c.participant} · ${MODULE_NAME}`}
+      footer={
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button variant="success" icon="check" onClick={() => decide('approved')}>Approve</Button>
+          <Button variant="danger-outline" icon="cornerUpLeft" onClick={() => decide('returned')}>Return for changes</Button>
+          <div style={{ flex: 1 }} />
+          <Button variant="ghost" onClick={onClose}>Close</Button>
+        </div>
+      }>
+      <div className="sr-top">
+        <Avatar name={c.participant} size={44} />
+        <div style={{ flex: 1 }}>
+          <div className="sr-name">{c.participant}</div>
+          <div className="sr-meta">{p.site} · {p.cohort}</div>
+        </div>
+        <Badge tone={c.scrub === 1 ? 'info' : 'outline'}>{c.scrub === 1 ? '1st' : '2nd'} scrub claimed</Badge>
+      </div>
+
+      <dl className="sr-facts">
+        <div><dt>Procedure</dt><dd>{c.proc}</dd></div>
+        <div><dt>Category</dt><dd>{catLabel(c.cat)}</dd></div>
+        <div><dt>Date</dt><dd className="tabnum">{c.date}</dd></div>
+      </dl>
+
+      <div className="sect-label" style={{ marginTop: 18 }}>1st scrub criteria — as claimed by learner</div>
+      <div className="criteria-list">
+        {CHECK_LABELS.map((label, i) => {
+          const ok = c.checks && c.checks[CHECKS[i]];
+          return <div className={`ci ${ok ? 'ci-ok' : 'ci-no'}`} key={i}><Icon name={ok ? 'check' : 'x'} size={15} /><span>{label}</span></div>;
+        })}
+      </div>
+      <div className={`scrub-verdict ${c.scrub === 1 ? 'verdict-1st' : 'verdict-2nd'}`} style={{ marginBottom: 0 }}>
+        <Icon name={c.scrub === 1 ? 'checkCircle' : 'alert'} size={16} />
+        <span>{c.scrub === 1 ? 'All five criteria met — qualifies as 1st scrub' : 'Not all criteria met — counts as 2nd scrub'}</span>
+      </div>
+
+      <div className="field" style={{ marginTop: 18, marginBottom: 0 }}>
+        <label>Comment for learner <span style={{ color: 'var(--slate)', fontWeight: 400 }}>(required when returning)</span></label>
+        <textarea value={comment} onChange={e => setComment(e.target.value)} placeholder="Feedback or reason for return. The learner sees this verbatim." />
+      </div>
+    </Sheet>
+  );
+}
+
+/* ---------- Reviewer metrics ---------- */
+function reviewerStats() {
+  const mine = cases.filter(c => c.reviewer === DEMO_REVIEWER);
+  const myParts = PARTICIPANTS.filter(p => (p.reviewers || []).includes(DEMO_REVIEWER));
+  return {
+    pending: mine.filter(c => c.status === 'pending'),
+    approved: mine.filter(c => c.status === 'approved'),
+    returned: mine.filter(c => c.status === 'returned'),
+    participants: myParts,
+  };
+}
+
+/* ---------- Home (combined: queue + assigned participants) ---------- */
+function ReviewerHome({ onOpenCase, onOpenParticipant }) {
+  const [showAll, setShowAll] = React.useState(false);
+  const r = reviewerStats();
+  const queue = [...r.pending].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const shown = showAll ? queue : queue.slice(0, 6);
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  return (
+    <div className="stack">
+      <div className="greeting">
+        <h1>{greeting}, {REVIEWER.name.split(' ')[0]}</h1>
+        <p>{queue.length} case{queue.length !== 1 ? 's' : ''} awaiting your review · {r.participants.length} assigned participants</p>
+      </div>
+
+      <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+        <div className="table-cap table-cap-flex"><h2>Needs Review</h2>{queue.length > 0 && <Badge tone="pending" dot>{queue.length} pending</Badge>}</div>
+        {queue.length === 0 ? <Empty icon="checkCircle">You're all caught up — no cases pending your review.</Empty> : (
+          <React.Fragment>
+            <table className="data">
+              <thead><tr><th>Participant</th><th>Procedure</th><th>Category</th><th>Date</th><th>Scrub claimed</th><th></th></tr></thead>
+              <tbody>
+                {shown.map(c => (
+                  <tr key={c.id} onClick={() => onOpenCase(c.id)}>
+                    <td><div className="cell-person"><Avatar name={c.participant} size={28} /><span>{c.participant}</span></div></td>
+                    <td>{c.proc}</td>
+                    <td>{catLabel(c.cat)}</td>
+                    <td className="tabnum">{c.date}</td>
+                    <td><Badge tone={c.scrub === 1 ? 'info' : 'outline'}>{c.scrub === 1 ? '1st scrub' : '2nd scrub'}</Badge></td>
+                    <td><Button variant="outline" size="sm">Review</Button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {queue.length > 6 && (
+              <button className="see-all-row" onClick={() => setShowAll(s => !s)}>
+                {showAll ? 'Show less' : `See all ${queue.length} cases`}<Icon name={showAll ? 'chevronUp' : 'chevronDown'} size={15} />
+              </button>
+            )}
+          </React.Fragment>
+        )}
+      </div>
+
+      <div>
+        <h2 className="sect-heading">Assigned Participants</h2>
+        <AssignedParticipants onOpenParticipant={onOpenParticipant} />
+      </div>
+    </div>
+  );
+}
+
+/* ---------- (Needs Review + Assigned Participants are now folded into Home) ---------- */
+
+/* ---------- Assigned Participants (assign / unassign learners) ---------- */
+function AssignLearnerSheet({ open, onClose, assignable, onAssign }) {
+  const [q, setQ] = React.useState('');
+  React.useEffect(() => { if (open) setQ(''); }, [open]);
+  const list = q ? assignable.filter(p => p.name.toLowerCase().includes(q.toLowerCase())) : assignable;
+  return (
+    <Sheet open={open} onClose={onClose} width={520} title="Assign a learner" subtitle="Add a learner in this program to your caseload"
+      footer={<div style={{ display: 'flex', justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Done</Button></div>}>
+      <div className="search-box" style={{ marginBottom: 14 }}><Icon name="search" size={15} /><input placeholder="Search learners" value={q} onChange={e => setQ(e.target.value)} /></div>
+      {!list.length ? <Empty icon="userCheck">No other learners to assign.</Empty> : (
+        <div className="case-list">
+          {list.map(p => (
+            <div className="case-row" key={p.id} style={{ alignItems: 'center' }}>
+              <div className="cell-person" style={{ flex: 1 }}><Avatar name={p.name} size={30} /><div><div className="case-proc">{p.name}</div><div className="case-meta">{p.site}{p.reviewer ? ` · currently ${p.reviewer}` : ' · unassigned'}</div></div></div>
+              <Button variant="outline" size="sm" icon="plus" onClick={() => onAssign(p.id)}>Assign</Button>
+            </div>
+          ))}
+        </div>
+      )}
+    </Sheet>
+  );
+}
+
+function AssignedParticipants({ onOpenParticipant }) {
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
+  const [managing, setManaging] = React.useState(false);
+  const inProgram = participantsFor(SURG_PROGRAM_ID);
+  const mine = inProgram.filter(p => (p.reviewers || []).includes(DEMO_REVIEWER));
+  const menuItems = (p) => [
+    { label: 'View report', icon: 'eye', onClick: () => onOpenParticipant(p.id) },
+    { type: 'divider' },
+    { label: 'Unassign from me', icon: 'x', danger: true, onClick: () => { setParticipantReviewers(p.id, (p.reviewers || []).filter(x => x !== DEMO_REVIEWER)); refresh(); } },
+  ];
+  const saveManaged = (ids) => {
+    inProgram.forEach(p => {
+      const sel = ids.includes(p.id), has = (p.reviewers || []).includes(DEMO_REVIEWER);
+      if (sel && !has) setParticipantReviewers(p.id, [...(p.reviewers || []), DEMO_REVIEWER]);
+      else if (!sel && has) setParticipantReviewers(p.id, (p.reviewers || []).filter(x => x !== DEMO_REVIEWER));
+    });
+    refresh();
+  };
+  return (
+    <div className="stack">
+      <div className="filter-row">
+        <span className="count">{mine.length} assigned to you</span>
+        <Button variant="outline" size="sm" icon="userCheck" onClick={() => setManaging(true)}>Manage learners</Button>
+      </div>
+      {!mine.length ? <Empty icon="userCheck">No learners assigned to you yet. Use “Manage learners” to add some.</Empty> : (
+        <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+          <table className="data">
+            <thead><tr><th>Participant</th><th>Site</th><th>Approved</th><th>Pending</th><th>Readiness</th><th></th></tr></thead>
+            <tbody>
+              {mine.map(p => {
+                const s = statsFor(p.id);
+                return (
+                  <tr key={p.id} onClick={() => onOpenParticipant(p.id)}>
+                    <td><div className="cell-person"><Avatar name={p.name} size={28} /><span>{p.name}</span></div></td>
+                    <td>{p.site}</td>
+                    <td className="tabnum">{s.total}</td>
+                    <td>{s.pendingCount > 0 ? <Badge tone="pending" dot>{s.pendingCount}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
+                    <td><div className="mini-prog"><div className="mini-track"><div className="mini-fill" style={{ width: `${s.readiness}%` }} /></div><span className="tabnum">{s.readiness}%</span></div></td>
+                    <td style={{ textAlign: 'right' }}><RowMenu items={menuItems(p)} /></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+      <ManagePicker open={managing} title={`Manage learners for ${DEMO_REVIEWER}`} subtitle="Learners assigned to you for case review." placeholder="Type a learner name…"
+        assigned={mine.map(p => p.id)} options={inProgram.map(p => ({ value: p.id, label: p.name }))} onSave={saveManaged} onClose={() => setManaging(false)} />
+    </div>
+  );
+}
+
+/* ---------- Participant report (reviewer drill-in) ---------- */
+function ParticipantReport({ participantId, onBack }) {
+  const p = PARTICIPANTS.find(x => x.id === participantId);
+  const s = statsFor(participantId);
+  return (
+    <div className="stack">
+      <div className="program-hero">
+        <div className="sr-top" style={{ marginBottom: 0 }}>
+          <Avatar name={p.name} size={44} />
+          <div><h1 style={{ fontSize: 22 }}>{p.name}</h1><div className="program-hero-sub">{p.site} · {(p.reviewers && p.reviewers.length) ? `Preceptor${p.reviewers.length > 1 ? 's' : ''}: ${p.reviewers.join(', ')}` : 'No preceptor assigned'}</div></div>
+        </div>
+        <div className="md-readiness tabnum">{s.readiness}%<span>ready</span></div>
+      </div>
+      <div className="card-ui">
+        <div className="sect-label">Progress toward certification</div>
+        <ProgressBars s={s} />
+      </div>
+      <SectionCTable participantId={participantId} />
+    </div>
+  );
+}
+
+/* ---------- History ---------- */
+function ReviewerHistory() {
+  const [status, setStatus] = React.useState('');
+  const r = reviewerStats();
+  let list = [...r.approved, ...r.returned];
+  if (status) list = list.filter(c => c.status === status);
+  list = list.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return (
+    <div className="stack">
+      <div className="filter-row">
+        <span className="count">{list.length} reviewed case{list.length !== 1 ? 's' : ''}</span>
+        <div className="filter-group">
+          <select value={status} onChange={e => setStatus(e.target.value)}>
+            <option value="">All decisions</option><option value="approved">Approved</option><option value="returned">Returned</option>
+          </select>
+        </div>
+      </div>
+      <div className="case-list">
+        {list.map(c => (
+          <div className="case-row" key={c.id}>
+            <div className="case-date tabnum">{c.date}</div>
+            <div className="case-info">
+              <div className="case-proc">{c.proc}</div>
+              <div className="case-meta">{c.participant} · {catLabel(c.cat)}</div>
+              {c.reviewComment && <div className="case-comment"><Icon name="cornerUpLeft" size={14} /><span>{c.reviewComment}</span></div>}
+            </div>
+            <div className="case-badges">
+              {c.status === 'approved' ? <Badge tone="success"><Icon name="check" size={12} /> Approved</Badge> : <Badge tone="error"><Icon name="cornerUpLeft" size={12} /> Returned</Badge>}
+              <Badge tone={c.scrub === 1 ? 'info' : 'outline'}>{c.scrub === 1 ? '1st' : '2nd'} scrub</Badge>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Reviewer app ---------- */
+function ReviewerApp({ tweaks }) {
+  const [key, setKey] = React.useState('home');
+  const [drill, setDrill] = React.useState(null); // participantId
+  const [reviewCase, setReviewCase] = React.useState(null);
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
+  const r = reviewerStats();
+
+  const menuGroups = [{
+    label: 'Preceptor Menu', items: [
+      { key: 'home', icon: 'home', label: 'Home', badge: r.pending.length },
+      { key: 'history', icon: 'history', label: 'History' },
+    ],
+  }];
+  const secondary = [];
+
+  const titles = { home: 'Home', history: 'History' };
+  const crumbsMap = {
+    home: drill ? ['Preceptor', 'Home', (PARTICIPANTS.find(p => p.id === drill) || {}).name] : ['Preceptor', 'Home'],
+    history: ['Preceptor', 'History'],
+  };
+  const right = key === 'home' && drill ? <Button variant="ghost" icon="chevronLeft" onClick={() => setDrill(null)}>Back</Button> : null;
+
+  const onNav = (k) => { setKey(k); setDrill(null); };
+
+  return (
+    <SidebarShell menuGroups={menuGroups} secondary={secondary} activeKey={key} onNav={onNav}
+      user={REVIEWER} title={key === 'home' && drill ? (PARTICIPANTS.find(p => p.id === drill) || {}).name : titles[key]} crumbs={crumbsMap[key]} right={right}>
+      {key === 'home' && !drill && <ReviewerHome onOpenCase={setReviewCase} onOpenParticipant={setDrill} />}
+      {key === 'home' && drill && <ParticipantReport participantId={drill} onBack={() => setDrill(null)} />}
+      {key === 'history' && <ReviewerHistory />}
+      <SubmissionReview open={reviewCase != null} caseId={reviewCase} onClose={() => setReviewCase(null)} onDecided={refresh} />
+    </SidebarShell>
+  );
+}
+
+Object.assign(window, { ReviewerApp, ParticipantReport });
+
+
+/* admin.jsx */
+/* ============================================================
+   Program Manager (admin) experience — sidebar shell
+   Programs · People  (standalone surgical-tech build)
+   ============================================================ */
+
+const ADMIN = { name: 'Avery Chen', role: 'Program Manager' };
+
+function adminAgg() {
+  const perP = PARTICIPANTS.map(p => ({ p, s: statsFor(p.id) }));
+  const totalPending = cases.filter(c => c.status === 'pending').length;
+  const avgReadiness = Math.round(perP.reduce((a, x) => a + x.s.readiness, 0) / perP.length);
+  return { perP, totalPending, avgReadiness };
+}
+
+// The one real, data-backed program. New programs created in the prototype
+// start empty and carry the same standardized NCCT module.
+const SURGICAL_PROGRAM = { id: 'prog-surg', name: 'Surgical Technology', type: 'RAP', status: 'Active', real: true, desc: 'Registered apprenticeship preparing surgical technologists for NCCT TS-C certification.' };
+
+/* ---------- People roster (global: participants + preceptors + managers) ---------- */
+function PersonDetail({ person, programs, onBack }) {
+  const progNames = person.programIds.map(id => (programs.find(p => p.id === id) || {}).name).filter(Boolean);
+  const learners = person.kind === 'preceptor' ? PARTICIPANTS.filter(p => !p.archived && (p.reviewers || []).includes(person.name)) : [];
+  return (
+    <div className="stack">
+      <button className="link-btn back-link" onClick={onBack}><Icon name="chevronLeft" size={15} /> Back to people</button>
+      <div className="program-hero">
+        <div className="sr-top" style={{ marginBottom: 0 }}>
+          <Avatar name={person.name} size={44} />
+          <div><h1 style={{ fontSize: 22 }}>{person.name}</h1><div className="program-hero-sub">{person.role}</div></div>
+        </div>
+        <Badge tone={person.role === 'Participant' ? 'info' : person.role === 'Preceptor' ? 'success' : 'pending'} dot>{person.role}</Badge>
+      </div>
+      <div className="card-ui">
+        <div className="sect-label">Programs</div>
+        {progNames.length ? <div className="cell-chips">{progNames.map(n => <span className="cell-chip" key={n}>{n}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>Not assigned to any program</span>}
+      </div>
+      {person.kind === 'preceptor' && (
+        <div className="card-ui">
+          <div className="sect-label">Assigned learners ({learners.length})</div>
+          {learners.length ? <div className="cell-chips">{learners.map(l => <span className="cell-chip" key={l.id}>{l.name}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>No learners assigned</span>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PeopleRoster({ programs }) {
+  const [q, setQ] = React.useState('');
+  const [roleF, setRoleF] = React.useState('');
+  const [showArchived, setShowArchived] = React.useState(false);
+  const [pid, setPid] = React.useState(null);     // participant report
+  const [detail, setDetail] = React.useState(null); // preceptor/manager detail
+  const [picker, setPicker] = React.useState(null);
+  const [adding, setAdding] = React.useState(false);
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
+
+  if (pid) return (
+    <div className="stack">
+      <button className="link-btn back-link" onClick={() => setPid(null)}><Icon name="chevronLeft" size={15} /> Back to people</button>
+      <ParticipantReport participantId={pid} onBack={() => setPid(null)} />
+    </div>
+  );
+  if (detail) return <PersonDetail person={detail} programs={programs} onBack={() => setDetail(null)} />;
+
+  let rows = getPeople({ includeArchived: showArchived });
+  if (roleF) rows = rows.filter(r => r.role === roleF);
+  if (q) rows = rows.filter(r => r.name.toLowerCase().includes(q.toLowerCase()));
+
+  const progName = (id) => (programs.find(p => p.id === id) || {}).name || '—';
+  const openPrograms = (r) => setPicker({
+    title: `Assign programs for ${r.name}`,
+    subtitle: `${r.role} · pick the programs this person belongs to.`,
+    assigned: r.programIds.slice(),
+    options: programs.map(p => ({ value: p.id, label: p.name })),
+    placeholder: 'Type a program name…',
+    onSave: (ids) => { setPersonPrograms(r.kind, r.id, ids); refresh(); },
+  });
+  const menuItems = (r) => [
+    { label: 'View details', icon: 'eye', onClick: () => r.kind === 'participant' ? setPid(r.id) : setDetail(r) },
+    { label: 'Assign / unassign program', icon: 'graduationCap', onClick: () => openPrograms(r) },
+    { type: 'divider' },
+    r.archived
+      ? { label: 'Restore', icon: 'history', onClick: () => { archivePerson(r.kind, r.id, false); refresh(); } }
+      : { label: 'Archive', icon: 'trash', danger: true, disabled: r.me, onClick: () => { archivePerson(r.kind, r.id, true); refresh(); } },
+  ];
+  const roleTone = (role) => role === 'Participant' ? 'info' : role === 'Preceptor' ? 'success' : 'pending';
+
+  return (
+    <React.Fragment>
+      <div className="filter-row">
+        <span className="count">{rows.length} {rows.length === 1 ? 'person' : 'people'}</span>
+        <div className="filter-group" style={{ alignItems: 'center' }}>
+          <select value={roleF} onChange={e => setRoleF(e.target.value)}>
+            <option value="">All roles</option>
+            <option value="Participant">Participants</option>
+            <option value="Preceptor">Preceptors</option>
+            <option value="Program Manager">Program Managers</option>
+          </select>
+          <label className="pf-toggle"><input type="checkbox" checked={showArchived} onChange={e => setShowArchived(e.target.checked)} style={{ accentColor: 'var(--accent)' }} /> Show archived</label>
+          <div className="search-box"><Icon name="search" size={15} /><input placeholder="Search people" value={q} onChange={e => setQ(e.target.value)} /></div>
+          <button className="link-btn" style={{ whiteSpace: 'nowrap' }} onClick={() => setAdding(true)}><Icon name="plus" size={14} /> Add people</button>
+        </div>
+      </div>
+      <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+        <table className="data data-static">
+          <thead><tr><th>Name</th><th>Role</th><th>Programs</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            {rows.map(r => (
+              <tr key={r.kind + r.id} className={r.archived ? 'row-archived' : ''}>
+                <td><div className="cell-person"><Avatar name={r.name} size={28} /><span>{r.name}{r.me && <span className="you-tag">You</span>}</span></div></td>
+                <td><Badge tone={roleTone(r.role)} dot>{r.role}</Badge></td>
+                <td>{r.programIds.length ? <div className="cell-chips">{r.programIds.map(id => <span className="cell-chip" key={id}>{progName(id)}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>Unassigned</span>}</td>
+                <td>{r.archived ? <span style={{ color: 'var(--slate)' }}>Archived</span> : <Badge tone="success" dot>Active</Badge>}</td>
+                <td style={{ textAlign: 'right' }}><RowMenu items={menuItems(r)} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ManagePicker open={!!picker} {...(picker || {})} onClose={() => setPicker(null)} />
+      <AddPersonSheet open={adding} onClose={() => setAdding(false)} onSaved={refresh} programs={programs} />
+    </React.Fragment>
+  );
+}
+
+/* ---------- Programs list ---------- */
+function ProgramCard({ p, onOpen }) {
+  const rows = participantsFor(p.id).map(x => statsFor(x.id));
+  const avg = rows.length ? Math.round(rows.reduce((sum, s) => sum + s.readiness, 0) / rows.length) : 0;
+  const m = { active: rows.length, atRisk: rows.filter(s => s.readiness < 70).length, completed: rows.filter(s => s.readiness >= 100).length, completion: avg };
+  return (
+    <div className="program-card clickable" onClick={() => onOpen(p)}>
+      <div className="pc-badges">
+        <Badge tone={p.status === 'Active' ? 'success' : 'neutral'}>{p.status}</Badge>
+      </div>
+      <h3 className="pc-name">{p.name}</h3>
+      <p className="pc-desc">{p.desc}</p>
+      <div className="pc-meta">
+        <span className="pc-meta-item"><Icon name="users" size={15} /><span>{`${m.active} Active Learners`}</span></span>
+        <span className="pc-meta-item"><Icon name="alert" size={15} /><span>{`${m.atRisk} At Risk Learners`}</span></span>
+        <span className="pc-meta-item"><Icon name="checkCircle" size={15} /><span>{`${m.completed} Completed Learners`}</span></span>
+        <span className="pc-meta-item"><Icon name="pieChart" size={15} /><span>{`${m.completion}% Completion Rate`}</span></span>
+      </div>
+    </div>
+  );
+}
+
+function ProgramsList({ programs, onOpen, onCreate }) {
+  const [q, setQ] = React.useState('');
+  const progs = q ? programs.filter(p => p.name.toLowerCase().includes(q.toLowerCase())) : programs;
+  return (
+    <div className="card-ui programs-wrap">
+      <div className="programs-filter">
+        <div className="search-box programs-search"><Icon name="search" size={15} /><input placeholder="Search programs..." value={q} onChange={e => setQ(e.target.value)} /></div>
+        <button className="link-btn" style={{ whiteSpace: 'nowrap' }} onClick={onCreate}><Icon name="plus" size={14} /> Create new program</button>
+      </div>
+      <div className="programs-grid">
+        {progs.map(p => <ProgramCard key={p.id} p={p} onOpen={onOpen} />)}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Add person (global People table: name + role + program) ---------- */
+function AddPersonSheet({ open, onClose, onSaved, programs }) {
+  const [name, setName] = React.useState('');
+  const [role, setRole] = React.useState('Participant');
+  const [programId, setProgramId] = React.useState('');
+  const [site, setSite] = React.useState('');
+  React.useEffect(() => { if (open) { setName(''); setRole('Participant'); setProgramId(programs[0] ? programs[0].id : ''); setSite(''); } }, [open]);
+  const submit = () => {
+    if (!name.trim()) return;
+    if (role === 'Participant') addParticipant({ name, site, reviewers: [], programId });
+    else if (role === 'Preceptor') addReviewer(name, programId);
+    else addManager(name, programId);
+    onSaved(); onClose();
+  };
+  const ROLES = [
+    { v: 'Participant', label: 'Participant', desc: 'A learner who logs cases toward certification.', icon: 'graduationCap' },
+    { v: 'Preceptor', label: 'Preceptor', desc: 'Reviews and approves a learner’s case submissions.', icon: 'clipboardCheck' },
+    { v: 'Program Manager', label: 'Program Manager', desc: 'Oversees programs, people, and module targets.', icon: 'briefcase' },
+  ];
+  return (
+    <Sheet open={open} onClose={onClose} width={540} title="Add a Person" subtitle="Add someone and assign their role and program"
+      footer={<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="primary" icon="check" disabled={!name.trim()} onClick={submit}>Add person</Button></div>}>
+      <div className="field"><label>Full name <span className="req-star">*</span></label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Taylor Brooks" /></div>
+      <div className="field">
+        <label>Role <span className="req-star">*</span></label>
+        <div className="role-cards">
+          {ROLES.map(r => (
+            <button type="button" key={r.v} className={`role-card ${role === r.v ? 'sel' : ''}`} onClick={() => setRole(r.v)}>
+              <span className="rc-ico"><Icon name={r.icon} size={18} /></span>
+              <span className="rc-text"><span className="rc-name">{r.label}</span><span className="rc-desc">{r.desc}</span></span>
+              <span className="rc-radio">{role === r.v && <span className="rc-dot" />}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="field" style={{ marginBottom: role === 'Participant' ? 16 : 0 }}>
+        <label>Program{role === 'Participant' ? ' ' : ' '}<span className="req-star">*</span></label>
+        <select value={programId} onChange={e => setProgramId(e.target.value)}>
+          {!programs.length && <option value="">No programs yet</option>}
+          {programs.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+        </select>
+      </div>
+      {role === 'Participant' && (
+        <div className="field" style={{ marginBottom: 0 }}><label>Clinical site</label><input type="text" value={site} onChange={e => setSite(e.target.value)} placeholder="e.g. Mercy General Hospital" /></div>
+      )}
+    </Sheet>
+  );
+}
+
+/* ---------- Create program slide-over (NCCT module is the only module) ---------- */
+function CreateProgramSheet({ open, onClose, onCreate }) {
+  const [name, setName] = React.useState('');
+  React.useEffect(() => { if (open) { setName(''); } }, [open]);
+  const submit = () => {
+    if (!name.trim()) return;
+    onCreate({ id: 'prog-' + Date.now(), name: name.trim(), type: 'RAP', status: 'Active', real: false, desc: 'Surgical technology apprenticeship tracking the NCCT TS-C Surgical Case Log.' });
+    onClose();
+  };
+  return (
+    <Sheet open={open} onClose={onClose} width={520} title="Create a Program" subtitle="Standalone surgical-tech program"
+      footer={<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="primary" icon="check" disabled={!name.trim()} onClick={submit}>Create program</Button></div>}>
+      <div className="field"><label>Program name <span className="req-star">*</span></label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Surgical Technology — Valley Regional" /></div>
+      <div className="module-row" style={{ marginTop: 4 }}>
+        <div className="module-id"><span className="module-ico"><Icon name="stethoscope" size={18} /></span><div><div className="md-name">{MODULE_NAME} <span className="ms-inline-badge"><Icon name="shield" size={11} /> NCCT structured</span></div><div className="md-sub">Added automatically — the standardized NCCT TS-C case module.</div></div></div>
+      </div>
+      <p className="hint">Every surgical-tech program tracks the same NCCT TS-C Surgical Case Log. You can adjust its targets from the program's Module tab after creating.</p>
+    </Sheet>
+  );
+}
+
+/* ---------- Program detail (tabs: Participants · Preceptors · Module) ---------- */
+function ProgramParticipants({ program, onOpenParticipant, onRefresh }) {
+  const [picker, setPicker] = React.useState(null);
+  const rows = participantsFor(program.id).map(p => ({ p, s: statsFor(p.id) }));
+  if (!rows.length) return <Empty icon="users">No participants enrolled yet. Use “Add participant” to enroll learners into this program.</Empty>;
+  const openManage = (p) => setPicker({
+    title: `Manage preceptors for ${p.name}`,
+    subtitle: 'Assigned preceptors can review this learner’s cases.',
+    assigned: (p.reviewers || []),
+    options: preceptorsFor(program.id).map(n => ({ value: n, label: n })),
+    placeholder: 'Type a preceptor name…',
+    onSave: (names) => { setParticipantReviewers(p.id, names); onRefresh(); },
+  });
+  const menuItems = (p) => [
+    { label: 'View details', icon: 'eye', onClick: () => onOpenParticipant(p.id) },
+    { type: 'divider' },
+    { label: 'Manage preceptors', icon: 'userCheck', onClick: () => openManage(p) },
+  ];
+  return (
+    <React.Fragment>
+      <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+        <table className="data">
+          <thead><tr><th>Name</th><th>Preceptors</th><th>Approved</th><th>Pending</th><th>Readiness</th><th></th></tr></thead>
+          <tbody>
+            {rows.map(({ p, s }) => (
+              <tr key={p.id} onClick={() => onOpenParticipant(p.id)}>
+                <td><div className="cell-person"><Avatar name={p.name} size={28} /><span>{p.name}{p.me && <span className="you-tag">You</span>}</span></div></td>
+                <td>{(p.reviewers && p.reviewers.length) ? <div className="cell-chips">{p.reviewers.map(r => <span className="cell-chip" key={r}>{r}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>Unassigned</span>}</td>
+                <td className="tabnum">{s.total}</td>
+                <td>{s.pendingCount > 0 ? <Badge tone="pending" dot>{s.pendingCount}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
+                <td><div className="mini-prog"><div className="mini-track"><div className="mini-fill" style={{ width: `${s.readiness}%` }} /></div><span className="tabnum">{s.readiness}%</span></div></td>
+                <td style={{ textAlign: 'right' }}><RowMenu items={menuItems(p)} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ManagePicker open={!!picker} {...(picker || {})} onClose={() => setPicker(null)} />
+    </React.Fragment>
+  );
+}
+
+function ProgramReviewers({ program, onRefresh }) {
+  const [picker, setPicker] = React.useState(null);
+  const names = preceptorsFor(program.id);
+  if (!names.length) return <Empty icon="userCheck">No preceptors yet. Use “Add preceptor” to add one to this program.</Empty>;
+  const inProgram = participantsFor(program.id);
+  const openManage = (name) => setPicker({
+    title: `Manage learners for ${name}`,
+    subtitle: 'Learners assigned to this preceptor for case review.',
+    assigned: inProgram.filter(p => (p.reviewers || []).includes(name)).map(p => p.id),
+    options: inProgram.map(p => ({ value: p.id, label: p.name })),
+    placeholder: 'Type a learner name…',
+    onSave: (ids) => {
+      inProgram.forEach(p => {
+        const sel = ids.includes(p.id), has = (p.reviewers || []).includes(name);
+        if (sel && !has) setParticipantReviewers(p.id, [...(p.reviewers || []), name]);
+        else if (!sel && has) setParticipantReviewers(p.id, (p.reviewers || []).filter(x => x !== name));
+      });
+      onRefresh();
+    },
+  });
+  return (
+    <React.Fragment>
+      <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+        <table className="data data-static">
+          <thead><tr><th>Preceptor</th><th>Assigned participants</th><th>Pending reviews</th><th></th></tr></thead>
+          <tbody>
+            {names.map(r => {
+              const assigned = inProgram.filter(p => (p.reviewers || []).includes(r)).length;
+              const pending = cases.filter(c => c.reviewer === r && c.status === 'pending').length;
+              return (
+                <tr key={r}>
+                  <td><div className="cell-person"><Avatar name={r} size={28} /><span>{r}</span></div></td>
+                  <td className="tabnum">{assigned}</td>
+                  <td>{pending > 0 ? <Badge tone="pending" dot>{pending}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
+                  <td style={{ textAlign: 'right' }}><RowMenu items={[{ label: 'Manage learners', icon: 'users', onClick: () => openManage(r) }]} /></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <ManagePicker open={!!picker} {...(picker || {})} onClose={() => setPicker(null)} />
+    </React.Fragment>
+  );
+}
+
+/* ---------- Add participant / preceptor slide-overs ---------- */
+function AddParticipantSheet({ open, onClose, onSaved, program }) {
+  const preceptors = preceptorsFor(program.id);
+  const [name, setName] = React.useState('');
+  const [site, setSite] = React.useState('');
+  const [reviewer, setReviewer] = React.useState('');
+  React.useEffect(() => { if (open) { setName(''); setSite(''); setReviewer(preceptors[0] || ''); } }, [open]);
+  const submit = () => { if (!name.trim()) return; addParticipant({ name, site, reviewer, programId: program.id }); onSaved(); onClose(); };
+  return (
+    <Sheet open={open} onClose={onClose} width={520} title="Add participant" subtitle={`Enroll a learner in ${program.name}`}
+      footer={<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="primary" icon="check" disabled={!name.trim()} onClick={submit}>Add participant</Button></div>}>
+      <div className="field"><label>Full name <span className="req-star">*</span></label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Taylor Brooks" /></div>
+      <div className="field"><label>Clinical site</label><input type="text" value={site} onChange={e => setSite(e.target.value)} placeholder="e.g. Mercy General Hospital" /></div>
+      <div className="field" style={{ marginBottom: 0 }}><label>Assigned preceptor</label><select value={reviewer} onChange={e => setReviewer(e.target.value)}><option value="">{preceptors.length ? 'Select preceptor' : 'No preceptors yet — add one first'}</option>{preceptors.map(r => <option key={r} value={r}>{r}</option>)}</select></div>
+      <p className="hint">The learner starts at 0% and logs cases against the NCCT Surgical Case Log module.</p>
+    </Sheet>
+  );
+}
+
+function AddPreceptorSheet({ open, onClose, onSaved, program }) {
+  const [name, setName] = React.useState('');
+  React.useEffect(() => { if (open) setName(''); }, [open]);
+  const submit = () => { if (!name.trim()) return; addReviewer(name, program.id); onSaved(); onClose(); };
+  return (
+    <Sheet open={open} onClose={onClose} width={480} title="Add preceptor" subtitle={`Add a preceptor to ${program.name}`}
+      footer={<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="primary" icon="check" disabled={!name.trim()} onClick={submit}>Add preceptor</Button></div>}>
+      <div className="field" style={{ marginBottom: 0 }}><label>Preceptor name <span className="req-star">*</span></label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Dr. Lena Park" /></div>
+      <p className="hint">Preceptors can review case submissions and be assigned to participants.</p>
+    </Sheet>
+  );
+}
+
+function ProgramDetail({ program, onBack }) {
+  const [tab, setTab] = React.useState('participants');
+  const [pid, setPid] = React.useState(null);
+  const [addP, setAddP] = React.useState(false);
+  const [addR, setAddR] = React.useState(false);
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
+  const pendingTotal = program.real ? cases.filter(c => c.status === 'pending').length : 0;
+
+  if (pid) return (
+    <div className="stack">
+      <button className="link-btn back-link" onClick={() => setPid(null)}><Icon name="chevronLeft" size={15} /> Back to participants</button>
+      <ParticipantReport participantId={pid} onBack={() => setPid(null)} />
+    </div>
+  );
+
+  const tabs = [
+    { k: 'participants', l: 'Participants', dot: pendingTotal > 0 },
+    { k: 'preceptors', l: 'Preceptors' },
+    { k: 'module', l: 'Module' },
+  ];
+  return (
+    <div className="stack">
+      <button className="link-btn back-link" onClick={onBack}><Icon name="chevronLeft" size={15} /> Back to programs</button>
+      <div className="subtabs pd-tabs">
+        {tabs.map(t => (
+          <button key={t.k} className={`subtab ${tab === t.k ? 'active' : ''}`} onClick={() => setTab(t.k)}>
+            {t.l}{t.dot && <span className="tab-dot" />}
+          </button>
+        ))}
+        {tab === 'participants' && <button className="link-btn" style={{ marginLeft: 'auto' }} onClick={() => setAddP(true)}><Icon name="plus" size={14} /> Add participant</button>}
+        {tab === 'preceptors' && <button className="link-btn" style={{ marginLeft: 'auto' }} onClick={() => setAddR(true)}><Icon name="plus" size={14} /> Add preceptor</button>}
+      </div>
+      {tab === 'participants' && <ProgramParticipants program={program} onOpenParticipant={setPid} onRefresh={refresh} />}
+      {tab === 'preceptors' && <ProgramReviewers program={program} onRefresh={refresh} />}
+      {tab === 'module' && (
+        <div className="stack">
+          <div className="md-edit-head">
+            <div className="module-id"><span className="module-ico"><Icon name="stethoscope" size={18} /></span><div><div className="module-kicker">Module</div><h2>{MODULE_NAME}</h2></div></div>
+            <span className="ms-structured"><Icon name="shield" size={14} /> Structured · NCCT TS-C</span>
+          </div>
+          <ModuleTargetsEditor note={true} />
+        </div>
+      )}
+      <AddParticipantSheet open={addP} onClose={() => setAddP(false)} onSaved={refresh} program={program} />
+      <AddPreceptorSheet open={addR} onClose={() => setAddR(false)} onSaved={refresh} program={program} />
+    </div>
+  );
+}
+
+/* ---------- Admin app ---------- */
+function AdminApp({ tweaks }) {
+  const [key, setKey] = React.useState('programs');
+  const [programs, setPrograms] = React.useState([SURGICAL_PROGRAM]);
+  const [open, setOpen] = React.useState(null); // open program object
+  const [creating, setCreating] = React.useState(false);
+
+  const menuGroups = [{
+    label: 'Program Manager Menu', items: [
+      { key: 'programs', icon: 'graduationCap', label: 'Programs' },
+      { key: 'people', icon: 'users', label: 'People' },
+    ],
+  }];
+  const secondary = [];
+
+  const titles = { people: 'People', programs: open ? open.name : 'Programs' };
+  const crumbsMap = {
+    people: ['Program Manager', 'People'],
+    programs: open ? ['Program Manager', 'Programs', open.name] : ['Program Manager', 'Programs'],
+  };
+  const right = null;
+
+  const onNav = (k) => { setKey(k); setOpen(null); };
+  const createProgram = (p) => { setPrograms(list => [...list, p]); setOpen(p); };
+
+  return (
+    <SidebarShell menuGroups={menuGroups} secondary={secondary} activeKey={key} onNav={onNav}
+      user={ADMIN} title={titles[key]} crumbs={crumbsMap[key]} right={right}>
+      {key === 'people' && <PeopleRoster programs={programs} />}
+      {key === 'programs' && !open && <ProgramsList programs={programs} onOpen={setOpen} onCreate={() => setCreating(true)} />}
+      {key === 'programs' && open && <ProgramDetail program={open} onBack={() => setOpen(null)} />}
+      <CreateProgramSheet open={creating} onClose={() => setCreating(false)} onCreate={createProgram} />
+    </SidebarShell>
+  );
+}
+
+Object.assign(window, { AdminApp });
+
+
+/* app.jsx */
+/* ============================================================
+   Root app — role routing, demo switcher, tweaks
+   ============================================================ */
+
+const ACCENTS = {
+  blue:    { c: '#0070f0', d: '#004696', l: '#e8f2ff' },
+  navy:    { c: '#002855', d: '#001a3a', l: '#f2f8fe' },
+  sky:     { c: '#1f8fd4', d: '#16689c', l: '#e7f5fd' },
+  success: { c: '#06764d', d: '#055c3c', l: '#e5fdcf' },
+};
+
+function applyAccent(key) {
+  const a = ACCENTS[key] || ACCENTS.blue;
+  const r = document.documentElement.style;
+  r.setProperty('--accent', a.c); r.setProperty('--accent-dark', a.d); r.setProperty('--accent-light', a.l);
+}
+
+function TweaksPanel({ tweaks, setTweaks }) {
+  const [on, setOn] = React.useState(false);
+  React.useEffect(() => {
+    const handler = (e) => {
+      const d = e.data || {};
+      if (d.type === 'tweaks-visibility' || d.type === 'tweaksVisibility' || d.type === 'tweaks') {
+        setOn(!!(d.visible !== undefined ? d.visible : d.show));
+      }
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  const set = (patch) => setTweaks(t => ({ ...t, ...patch }));
+
+  return (
+    <div className={`tweaks-panel ${on ? 'on' : ''}`}>
+      <div className="tp-title">Tweaks</div>
+      <div className="tp-group">
+        <div className="tp-label">Accent color</div>
+        <div className="tp-swatches">
+          {Object.entries(ACCENTS).map(([k, v]) => (
+            <div key={k} className={`tp-sw ${tweaks.accent === k ? 'sel' : ''}`} style={{ background: v.c }} title={k} onClick={() => set({ accent: k })} />
+          ))}
+        </div>
+      </div>
+      <div className="tp-group">
+        <div className="tp-label">Density</div>
+        <div className="tp-seg">
+          {['comfortable', 'compact'].map(d => (
+            <button key={d} className={tweaks.density === d ? 'sel' : ''} onClick={() => set({ density: d })}>{d[0].toUpperCase() + d.slice(1)}</button>
+          ))}
+        </div>
+      </div>
+      <div className="tp-group">
+        <div className="tp-label">Learner home layout</div>
+        <div className="tp-seg">
+          {[['hero', 'Hero'], ['tiles', 'Stat tiles']].map(([k, l]) => (
+            <button key={k} className={tweaks.learnerHome === k ? 'sel' : ''} onClick={() => set({ learnerHome: k })}>{l}</button>
+          ))}
+        </div>
+        <div className="tp-hint">Switch to the Learner role to compare.</div>
+      </div>
+      <div className="tp-group">
+        <div className="tp-label">Prototype notice</div>
+        <div className="tp-seg">
+          {[['show', 'Show'], ['hide', 'Hide']].map(([k, l]) => (
+            <button key={k} className={(tweaks.pocBanner !== false ? 'show' : 'hide') === k ? 'sel' : ''} onClick={() => set({ pocBanner: k === 'show' })}>{l}</button>
+          ))}
+        </div>
+        <div className="tp-hint">Banner across the top of every view.</div>
+      </div>
+      <div className="tp-group" style={{ marginBottom: 0 }}>
+        <button className="tp-reset" onClick={() => { resetData(); location.reload(); }}>Reset demo data</button>
+      </div>
+    </div>
+  );
+}
+
+function PocBanner({ show, primary, secondary }) {
+  if (!show) return null;
+  return (
+    <div className="poc-banner" role="note">
+      <Icon name="alert" size={14} />
+      <span className="poc-strong">{primary}</span>
+      <span className="poc-dot" />
+      <span className="poc-soft">{secondary}</span>
+    </div>
+  );
+}
+
+const POC_PRIMARY = 'This is a proof-of-concept prototype';
+const POC_SECONDARY = 'The data is not guaranteed to be persistent in this form';
+
+function App() {
+  const [role, setRole] = React.useState(() => localStorage.getItem('ojl-demo-role') || 'learner');
+  const [tweaks, setTweaks] = React.useState(() => {
+    let t = {}; try { t = JSON.parse(localStorage.getItem('ojl-tweaks') || '{}'); } catch (e) {}
+    return { accent: 'blue', density: 'comfortable', learnerHome: 'hero', pocBanner: true, ...t };
+  });
+
+  React.useEffect(() => { localStorage.setItem('ojl-demo-role', role); }, [role]);
+  React.useEffect(() => {
+    localStorage.setItem('ojl-tweaks', JSON.stringify(tweaks));
+    applyAccent(tweaks.accent);
+    document.body.dataset.density = tweaks.density;
+    document.body.classList.toggle('poc-on', tweaks.pocBanner !== false);
+  }, [tweaks]);
+
+  return (
+    <>
+      <PocBanner show={tweaks.pocBanner !== false} primary={POC_PRIMARY} secondary={POC_SECONDARY} />
+      {role === 'learner' && <LearnerApp tweaks={tweaks} />}
+      {role === 'reviewer' && <ReviewerApp tweaks={tweaks} />}
+      {role === 'admin' && <AdminApp tweaks={tweaks} />}
+      <RoleSwitcher role={role} onChange={setRole} />
+      <TweaksPanel tweaks={tweaks} setTweaks={setTweaks} />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+</script>
+
+</body>
+</html>
+/* ---------- Shell ---------- */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w); flex: 0 0 var(--sidebar-w);
+  background: var(--bg-card); border-right: 1px solid var(--border);
+  padding: 14px 12px; display: flex; flex-direction: column; gap: 2px;
+  position: sticky; top: 0; height: 100vh;
+}
+.sidebar .brand { display: flex; align-items: center; gap: 8px; padding: 8px; margin-bottom: 10px; }
+.sidebar .brand img { height: 26px; }
+.sidebar .group { font-size: 11px; color: var(--slate); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; padding: 14px 8px 5px; }
+.nav {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius);
+  font-size: 14px; color: var(--slate-700); cursor: pointer; line-height: 20px;
+  background: transparent; border: 0; text-align: left; width: 100%; font-family: var(--font-dm-sans);
+  transition: background .12s, color .12s;
+}
+.nav:hover { background: var(--bg-action-hover); }
+.nav.active { background: var(--navy); color: #fff; font-weight: 500; }
+.nav.active svg { stroke: #fff; }
+.nav svg { width: 17px; height: 17px; flex: 0 0 17px; stroke: var(--slate); }
+.nav .nav-spacer { flex: 1; }
+.nav .count-pill {
+  font-size: 11px; font-weight: 600; min-width: 18px; height: 18px; padding: 0 5px; border-radius: var(--radius-full);
+  background: var(--pending-light); color: var(--pending); display: inline-flex; align-items: center; justify-content: center;
+}
+.nav.active .count-pill { background: rgba(255,255,255,.2); color: #fff; }
+
+.sidebar .foot { margin-top: auto; padding: 10px 8px; display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--border); }
+.avatar { width: 30px; height: 30px; border-radius: 50%; background: #d4dbe2; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--navy); flex: 0 0 30px; }
+.foot-name { font-size: 13px; font-weight: 500; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.foot-role { font-size: 12px; color: var(--slate); }
+
+.canvas { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 28px; border-bottom: 1px solid var(--border); background: var(--bg-canvas); flex-wrap: wrap; }
+.crumbs { font-size: 13px; color: var(--navy-soft); display: flex; gap: 6px; align-items: center; }
+.crumbs svg { width: 13px; height: 13px; stroke: var(--navy-soft); }
+.header h1 { font-size: 22px; font-weight: 600; margin-top: 3px; }
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+.role-label { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--slate); }
+.role-toggle { display: inline-flex; background: var(--navy); border-radius: var(--radius-full); padding: 3px; gap: 2px; }
+.role-btn { padding: 6px 16px; font-size: 13px; font-family: var(--font-dm-sans); font-weight: 500; border: none; border-radius: var(--radius-full); background: transparent; color: rgba(255,255,255,.6); cursor: pointer; transition: all .15s; }
+.role-btn.active { background: #fff; color: var(--navy); font-weight: 600; }
+
+.page { padding: 24px 28px 40px; flex: 1; max-width: 1080px; width: 100%; }
+
+/* ---------- Views ---------- */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ---------- Cards ---------- */
+.card-ui { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 22px 24px; }
+
+/* ---------- Tiles (KPI) ---------- */
+.tile-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.tile { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; box-shadow: var(--shadow-sm); }
+.tile .lbl { font-size: 12px; font-weight: 500; color: var(--navy); text-transform: uppercase; letter-spacing: .06em; }
+.tile .val { font-family: var(--font-sora); font-size: 32px; font-weight: 600; letter-spacing: -.02em; margin-top: 6px; line-height: 1; color: var(--navy); font-variant-numeric: tabular-nums; }
+.tile .val.ok { color: var(--success); }
+.tile .val.warn { color: var(--warning); }
+.tile .val.danger { color: var(--error); }
+.tile .sub { font-size: 12px; color: var(--slate); margin-top: 8px; }
+.tile .delta { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; margin-top: 8px; color: var(--pending); }
+.tile .delta .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ---------- Section labels ---------- */
+.sect-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--slate); margin: 0 0 12px; }
+.card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.card-head h2 { font-size: 18px; font-weight: 600; }
+.hint { font-size: 12px; color: var(--slate); line-height: 1.55; margin-top: 12px; }
+
+/* ---------- Progress bars ---------- */
+.prog-block { margin-bottom: 18px; }
+.prog-block:last-child { margin-bottom: 0; }
+.prog-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+.prog-title { font-size: 13px; font-weight: 500; color: var(--navy); }
+.prog-count { font-size: 12px; color: var(--slate); font-variant-numeric: tabular-nums; }
+.prog-count.danger { color: var(--error); font-weight: 500; }
+.track-wrap { position: relative; padding-bottom: 20px; }
+.prog-total-divider { height: 1px; background: var(--border); margin: 2px 0 18px; }
+.track { height: 8px; background: var(--border); border-radius: var(--radius-full); display: flex; overflow: visible; }
+.fill-approved { background: var(--success); height: 100%; border-radius: var(--radius-full) 0 0 var(--radius-full); transition: width .45s ease; }
+.fill-approved.solo { border-radius: var(--radius-full); }
+.fill-pending { height: 100%; border-radius: 0 var(--radius-full) var(--radius-full) 0; background: var(--pending); transition: width .45s ease; }
+.fill-over { background: var(--error); height: 100%; border-radius: var(--radius-full); }
+.marker { position: absolute; top: -2px; width: 2px; height: 12px; background: var(--navy-soft); opacity: .5; border-radius: 1px; }
+.marker-label { position: absolute; top: 13px; font-size: 11px; color: var(--slate); white-space: nowrap; transform: translateX(-50%); font-variant-numeric: tabular-nums; }
+.dash-legend { display: flex; gap: 18px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--slate); }
+.legend-swatch { width: 22px; height: 8px; border-radius: var(--radius-full); flex-shrink: 0; }
+.legend-tick { width: 2px; height: 12px; background: var(--navy-soft); opacity: .5; border-radius: 1px; margin: 0 10px; }
+
+/* ---------- Specialty grid ---------- */
+.spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+.spec-card { background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; transition: border-color .12s; }
+.spec-card.has-cases { border-color: var(--success); background: var(--success-light); }
+.spec-name { font-size: 13px; font-weight: 500; margin-bottom: 3px; color: var(--navy); }
+.spec-cnt { font-size: 12px; color: var(--slate); font-variant-numeric: tabular-nums; }
+.spec-card.has-cases .spec-name { color: var(--success); }
+.spec-card.has-cases .spec-cnt { color: var(--success); }
+
+/* ---------- Badges ---------- */
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: var(--radius-full); font-size: 12px; font-weight: 500; line-height: 18px; border: 1px solid transparent; white-space: nowrap; }
+.badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.badge.success { background: var(--success-light); color: var(--success); }
+.badge.warning { background: var(--warning-light); color: var(--warning); }
+.badge.error   { background: var(--error-light); color: var(--error); }
+.badge.info    { background: var(--info-light); color: var(--info); }
+.badge.pending { background: var(--pending-light); color: var(--pending); }
+.badge.neutral { background: #d4dbe2; color: var(--navy); }
+.badge.outline { background: #fff; color: var(--navy); border-color: #0028551f; }
+
+/* ---------- Buttons ---------- */
+.btn { font-family: var(--font-dm-sans); font-weight: 500; font-size: 14px; padding: 9px 16px; border-radius: var(--radius); border: 1px solid transparent; line-height: 20px; transition: all .15s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; cursor: pointer; white-space: nowrap; }
+.btn svg { width: 16px; height: 16px; }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow-xs); }
+.btn-primary:hover { background: var(--accent-dark); }
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+.btn-secondary { background: var(--navy); color: #fff; }
+.btn-secondary:hover { background: #001a3a; }
+.btn-outline { background: #fff; border-color: var(--accent); color: var(--accent); }
+.btn-outline:hover { background: var(--accent-light); }
+.btn-ghost { background: transparent; color: var(--navy); }
+.btn-ghost:hover { background: var(--bg-action-hover); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { background: #055c3c; }
+.btn-danger-outline { background: #fff; border-color: var(--error); color: var(--error); }
+.btn-danger-outline:hover { background: var(--error-light); }
+.btn-block { width: 100%; }
+.btn-sm { padding: 6px 12px; font-size: 13px; line-height: 18px; }
+
+/* ---------- Forms ---------- */
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label { font-size: 13px; font-weight: 500; color: var(--navy); }
+.field .req-star { color: var(--error); }
+.input, .field input[type=text], .field input[type=date], .field select, .field textarea {
+  font-family: var(--font-dm-sans); font-size: 14px; line-height: 20px; padding: 9px 12px;
+  border: 1px solid var(--border-strong); border-radius: var(--radius); background: #fff; color: var(--navy);
+  box-shadow: var(--shadow-xs); outline: none; transition: all .15s; width: 100%;
+}
+.field input::placeholder, .field textarea::placeholder { color: #00285566; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 50%, transparent); }
+.field textarea { resize: vertical; min-height: 80px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .field-row .field { margin-bottom: 0; }
 
 /* ---------- Scrub checklist ---------- */

@@ -159,8 +159,8 @@ h1, h2, h3 { font-family: var(--font-sora); color: var(--navy); letter-spacing: 
 .prog-title { font-size: 13px; font-weight: 500; color: var(--navy); }
 .prog-count { font-size: 12px; color: var(--slate); font-variant-numeric: tabular-nums; }
 .prog-count.danger { color: var(--error); font-weight: 500; }
-.track-wrap { position: relative; }
-.track-wrap.has-markers { padding-bottom: 20px; }
+.track-wrap { position: relative; padding-bottom: 20px; }
+.prog-total-divider { height: 1px; background: var(--border); margin: 2px 0 18px; }
 .track { height: 8px; background: var(--border); border-radius: var(--radius-full); display: flex; overflow: visible; }
 .fill-approved { background: var(--success); height: 100%; border-radius: var(--radius-full) 0 0 var(--radius-full); transition: width .45s ease; }
 .fill-approved.solo { border-radius: var(--radius-full); }
@@ -456,6 +456,8 @@ table.data tr:last-child td { border-bottom: 0; }
 .cell-person { display: flex; align-items: center; gap: 10px; }
 .cell-person span { font-weight: 500; color: var(--navy); }
 .cell-prog { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+.cell-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.cell-chip { font-size: 12px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 2px 9px; color: var(--navy); white-space: nowrap; }
 .prog-ico { width: 30px; height: 30px; border-radius: var(--radius-md); background: var(--accent-light); color: var(--accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .you-tag { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); background: var(--accent-light); padding: 1px 6px; border-radius: var(--radius-full); margin-left: 8px; }
 .table-cap { padding: 16px 18px; border-bottom: 1px solid var(--border); }
@@ -575,6 +577,43 @@ table.data tr:last-child td { border-bottom: 0; }
 a.btn { text-decoration: none; }
 .ms-inline-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--info); background: var(--info-light); padding: 2px 7px; border-radius: var(--radius-full); margin-left: 8px; vertical-align: middle; }
 .md-edit-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+/* ---------- Row actions dropdown ---------- */
+.rowmenu { position: relative; display: inline-flex; }
+.rowmenu-backdrop { position: fixed; inset: 0; z-index: 40; }
+.rowmenu-pop { position: absolute; top: calc(100% + 4px); z-index: 41; min-width: 210px; max-height: 60vh; overflow-y: auto; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 10px 30px -8px rgba(0,40,85,.25); padding: 6px; display: flex; flex-direction: column; gap: 1px; }
+.rowmenu-pop.right { right: 0; } .rowmenu-pop.left { left: 0; }
+.rowmenu-item { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: none; border: none; font-family: var(--font-dm-sans); font-size: 13px; color: var(--navy); padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; }
+.rowmenu-item:hover { background: var(--bg-action-hover); }
+.rowmenu-item:disabled { color: var(--slate); opacity: .5; cursor: default; }
+.rowmenu-item.danger { color: var(--error); }
+.rowmenu-item.danger:hover { background: var(--error-light); }
+.rmi-check { width: 14px; display: inline-flex; flex-shrink: 0; color: var(--success); }
+.rowmenu-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); padding: 8px 10px 4px; }
+.rowmenu-div { height: 1px; background: var(--border); margin: 4px 0; }
+.data-static tbody tr:hover td { background: transparent; cursor: default; }
+.row-archived td { opacity: .55; }
+.row-archived td:last-child { opacity: 1; }
+
+/* ---------- Manage (chip picker) modal ---------- */
+.manage-overlay { position: fixed; inset: 0; background: rgba(0,40,85,.32); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadeIn .15s ease; }
+.manage-modal { background: #fff; border-radius: var(--radius-xl); box-shadow: 0 20px 50px -12px rgba(0,40,85,.4); width: 560px; max-width: 100%; display: flex; flex-direction: column; }
+.manage-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 24px 14px; }
+.manage-head h2 { font-family: var(--font-sora); font-size: 19px; font-weight: 700; color: var(--navy); }
+.manage-sub { font-size: 13px; color: var(--slate); margin-top: 4px; }
+.manage-body { padding: 4px 24px 8px; }
+.manage-field-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--slate); margin-bottom: 8px; }
+.chip-box { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-height: 48px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 9px 11px; background: #fff; }
+.chip-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.assign-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent-dark); border-radius: var(--radius-full); padding: 4px 6px 4px 12px; font-size: 13px; font-weight: 500; }
+.assign-chip button { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: none; background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent-dark); border-radius: 50%; cursor: pointer; }
+.assign-chip button:hover { background: color-mix(in srgb, var(--accent) 32%, transparent); }
+.chip-input { flex: 1; min-width: 120px; border: none; outline: none; font-family: var(--font-dm-sans); font-size: 14px; color: var(--navy); background: none; padding: 4px; }
+.chip-suggest { margin-top: 8px; border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); max-height: 220px; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 1px; }
+.chip-suggest-item { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; border: none; background: none; font-family: var(--font-dm-sans); font-size: 13px; color: var(--navy); padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; }
+.chip-suggest-item:hover { background: var(--accent-light); }
+.chip-suggest-item svg { stroke: var(--accent); }
+.chip-suggest-empty { font-size: 13px; color: var(--slate); padding: 10px; }
+.manage-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 24px 20px; }
 
 /* ---------- Proof-of-concept banner ---------- */
 .poc-banner { position: sticky; top: 0; z-index: 400; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; height: 34px; padding: 0 16px; background: #2a1a05; color: #ffe6b8; font-size: 12.5px; line-height: 1; text-align: center; }
@@ -712,9 +751,7 @@ body[data-density="compact"] .case-row { padding: 11px 14px; }
 <div id="root"></div>
 
 <script>
-/* ============================================================
-   data.js — inlined
-   ============================================================ */
+/* data.js */
 /* ============================================================
    OJL Tracker — Surgical Case Log module
    Shared data layer: NCCT rules, roster, seeded cases, stats
@@ -788,9 +825,18 @@ function catLabel(cat) {
 }
 
 /* ---------- People ---------- */
-// The three demo identities. `me` flags the participant the Learner role acts as.
+// The demo identities. `me` flags the participant the Learner role acts as.
 const REVIEWERS = ['Priya Sharma', 'Dr. Sandra Okafor', 'RN Marcus Webb', 'Dr. Lisa Fontaine'];
+const SEED_REVIEWERS = REVIEWERS.slice();
 const DEMO_REVIEWER = 'Priya Sharma';
+const SURG_PROGRAM_ID = 'prog-surg';
+
+// Preceptors as people (program-scoped via programIds; can serve several programs).
+const PRECEPTOR_PEOPLE = SEED_REVIEWERS.map((name, i) => ({ id: 'r' + (i + 1), name, programIds: [SURG_PROGRAM_ID], archived: false }));
+// Program managers as people.
+const PROGRAM_MANAGERS = [
+  { id: 'm1', name: 'Avery Chen', programIds: [SURG_PROGRAM_ID], archived: false },
+];
 
 const PARTICIPANTS = [
   { id: 'p1', name: 'Jordan Mercado', me: true,  reviewer: 'Priya Sharma',     site: 'Mercy General Hospital', cohort: 'Surgical Technology — Cohort 7', started: 'Sep 2, 2025' },
@@ -800,9 +846,55 @@ const PARTICIPANTS = [
   { id: 'p5', name: 'Maya Okonkwo',   me: false, reviewer: 'Dr. Lisa Fontaine', site: 'Valley Regional', cohort: 'Surgical Technology — Cohort 6', started: 'Mar 4, 2025' },
   { id: 'p6', name: 'Diego Salazar',  me: false, reviewer: 'RN Marcus Webb',    site: 'Valley Regional', cohort: 'Surgical Technology — Cohort 7', started: 'Sep 2, 2025' },
 ];
+PARTICIPANTS.forEach(p => { p.programIds = [SURG_PROGRAM_ID]; p.reviewers = p.reviewer ? [p.reviewer] : []; p.archived = false; });
 const ME = PARTICIPANTS.find(p => p.me);
 
-const PROGRAM_NAME = 'Surgical Technology — Cohort 7';
+/* Back-compat: PRECEPTORS as [{name, programId}] derived from PRECEPTOR_PEOPLE. */
+function _preceptorPairs() {
+  const out = [];
+  PRECEPTOR_PEOPLE.forEach(r => { if (!r.archived) r.programIds.forEach(pid => out.push({ name: r.name, programId: pid })); });
+  return out;
+}
+
+function participantsFor(programId) { return PARTICIPANTS.filter(p => !p.archived && (p.programIds || []).includes(programId)); }
+function preceptorsFor(programId) { return PRECEPTOR_PEOPLE.filter(r => !r.archived && r.programIds.includes(programId)).map(r => r.name); }
+
+/* Unified people list for the global People table. role: Participant | Preceptor | Program Manager.
+   Each row: { kind, id, name, role, programIds, archived, stats? } */
+function getPeople({ includeArchived = false } = {}) {
+  const rows = [];
+  PARTICIPANTS.forEach(p => { if (includeArchived || !p.archived) rows.push({ kind: 'participant', id: p.id, name: p.name, role: 'Participant', programIds: p.programIds || [], archived: !!p.archived, me: p.me, site: p.site, stats: statsFor(p.id) }); });
+  PRECEPTOR_PEOPLE.forEach(r => { if (includeArchived || !r.archived) rows.push({ kind: 'preceptor', id: r.id, name: r.name, role: 'Preceptor', programIds: r.programIds, archived: !!r.archived }); });
+  PROGRAM_MANAGERS.forEach(m => { if (includeArchived || !m.archived) rows.push({ kind: 'manager', id: m.id, name: m.name, role: 'Program Manager', programIds: m.programIds, archived: !!m.archived }); });
+  return rows;
+}
+
+function _personRef(kind, id) {
+  if (kind === 'participant') return PARTICIPANTS.find(x => x.id === id);
+  if (kind === 'preceptor') return PRECEPTOR_PEOPLE.find(x => x.id === id);
+  if (kind === 'manager') return PROGRAM_MANAGERS.find(x => x.id === id);
+  return null;
+}
+function setPersonPrograms(kind, id, programIds) {
+  const ref = _personRef(kind, id);
+  if (!ref) return;
+  const ids = (programIds || []).slice();
+  ref.programIds = ids;
+  if (kind === 'participant') ref.programId = ids[0] || '';
+  saveRoster();
+}
+function archivePerson(kind, id, archived = true) {
+  const ref = _personRef(kind, id);
+  if (ref) { ref.archived = archived; saveRoster(); }
+}
+function addManager(name, programId) {
+  const id = 'm-' + Date.now();
+  PROGRAM_MANAGERS.push({ id, name: name.trim(), programIds: programId ? [programId] : [], archived: false });
+  saveRoster();
+  return id;
+}
+
+const PROGRAM_NAME = 'Surgical Technology';
 const MODULE_NAME = 'Surgical Case Log';
 
 /* ---------- Seed cases ---------- */
@@ -899,6 +991,32 @@ try {
   cases = raw ? JSON.parse(raw) : buildSeed();
 } catch (e) { cases = buildSeed(); }
 function saveCases() { try { localStorage.setItem(STORE_KEY, JSON.stringify(cases)); } catch (e) {} }
+
+/* ---------- Roster persistence (added people + mutable assignments) ----------
+   Centralized so the next dev step can swap localStorage for DB/API calls. */
+const ROSTER_KEY = 'ojl_roster_v2';
+function saveRoster() {
+  try {
+    const addedParticipants = PARTICIPANTS.filter(p => p.added).map(p => ({ id: p.id, name: p.name, site: p.site, cohort: p.cohort, started: p.started }));
+    const addedPreceptors = PRECEPTOR_PEOPLE.filter(r => !SEED_REVIEWERS.includes(r.name)).map(r => ({ id: r.id, name: r.name }));
+    const addedManagers = PROGRAM_MANAGERS.filter(m => m.id !== 'm1').map(m => ({ id: m.id, name: m.name }));
+    const pState = {}; PARTICIPANTS.forEach(p => { pState[p.id] = { programIds: p.programIds || [], reviewers: p.reviewers || [], archived: !!p.archived }; });
+    const rState = {}; PRECEPTOR_PEOPLE.forEach(r => { rState[r.id] = { programIds: r.programIds, archived: !!r.archived }; });
+    const mState = {}; PROGRAM_MANAGERS.forEach(m => { mState[m.id] = { programIds: m.programIds, archived: !!m.archived }; });
+    localStorage.setItem(ROSTER_KEY, JSON.stringify({ addedParticipants, addedPreceptors, addedManagers, pState, rState, mState }));
+  } catch (e) {}
+}
+(function loadRoster() {
+  try {
+    const r = JSON.parse(localStorage.getItem(ROSTER_KEY) || '{}');
+    (r.addedParticipants || []).forEach(p => { if (!PARTICIPANTS.find(x => x.id === p.id)) PARTICIPANTS.push({ ...p, me: false, reviewer: '', reviewers: [], programIds: [], archived: false, added: true }); });
+    (r.addedPreceptors || []).forEach(p => { if (!PRECEPTOR_PEOPLE.find(x => x.id === p.id)) { PRECEPTOR_PEOPLE.push({ id: p.id, name: p.name, programIds: [], archived: false }); if (!REVIEWERS.includes(p.name)) REVIEWERS.push(p.name); } });
+    (r.addedManagers || []).forEach(p => { if (!PROGRAM_MANAGERS.find(x => x.id === p.id)) PROGRAM_MANAGERS.push({ id: p.id, name: p.name, programIds: [], archived: false }); });
+    if (r.pState) PARTICIPANTS.forEach(p => { const s = r.pState[p.id]; if (s) { p.programIds = s.programIds || p.programIds; p.reviewers = s.reviewers || []; p.reviewer = p.reviewers[0] || ''; p.archived = !!s.archived; } });
+    if (r.rState) PRECEPTOR_PEOPLE.forEach(x => { const s = r.rState[x.id]; if (s) { x.programIds = s.programIds || x.programIds; x.archived = !!s.archived; } });
+    if (r.mState) PROGRAM_MANAGERS.forEach(x => { const s = r.mState[x.id]; if (s) { x.programIds = s.programIds || x.programIds; x.archived = !!s.archived; } });
+  } catch (e) {}
+})();
 function resetData() { cases.length = 0; buildSeed().forEach(c => cases.push(c)); saveCases(); }
 
 /* ---------- Stats (per participant) ---------- */
@@ -974,21 +1092,47 @@ function catCapStatus(participantId, cat) {
   return null;
 }
 
+function addParticipant({ name, site, reviewers, programId }) {
+  const id = 'p-' + Date.now();
+  const revs = reviewers ? reviewers.slice() : [];
+  const pid = programId || SURG_PROGRAM_ID;
+  PARTICIPANTS.push({ id, name: name.trim(), me: false, reviewer: revs[0] || '', reviewers: revs, site: site || '', cohort: PROGRAM_NAME, started: '', programId: pid, programIds: [pid], archived: false, added: true });
+  saveRoster();
+  return id;
+}
+function addReviewer(name, programId) {
+  const n = (name || '').trim();
+  if (!n) return n;
+  if (!REVIEWERS.includes(n)) REVIEWERS.push(n);
+  const pid = programId || SURG_PROGRAM_ID;
+  let rec = PRECEPTOR_PEOPLE.find(x => x.name === n);
+  if (!rec) { rec = { id: 'r-' + Date.now(), name: n, programIds: [], archived: false }; PRECEPTOR_PEOPLE.push(rec); }
+  if (!rec.programIds.includes(pid)) rec.programIds.push(pid);
+  rec.archived = false;
+  saveRoster();
+  return n;
+}
+function setParticipantReviewers(participantId, names) {
+  const p = PARTICIPANTS.find(x => x.id === participantId);
+  if (p) { p.reviewers = (names || []).slice(); p.reviewer = p.reviewers[0] || ''; saveRoster(); }
+}
+
 Object.assign(window, {
   NCCT, SPECIALTIES, CATEGORY_OPTIONS, CHECK_LABELS, CHECK_LABELS_SHORT, CHECKS, catLabel,
   REVIEWERS, DEMO_REVIEWER, PARTICIPANTS, ME, PROGRAM_NAME, MODULE_NAME,
+  SURG_PROGRAM_ID, PRECEPTOR_PEOPLE, PROGRAM_MANAGERS, participantsFor, preceptorsFor,
+  getPeople, setPersonPrograms, archivePerson, addManager,
   cases,
   statsFor, calcReadiness, addCase, updateCase, deleteCase, getCase, catCapStatus,
   saveCases, resetData,
   DEFAULT_TARGETS, saveTargets, resetTargets,
+  addParticipant, addReviewer, setParticipantReviewers,
 });
 
 </script>
 
 <script type="text/babel">
-/* ============================================================
-   kit.jsx — inlined
-   ============================================================ */
+/* kit.jsx */
 /* ============================================================
    Shared UI kit — Craft primitives (Lucide subset + components)
    ============================================================ */
@@ -1120,6 +1264,58 @@ function Empty({ icon = 'inbox', children }) {
   return <div className="empty"><Icon name={icon} size={28} /><span>{children}</span></div>;
 }
 
+/* Row actions dropdown. items: {label, icon?, onClick, danger?, disabled?} | {type:'label'|'divider', label?, checked?} */
+function RowMenu({ items, trigger = 'chevronRight' }) {
+  const [open, setOpen] = React.useState(false);
+  const [pos, setPos] = React.useState({ top: -9999, right: 0 });
+  const btnRef = React.useRef(null);
+  const popRef = React.useRef(null);
+
+  const place = React.useCallback(() => {
+    if (!btnRef.current) return;
+    const r = btnRef.current.getBoundingClientRect();
+    const h = popRef.current ? popRef.current.offsetHeight : 0;
+    const right = Math.max(8, window.innerWidth - r.right);
+    let top = r.bottom + 4;
+    if (h && top + h > window.innerHeight - 8) top = Math.max(8, r.top - 4 - h); // flip up
+    if (h && top + h > window.innerHeight - 8) top = Math.max(8, window.innerHeight - 8 - h); // clamp
+    setPos({ top, right });
+  }, []);
+
+  React.useLayoutEffect(() => { if (open) place(); }, [open, place]);
+  React.useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    window.addEventListener('scroll', close, true);
+    window.addEventListener('resize', close);
+    return () => { window.removeEventListener('scroll', close, true); window.removeEventListener('resize', close); };
+  }, [open]);
+
+  const menu = open ? ReactDOM.createPortal(
+    <>
+      <div className="rowmenu-backdrop" onClick={() => setOpen(false)} />
+      <div ref={popRef} className="rowmenu-pop" style={{ position: 'fixed', top: pos.top, right: pos.right }} onClick={e => e.stopPropagation()}>
+        {items.map((it, i) => {
+          if (it.type === 'divider') return <div className="rowmenu-div" key={i} />;
+          if (it.type === 'label') return <div className="rowmenu-label" key={i}>{it.label}</div>;
+          return (
+            <button key={i} className={`rowmenu-item ${it.danger ? 'danger' : ''}`} disabled={it.disabled} onClick={() => { setOpen(false); it.onClick && it.onClick(); }}>
+              <span className="rmi-check">{it.checked && <Icon name="check" size={14} />}</span>
+              {it.icon && <Icon name={it.icon} size={15} />}<span>{it.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </>, document.body) : null;
+
+  return (
+    <div className="rowmenu" onClick={e => e.stopPropagation()}>
+      <button ref={btnRef} className="icon-btn" aria-label="Row actions" onClick={() => setOpen(o => !o)}><Icon name={trigger} size={16} /></button>
+      {menu}
+    </div>
+  );
+}
+
 /* Readiness ring — white track + lime fill, sits on a dark/navy surface */
 function ReadinessRing({ pct, size = 132 }) {
   const stroke = Math.round(size / 12);
@@ -1157,12 +1353,54 @@ function Sheet({ open, onClose, title, subtitle, width = 520, children, footer }
   );
 }
 
-Object.assign(window, { Icon, Avatar, Badge, Button, Tile, ProgressBar, ReadinessRing, Empty, Sheet, initials, avColor });
+/* Chip-based multi-assign modal. options: [{value,label}]; assigned: [value].
+   Stages edits locally and commits the full array on Save. */
+function ManagePicker({ open, title, subtitle, assigned = [], options = [], placeholder = 'Type to add…', onSave, onClose }) {
+  const [working, setWorking] = React.useState([]);
+  const [q, setQ] = React.useState('');
+  React.useEffect(() => { if (open) { setWorking(assigned.slice()); setQ(''); } }, [open]);
+  if (!open) return null;
+  const labelFor = (v) => (options.find(o => o.value === v) || {}).label || v;
+  const suggestions = options.filter(o => !working.includes(o.value) && o.label.toLowerCase().includes(q.toLowerCase()));
+  const add = (v) => { setWorking(w => [...w, v]); setQ(''); };
+  const remove = (v) => setWorking(w => w.filter(x => x !== v));
+  return (
+    <div className="manage-overlay" onClick={onClose}>
+      <div className="manage-modal" onClick={e => e.stopPropagation()}>
+        <div className="manage-head">
+          <div><h2>{title}</h2>{subtitle && <div className="manage-sub">{subtitle}</div>}</div>
+          <button className="icon-btn" onClick={onClose} aria-label="Close"><Icon name="x" size={18} /></button>
+        </div>
+        <div className="manage-body">
+          <div className="manage-field-label">{working.length} assigned</div>
+          <div className="chip-box">
+            {working.map(v => (
+              <span className="assign-chip" key={v}>{labelFor(v)}<button onClick={() => remove(v)} aria-label={`Remove ${labelFor(v)}`}><Icon name="x" size={12} /></button></span>
+            ))}
+            <input className="chip-input" value={q} onChange={e => setQ(e.target.value)} placeholder={working.length ? '' : placeholder} />
+          </div>
+          {q && (
+            <div className="chip-suggest">
+              {suggestions.length ? suggestions.slice(0, 8).map(o => (
+                <button className="chip-suggest-item" key={o.value} onClick={() => add(o.value)}><Icon name="plus" size={13} />{o.label}</button>
+              )) : <div className="chip-suggest-empty">No matches</div>}
+            </div>
+          )}
+        </div>
+        <div className="manage-foot">
+          <Button variant="ghost" onClick={onClose}>Cancel</Button>
+          <Button variant="primary" icon="check" onClick={() => { onSave(working); onClose(); }}>Save</Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window, { ManagePicker });
+Object.assign(window, { Icon, Avatar, Badge, Button, Tile, ProgressBar, ReadinessRing, Empty, RowMenu, Sheet, initials, avColor });
 
 
-/* ============================================================
-   shells.jsx — inlined
-   ============================================================ */
+/* shells.jsx */
 /* ============================================================
    App shells — Sidebar (reviewer/admin) + TabBar (learner)
    plus the demo-only RoleSwitcher
@@ -1190,15 +1428,17 @@ function SidebarShell({ menuGroups, secondary, activeKey, onNav, user, title, cr
           ))}
         </nav>
 
-        <div className="side-secondary">
-          {secondary.map((it, i) => (
-            <button key={i} className="nav" onClick={it.onClick}>
-              <Icon name={it.icon} size={17} />
-              <span style={{ flex: 1 }}>{it.label}</span>
-              {it.badge != null && it.badge > 0 && <span className="count-pill">{it.badge}</span>}
-            </button>
-          ))}
-        </div>
+        {secondary.length > 0 && (
+          <div className="side-secondary">
+            {secondary.map((it, i) => (
+              <button key={i} className="nav" onClick={it.onClick}>
+                <Icon name={it.icon} size={17} />
+                <span style={{ flex: 1 }}>{it.label}</span>
+                {it.badge != null && it.badge > 0 && <span className="count-pill">{it.badge}</span>}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="foot">
           <Avatar name={user.name} />
@@ -1213,9 +1453,6 @@ function SidebarShell({ menuGroups, secondary, activeKey, onNav, user, title, cr
       <div className="canvas">
         <div className="header">
           <div>
-            {crumbs && <div className="crumbs">{crumbs.map((c, i) => (
-              <React.Fragment key={i}>{i > 0 && <Icon name="chevronRight" size={13} />}<span>{c}</span></React.Fragment>
-            ))}</div>}
             <h1>{title}</h1>
           </div>
           {right && <div className="header-right">{right}</div>}
@@ -1235,7 +1472,6 @@ function TabBarShell({ tabs, activeKey, onNav, user, children }) {
           <div className="tb-header-left" />
           <img className="tb-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 32' fill='none'%3E%3Crect width='32' height='32' rx='6' fill='%23002855'/%3E%3Cpath d='M8 16a8 8 0 1 1 16 0' stroke='%2397e152' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%230070f0'/%3E%3Ctext x='38' y='22' font-family='system-ui,sans-serif' font-weight='700' font-size='16' fill='%23002855'%3ECraft%3C/text%3E%3C/svg%3E" alt="Craft" />
           <div className="tb-header-right">
-            <button className="tb-iconbtn" title="Notifications"><Icon name="bell" size={18} /></button>
             <div className="tb-user">
               <Avatar name={user.name} size={30} />
               <span className="tb-user-name">{user.name.split(' ')[0]}</span>
@@ -1283,9 +1519,7 @@ function RoleSwitcher({ role, onChange }) {
 Object.assign(window, { SidebarShell, TabBarShell, RoleSwitcher });
 
 
-/* ============================================================
-   progress.jsx — inlined
-   ============================================================ */
+/* progress.jsx */
 /* ============================================================
    Shared module-progress components (NCCT case counting)
    Used by Learner program detail, Reviewer reports, Admin detail.
@@ -1308,7 +1542,7 @@ function TargetBar({ title, approved, pending, target, hasMax, max, over }) {
       <div className="prog-head"><span className="prog-title">{title}</span><span className={`prog-count tabnum ${over ? 'danger' : ''}`}>{count}</span></div>
       {over
         ? <ProgressBar over />
-        : <ProgressBar approved={approved} pending={pending} max={barMax} minMarkerPct={hasMax ? target / max * 100 : null} minLabel={`target ${target}`} maxLabel={`max ${max}`} />}
+        : <ProgressBar approved={approved} pending={pending} max={barMax} minMarkerPct={hasMax ? target / max * 100 : null} minLabel={`min ${target}`} maxLabel={`max ${max}`} />}
     </div>
   );
 }
@@ -1317,6 +1551,7 @@ function ProgressBars({ s }) {
   return (
     <div>
       <TargetBar title="Total cases" approved={s.total} pending={s.pendingCount} target={NCCT.totalTarget} hasMax={NCCT.totalMaxOn} max={NCCT.totalMax} over={NCCT.totalMaxOn && s.total > NCCT.totalMax} />
+      <div className="prog-total-divider" />
       <TargetBar title="1st scrub" approved={s.first} pending={s.pendingFirst} target={NCCT.firstTarget} hasMax={NCCT.firstMaxOn} max={NCCT.firstMax} over={NCCT.firstMaxOn && s.first > NCCT.firstMax} />
       <TargetBar title="General surgery" approved={s.general} pending={s.pendingGeneral} target={NCCT.generalTarget} hasMax={NCCT.generalMaxOn} max={NCCT.generalMax} over={NCCT.generalMaxOn && s.generalActive > NCCT.generalMax} />
       <TargetBar title="Specialty cases" approved={s.specTotal} pending={s.pendingSpec} target={NCCT.specTarget} hasMax={NCCT.specMaxOn} max={NCCT.specMax} over={NCCT.specMaxOn && s.specTotal > NCCT.specMax} />
@@ -1324,7 +1559,7 @@ function ProgressBars({ s }) {
       <div className="dash-legend">
         <div className="legend-item"><div className="legend-swatch" style={{ background: 'var(--success)' }} />Approved</div>
         <div className="legend-item"><div className="legend-swatch" style={{ background: 'var(--pending)' }} />Pending review</div>
-        <div className="legend-item"><div className="legend-tick" />Target / max marker</div>
+        <div className="legend-item"><div className="legend-tick" />Min / max marker</div>
       </div>
     </div>
   );
@@ -1519,9 +1754,7 @@ function SectionCTable({ participantId }) {
 
 Object.assign(window, { ProgressBars, ReadinessCard, SpecialtyGrid, RequirementsList, SectionCTable, CertGoal, buildRequirements });
 
-/* ============================================================
-   module-editor.jsx — inlined
-   ============================================================ */
+/* module-editor.jsx */
 /* ============================================================
    Shared module target editor — used by the standalone
    Module Builder page AND inline in the Program Manager's
@@ -1669,9 +1902,7 @@ function ModuleTargetsEditor({ note = true, onSaved }) {
 Object.assign(window, { Toggle, Bound, TargetRow, StructureLocked, ModuleTargetsEditor });
 
 
-/* ============================================================
-   learner.jsx — inlined
-   ============================================================ */
+/* learner.jsx */
 /* ============================================================
    Learner (participant) experience — tab-bar shell
    Home · My Program · History  +  Log a Case sheet
@@ -1773,7 +2004,7 @@ function LogCaseSheet({ open, onClose, editId, onSaved }) {
         <label>Assign to Preceptor <span className="req-star">*</span></label>
         <select value={reviewer} onChange={e => setReviewer(e.target.value)}>
           <option value="">Select preceptor</option>
-          {REVIEWERS.map(r => <option key={r} value={r}>{r}</option>)}
+          {preceptorsFor((ME.programIds || [])[0] || SURG_PROGRAM_ID).map(r => <option key={r} value={r}>{r}</option>)}
         </select>
       </div>
     </Sheet>
@@ -1875,7 +2106,7 @@ function LearnerHome({ onLog, onEdit, homeStyle, onGoProgram }) {
 
 /* ---------- My Program (module detail) ---------- */
 function LearnerProgram() {
-  const [sub, setSub] = React.useState('requirements');
+  const [sub, setSub] = React.useState('casemix');
   const s = statsFor(ME.id);
   return (
     <div className="stack">
@@ -1887,18 +2118,11 @@ function LearnerProgram() {
           <Badge tone="success" dot>Active</Badge>
         </div>
         <div className="subtabs">
-          {[['requirements', 'Requirements'], ['casemix', 'Case Mix'], ['sectionc', 'NCCT Section C']].map(([k, l]) => (
+          {[['casemix', 'Case Mix'], ['sectionc', 'NCCT Section C']].map(([k, l]) => (
             <button key={k} className={`subtab ${sub === k ? 'active' : ''}`} onClick={() => setSub(k)}>{l}</button>
           ))}
         </div>
 
-        {sub === 'requirements' && (
-          <div className="stack">
-            <div className="sect-label">What you need to complete — set by {PROGRAM_NAME}</div>
-            <RequirementsList s={s} />
-            <p className="hint">Requirements count approved cases only. Cases awaiting your preceptor are shown as “pending” and will count once approved.</p>
-          </div>
-        )}
         {sub === 'casemix' && (
           <div className="stack">
             <ProgressBars s={s} />
@@ -2002,9 +2226,7 @@ function LearnerApp({ tweaks }) {
 Object.assign(window, { LearnerApp });
 
 
-/* ============================================================
-   reviewer.jsx — inlined
-   ============================================================ */
+/* reviewer.jsx */
 /* ============================================================
    Reviewer (preceptor) experience — sidebar shell
    Home · Needs Review · Assigned Participants · History
@@ -2070,7 +2292,7 @@ function SubmissionReview({ caseId, open, onClose, onDecided }) {
 /* ---------- Reviewer metrics ---------- */
 function reviewerStats() {
   const mine = cases.filter(c => c.reviewer === DEMO_REVIEWER);
-  const myParts = PARTICIPANTS.filter(p => p.reviewer === DEMO_REVIEWER);
+  const myParts = PARTICIPANTS.filter(p => (p.reviewers || []).includes(DEMO_REVIEWER));
   return {
     pending: mine.filter(c => c.status === 'pending'),
     approved: mine.filter(c => c.status === 'approved'),
@@ -2132,31 +2354,78 @@ function ReviewerHome({ onOpenCase, onOpenParticipant }) {
 
 /* ---------- (Needs Review + Assigned Participants are now folded into Home) ---------- */
 
-/* ---------- Assigned Participants ---------- */
+/* ---------- Assigned Participants (assign / unassign learners) ---------- */
+function AssignLearnerSheet({ open, onClose, assignable, onAssign }) {
+  const [q, setQ] = React.useState('');
+  React.useEffect(() => { if (open) setQ(''); }, [open]);
+  const list = q ? assignable.filter(p => p.name.toLowerCase().includes(q.toLowerCase())) : assignable;
+  return (
+    <Sheet open={open} onClose={onClose} width={520} title="Assign a learner" subtitle="Add a learner in this program to your caseload"
+      footer={<div style={{ display: 'flex', justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Done</Button></div>}>
+      <div className="search-box" style={{ marginBottom: 14 }}><Icon name="search" size={15} /><input placeholder="Search learners" value={q} onChange={e => setQ(e.target.value)} /></div>
+      {!list.length ? <Empty icon="userCheck">No other learners to assign.</Empty> : (
+        <div className="case-list">
+          {list.map(p => (
+            <div className="case-row" key={p.id} style={{ alignItems: 'center' }}>
+              <div className="cell-person" style={{ flex: 1 }}><Avatar name={p.name} size={30} /><div><div className="case-proc">{p.name}</div><div className="case-meta">{p.site}{p.reviewer ? ` · currently ${p.reviewer}` : ' · unassigned'}</div></div></div>
+              <Button variant="outline" size="sm" icon="plus" onClick={() => onAssign(p.id)}>Assign</Button>
+            </div>
+          ))}
+        </div>
+      )}
+    </Sheet>
+  );
+}
+
 function AssignedParticipants({ onOpenParticipant }) {
-  const r = reviewerStats();
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
+  const [managing, setManaging] = React.useState(false);
+  const inProgram = participantsFor(SURG_PROGRAM_ID);
+  const mine = inProgram.filter(p => (p.reviewers || []).includes(DEMO_REVIEWER));
+  const menuItems = (p) => [
+    { label: 'View report', icon: 'eye', onClick: () => onOpenParticipant(p.id) },
+    { type: 'divider' },
+    { label: 'Unassign from me', icon: 'x', danger: true, onClick: () => { setParticipantReviewers(p.id, (p.reviewers || []).filter(x => x !== DEMO_REVIEWER)); refresh(); } },
+  ];
+  const saveManaged = (ids) => {
+    inProgram.forEach(p => {
+      const sel = ids.includes(p.id), has = (p.reviewers || []).includes(DEMO_REVIEWER);
+      if (sel && !has) setParticipantReviewers(p.id, [...(p.reviewers || []), DEMO_REVIEWER]);
+      else if (!sel && has) setParticipantReviewers(p.id, (p.reviewers || []).filter(x => x !== DEMO_REVIEWER));
+    });
+    refresh();
+  };
   return (
     <div className="stack">
-      <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
-        <table className="data">
-          <thead><tr><th>Participant</th><th>Site</th><th>Approved</th><th>Pending</th><th>Readiness</th><th></th></tr></thead>
-          <tbody>
-            {r.participants.map(p => {
-              const s = statsFor(p.id);
-              return (
-                <tr key={p.id} onClick={() => onOpenParticipant(p.id)}>
-                  <td><div className="cell-person"><Avatar name={p.name} size={28} /><span>{p.name}</span></div></td>
-                  <td>{p.site}</td>
-                  <td className="tabnum">{s.total}</td>
-                  <td>{s.pendingCount > 0 ? <Badge tone="pending" dot>{s.pendingCount}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
-                  <td><div className="mini-prog"><div className="mini-track"><div className="mini-fill" style={{ width: `${s.readiness}%` }} /></div><span className="tabnum">{s.readiness}%</span></div></td>
-                  <td><Icon name="chevronRight" size={16} /></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div className="filter-row">
+        <span className="count">{mine.length} assigned to you</span>
+        <Button variant="outline" size="sm" icon="userCheck" onClick={() => setManaging(true)}>Manage learners</Button>
       </div>
+      {!mine.length ? <Empty icon="userCheck">No learners assigned to you yet. Use “Manage learners” to add some.</Empty> : (
+        <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+          <table className="data">
+            <thead><tr><th>Participant</th><th>Site</th><th>Approved</th><th>Pending</th><th>Readiness</th><th></th></tr></thead>
+            <tbody>
+              {mine.map(p => {
+                const s = statsFor(p.id);
+                return (
+                  <tr key={p.id} onClick={() => onOpenParticipant(p.id)}>
+                    <td><div className="cell-person"><Avatar name={p.name} size={28} /><span>{p.name}</span></div></td>
+                    <td>{p.site}</td>
+                    <td className="tabnum">{s.total}</td>
+                    <td>{s.pendingCount > 0 ? <Badge tone="pending" dot>{s.pendingCount}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
+                    <td><div className="mini-prog"><div className="mini-track"><div className="mini-fill" style={{ width: `${s.readiness}%` }} /></div><span className="tabnum">{s.readiness}%</span></div></td>
+                    <td style={{ textAlign: 'right' }}><RowMenu items={menuItems(p)} /></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+      <ManagePicker open={managing} title={`Manage learners for ${DEMO_REVIEWER}`} subtitle="Learners assigned to you for case review." placeholder="Type a learner name…"
+        assigned={mine.map(p => p.id)} options={inProgram.map(p => ({ value: p.id, label: p.name }))} onSave={saveManaged} onClose={() => setManaging(false)} />
     </div>
   );
 }
@@ -2170,7 +2439,7 @@ function ParticipantReport({ participantId, onBack }) {
       <div className="program-hero">
         <div className="sr-top" style={{ marginBottom: 0 }}>
           <Avatar name={p.name} size={44} />
-          <div><h1 style={{ fontSize: 22 }}>{p.name}</h1><div className="program-hero-sub">{p.site} · {p.cohort} · Preceptor: {p.reviewer}</div></div>
+          <div><h1 style={{ fontSize: 22 }}>{p.name}</h1><div className="program-hero-sub">{p.site} · {(p.reviewers && p.reviewers.length) ? `Preceptor${p.reviewers.length > 1 ? 's' : ''}: ${p.reviewers.join(', ')}` : 'No preceptor assigned'}</div></div>
         </div>
         <div className="md-readiness tabnum">{s.readiness}%<span>ready</span></div>
       </div>
@@ -2235,10 +2504,7 @@ function ReviewerApp({ tweaks }) {
       { key: 'history', icon: 'history', label: 'History' },
     ],
   }];
-  const secondary = [
-    { icon: 'bell', label: 'Notifications', badge: r.pending.length, onClick: () => { setKey('home'); setDrill(null); } },
-    { icon: 'settings', label: 'Profile & Preferences', onClick: () => {} },
-  ];
+  const secondary = [];
 
   const titles = { home: 'Home', history: 'History' };
   const crumbsMap = {
@@ -2263,9 +2529,7 @@ function ReviewerApp({ tweaks }) {
 Object.assign(window, { ReviewerApp, ParticipantReport });
 
 
-/* ============================================================
-   admin.jsx — inlined
-   ============================================================ */
+/* admin.jsx */
 /* ============================================================
    Program Manager (admin) experience — sidebar shell
    Programs · People  (standalone surgical-tech build)
@@ -2282,14 +2546,45 @@ function adminAgg() {
 
 // The one real, data-backed program. New programs created in the prototype
 // start empty and carry the same standardized NCCT module.
-const SURGICAL_PROGRAM = { id: 'prog-surg', name: 'Surgical Technology', sub: 'Cohort 7', type: 'RAP', status: 'Active', real: true, desc: 'Registered apprenticeship preparing surgical technologists for NCCT TS-C certification.' };
+const SURGICAL_PROGRAM = { id: 'prog-surg', name: 'Surgical Technology', type: 'RAP', status: 'Active', real: true, desc: 'Registered apprenticeship preparing surgical technologists for NCCT TS-C certification.' };
 
-/* ---------- People roster (global) ---------- */
-function PeopleRoster() {
+/* ---------- People roster (global: participants + preceptors + managers) ---------- */
+function PersonDetail({ person, programs, onBack }) {
+  const progNames = person.programIds.map(id => (programs.find(p => p.id === id) || {}).name).filter(Boolean);
+  const learners = person.kind === 'preceptor' ? PARTICIPANTS.filter(p => !p.archived && (p.reviewers || []).includes(person.name)) : [];
+  return (
+    <div className="stack">
+      <button className="link-btn back-link" onClick={onBack}><Icon name="chevronLeft" size={15} /> Back to people</button>
+      <div className="program-hero">
+        <div className="sr-top" style={{ marginBottom: 0 }}>
+          <Avatar name={person.name} size={44} />
+          <div><h1 style={{ fontSize: 22 }}>{person.name}</h1><div className="program-hero-sub">{person.role}</div></div>
+        </div>
+        <Badge tone={person.role === 'Participant' ? 'info' : person.role === 'Preceptor' ? 'success' : 'pending'} dot>{person.role}</Badge>
+      </div>
+      <div className="card-ui">
+        <div className="sect-label">Programs</div>
+        {progNames.length ? <div className="cell-chips">{progNames.map(n => <span className="cell-chip" key={n}>{n}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>Not assigned to any program</span>}
+      </div>
+      {person.kind === 'preceptor' && (
+        <div className="card-ui">
+          <div className="sect-label">Assigned learners ({learners.length})</div>
+          {learners.length ? <div className="cell-chips">{learners.map(l => <span className="cell-chip" key={l.id}>{l.name}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>No learners assigned</span>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PeopleRoster({ programs }) {
   const [q, setQ] = React.useState('');
-  const [pid, setPid] = React.useState(null);
-  let rows = PARTICIPANTS.map(p => ({ p, s: statsFor(p.id) }));
-  if (q) rows = rows.filter(x => x.p.name.toLowerCase().includes(q.toLowerCase()));
+  const [roleF, setRoleF] = React.useState('');
+  const [showArchived, setShowArchived] = React.useState(false);
+  const [pid, setPid] = React.useState(null);     // participant report
+  const [detail, setDetail] = React.useState(null); // preceptor/manager detail
+  const [picker, setPicker] = React.useState(null);
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
 
   if (pid) return (
     <div className="stack">
@@ -2297,42 +2592,72 @@ function PeopleRoster() {
       <ParticipantReport participantId={pid} onBack={() => setPid(null)} />
     </div>
   );
+  if (detail) return <PersonDetail person={detail} programs={programs} onBack={() => setDetail(null)} />;
+
+  let rows = getPeople({ includeArchived: showArchived });
+  if (roleF) rows = rows.filter(r => r.role === roleF);
+  if (q) rows = rows.filter(r => r.name.toLowerCase().includes(q.toLowerCase()));
+
+  const progName = (id) => (programs.find(p => p.id === id) || {}).name || '—';
+  const openPrograms = (r) => setPicker({
+    title: `Assign programs for ${r.name}`,
+    subtitle: `${r.role} · pick the programs this person belongs to.`,
+    assigned: r.programIds.slice(),
+    options: programs.map(p => ({ value: p.id, label: p.name })),
+    placeholder: 'Type a program name…',
+    onSave: (ids) => { setPersonPrograms(r.kind, r.id, ids); refresh(); },
+  });
+  const menuItems = (r) => [
+    { label: 'View details', icon: 'eye', onClick: () => r.kind === 'participant' ? setPid(r.id) : setDetail(r) },
+    { label: 'Assign / unassign program', icon: 'graduationCap', onClick: () => openPrograms(r) },
+    { type: 'divider' },
+    r.archived
+      ? { label: 'Restore', icon: 'history', onClick: () => { archivePerson(r.kind, r.id, false); refresh(); } }
+      : { label: 'Archive', icon: 'trash', danger: true, disabled: r.me, onClick: () => { archivePerson(r.kind, r.id, true); refresh(); } },
+  ];
+  const roleTone = (role) => role === 'Participant' ? 'info' : role === 'Preceptor' ? 'success' : 'pending';
 
   return (
-    <div className="stack">
+    <React.Fragment>
       <div className="filter-row">
-        <span className="count">{rows.length} participant{rows.length !== 1 ? 's' : ''}</span>
-        <div className="search-box"><Icon name="search" size={15} /><input placeholder="Search people" value={q} onChange={e => setQ(e.target.value)} /></div>
+        <span className="count">{rows.length} {rows.length === 1 ? 'person' : 'people'}</span>
+        <div className="filter-group" style={{ alignItems: 'center' }}>
+          <select value={roleF} onChange={e => setRoleF(e.target.value)}>
+            <option value="">All roles</option>
+            <option value="Participant">Participants</option>
+            <option value="Preceptor">Preceptors</option>
+            <option value="Program Manager">Program Managers</option>
+          </select>
+          <label className="pf-toggle"><input type="checkbox" checked={showArchived} onChange={e => setShowArchived(e.target.checked)} style={{ accentColor: 'var(--accent)' }} /> Show archived</label>
+          <div className="search-box"><Icon name="search" size={15} /><input placeholder="Search people" value={q} onChange={e => setQ(e.target.value)} /></div>
+        </div>
       </div>
       <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
-        <table className="data">
-          <thead><tr><th>Name</th><th>Cohort</th><th>Site</th><th>Preceptor</th><th>Approved</th><th>Pending</th><th>Readiness</th><th></th></tr></thead>
+        <table className="data data-static">
+          <thead><tr><th>Name</th><th>Role</th><th>Programs</th><th>Status</th><th></th></tr></thead>
           <tbody>
-            {rows.map(({ p, s }) => (
-              <tr key={p.id} onClick={() => setPid(p.id)}>
-                <td><div className="cell-person"><Avatar name={p.name} size={28} /><span>{p.name}{p.me && <span className="you-tag">You</span>}</span></div></td>
-                <td>{p.cohort.replace('Surgical Technology — ', '')}</td>
-                <td>{p.site}</td>
-                <td>{p.reviewer}</td>
-                <td className="tabnum">{s.total}</td>
-                <td>{s.pendingCount > 0 ? <Badge tone="pending" dot>{s.pendingCount}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
-                <td><div className="mini-prog"><div className="mini-track"><div className="mini-fill" style={{ width: `${s.readiness}%` }} /></div><span className="tabnum">{s.readiness}%</span></div></td>
-                <td><Icon name="chevronRight" size={16} /></td>
+            {rows.map(r => (
+              <tr key={r.kind + r.id} className={r.archived ? 'row-archived' : ''}>
+                <td><div className="cell-person"><Avatar name={r.name} size={28} /><span>{r.name}{r.me && <span className="you-tag">You</span>}</span></div></td>
+                <td><Badge tone={roleTone(r.role)} dot>{r.role}</Badge></td>
+                <td>{r.programIds.length ? <div className="cell-chips">{r.programIds.map(id => <span className="cell-chip" key={id}>{progName(id)}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>Unassigned</span>}</td>
+                <td>{r.archived ? <span style={{ color: 'var(--slate)' }}>Archived</span> : <Badge tone="success" dot>Active</Badge>}</td>
+                <td style={{ textAlign: 'right' }}><RowMenu items={menuItems(r)} /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+      <ManagePicker open={!!picker} {...(picker || {})} onClose={() => setPicker(null)} />
+    </React.Fragment>
   );
 }
 
 /* ---------- Programs list ---------- */
 function ProgramCard({ p, onOpen }) {
-  const a = adminAgg();
-  const m = p.real
-    ? { active: PARTICIPANTS.length, atRisk: a.perP.filter(x => x.s.readiness < 70).length, completed: a.perP.filter(x => x.s.readiness >= 100).length, completion: a.avgReadiness }
-    : { active: 0, atRisk: 0, completed: 0, completion: 0 };
+  const rows = participantsFor(p.id).map(x => statsFor(x.id));
+  const avg = rows.length ? Math.round(rows.reduce((sum, s) => sum + s.readiness, 0) / rows.length) : 0;
+  const m = { active: rows.length, atRisk: rows.filter(s => s.readiness < 70).length, completed: rows.filter(s => s.readiness >= 100).length, completion: avg };
   return (
     <div className="program-card clickable" onClick={() => onOpen(p)}>
       <div className="pc-badges">
@@ -2370,18 +2695,16 @@ function ProgramsList({ programs, onOpen, onCreate }) {
 /* ---------- Create program slide-over (NCCT module is the only module) ---------- */
 function CreateProgramSheet({ open, onClose, onCreate }) {
   const [name, setName] = React.useState('');
-  const [cohort, setCohort] = React.useState('');
-  React.useEffect(() => { if (open) { setName(''); setCohort(''); } }, [open]);
+  React.useEffect(() => { if (open) { setName(''); } }, [open]);
   const submit = () => {
     if (!name.trim()) return;
-    onCreate({ id: 'prog-' + Date.now(), name: name.trim(), sub: cohort.trim() || 'Cohort 1', type: 'RAP', status: 'Active', real: false, desc: 'Surgical technology apprenticeship tracking the NCCT TS-C Surgical Case Log.' });
+    onCreate({ id: 'prog-' + Date.now(), name: name.trim(), type: 'RAP', status: 'Active', real: false, desc: 'Surgical technology apprenticeship tracking the NCCT TS-C Surgical Case Log.' });
     onClose();
   };
   return (
     <Sheet open={open} onClose={onClose} width={520} title="Create a Program" subtitle="Standalone surgical-tech program"
       footer={<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="primary" icon="check" disabled={!name.trim()} onClick={submit}>Create program</Button></div>}>
       <div className="field"><label>Program name <span className="req-star">*</span></label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Surgical Technology — Valley Regional" /></div>
-      <div className="field"><label>Cohort</label><input type="text" value={cohort} onChange={e => setCohort(e.target.value)} placeholder="e.g. Cohort 1" /></div>
       <div className="module-row" style={{ marginTop: 4 }}>
         <div className="module-id"><span className="module-ico"><Icon name="stethoscope" size={18} /></span><div><div className="md-name">{MODULE_NAME} <span className="ms-inline-badge"><Icon name="shield" size={11} /> NCCT structured</span></div><div className="md-sub">Added automatically — the standardized NCCT TS-C case module.</div></div></div>
       </div>
@@ -2391,54 +2714,132 @@ function CreateProgramSheet({ open, onClose, onCreate }) {
 }
 
 /* ---------- Program detail (tabs: Participants · Preceptors · Module) ---------- */
-function ProgramParticipants({ program, onOpenParticipant }) {
-  if (!program.real) return <Empty icon="users">No participants enrolled yet. Use “Add participant” to enroll learners into this program.</Empty>;
-  const a = adminAgg();
+function ProgramParticipants({ program, onOpenParticipant, onRefresh }) {
+  const [picker, setPicker] = React.useState(null);
+  const rows = participantsFor(program.id).map(p => ({ p, s: statsFor(p.id) }));
+  if (!rows.length) return <Empty icon="users">No participants enrolled yet. Use “Add participant” to enroll learners into this program.</Empty>;
+  const openManage = (p) => setPicker({
+    title: `Manage preceptors for ${p.name}`,
+    subtitle: 'Assigned preceptors can review this learner’s cases.',
+    assigned: (p.reviewers || []),
+    options: preceptorsFor(program.id).map(n => ({ value: n, label: n })),
+    placeholder: 'Type a preceptor name…',
+    onSave: (names) => { setParticipantReviewers(p.id, names); onRefresh(); },
+  });
+  const menuItems = (p) => [
+    { label: 'View details', icon: 'eye', onClick: () => onOpenParticipant(p.id) },
+    { type: 'divider' },
+    { label: 'Manage preceptors', icon: 'userCheck', onClick: () => openManage(p) },
+  ];
   return (
-    <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
-      <table className="data">
-        <thead><tr><th>Name</th><th>Preceptor</th><th>Approved</th><th>Pending</th><th>Readiness</th><th></th></tr></thead>
-        <tbody>
-          {a.perP.map(({ p, s }) => (
-            <tr key={p.id} onClick={() => onOpenParticipant(p.id)}>
-              <td><div className="cell-person"><Avatar name={p.name} size={28} /><span>{p.name}{p.me && <span className="you-tag">You</span>}</span></div></td>
-              <td>{p.reviewer}</td>
-              <td className="tabnum">{s.total}</td>
-              <td>{s.pendingCount > 0 ? <Badge tone="pending" dot>{s.pendingCount}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
-              <td><div className="mini-prog"><div className="mini-track"><div className="mini-fill" style={{ width: `${s.readiness}%` }} /></div><span className="tabnum">{s.readiness}%</span></div></td>
-              <td><Icon name="chevronRight" size={16} /></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <React.Fragment>
+      <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+        <table className="data">
+          <thead><tr><th>Name</th><th>Preceptors</th><th>Approved</th><th>Pending</th><th>Readiness</th><th></th></tr></thead>
+          <tbody>
+            {rows.map(({ p, s }) => (
+              <tr key={p.id} onClick={() => onOpenParticipant(p.id)}>
+                <td><div className="cell-person"><Avatar name={p.name} size={28} /><span>{p.name}{p.me && <span className="you-tag">You</span>}</span></div></td>
+                <td>{(p.reviewers && p.reviewers.length) ? <div className="cell-chips">{p.reviewers.map(r => <span className="cell-chip" key={r}>{r}</span>)}</div> : <span style={{ color: 'var(--slate)' }}>Unassigned</span>}</td>
+                <td className="tabnum">{s.total}</td>
+                <td>{s.pendingCount > 0 ? <Badge tone="pending" dot>{s.pendingCount}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
+                <td><div className="mini-prog"><div className="mini-track"><div className="mini-fill" style={{ width: `${s.readiness}%` }} /></div><span className="tabnum">{s.readiness}%</span></div></td>
+                <td style={{ textAlign: 'right' }}><RowMenu items={menuItems(p)} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ManagePicker open={!!picker} {...(picker || {})} onClose={() => setPicker(null)} />
+    </React.Fragment>
   );
 }
 
-function ProgramReviewers({ program }) {
-  if (!program.real) return <Empty icon="userCheck">No preceptors assigned yet.</Empty>;
-  const rows = REVIEWERS.map(r => ({ r, assigned: PARTICIPANTS.filter(p => p.reviewer === r).length, pending: cases.filter(c => c.reviewer === r && c.status === 'pending').length }));
+function ProgramReviewers({ program, onRefresh }) {
+  const [picker, setPicker] = React.useState(null);
+  const names = preceptorsFor(program.id);
+  if (!names.length) return <Empty icon="userCheck">No preceptors yet. Use “Add preceptor” to add one to this program.</Empty>;
+  const inProgram = participantsFor(program.id);
+  const openManage = (name) => setPicker({
+    title: `Manage learners for ${name}`,
+    subtitle: 'Learners assigned to this preceptor for case review.',
+    assigned: inProgram.filter(p => (p.reviewers || []).includes(name)).map(p => p.id),
+    options: inProgram.map(p => ({ value: p.id, label: p.name })),
+    placeholder: 'Type a learner name…',
+    onSave: (ids) => {
+      inProgram.forEach(p => {
+        const sel = ids.includes(p.id), has = (p.reviewers || []).includes(name);
+        if (sel && !has) setParticipantReviewers(p.id, [...(p.reviewers || []), name]);
+        else if (!sel && has) setParticipantReviewers(p.id, (p.reviewers || []).filter(x => x !== name));
+      });
+      onRefresh();
+    },
+  });
   return (
-    <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
-      <table className="data">
-        <thead><tr><th>Preceptor</th><th>Assigned participants</th><th>Pending reviews</th></tr></thead>
-        <tbody>
-          {rows.map(({ r, assigned, pending }) => (
-            <tr key={r}>
-              <td><div className="cell-person"><Avatar name={r} size={28} /><span>{r}</span></div></td>
-              <td className="tabnum">{assigned}</td>
-              <td>{pending > 0 ? <Badge tone="pending" dot>{pending}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <React.Fragment>
+      <div className="card-ui" style={{ padding: 0, overflow: 'hidden' }}>
+        <table className="data data-static">
+          <thead><tr><th>Preceptor</th><th>Assigned participants</th><th>Pending reviews</th><th></th></tr></thead>
+          <tbody>
+            {names.map(r => {
+              const assigned = inProgram.filter(p => (p.reviewers || []).includes(r)).length;
+              const pending = cases.filter(c => c.reviewer === r && c.status === 'pending').length;
+              return (
+                <tr key={r}>
+                  <td><div className="cell-person"><Avatar name={r} size={28} /><span>{r}</span></div></td>
+                  <td className="tabnum">{assigned}</td>
+                  <td>{pending > 0 ? <Badge tone="pending" dot>{pending}</Badge> : <span style={{ color: 'var(--slate)' }}>—</span>}</td>
+                  <td style={{ textAlign: 'right' }}><RowMenu items={[{ label: 'Manage learners', icon: 'users', onClick: () => openManage(r) }]} /></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <ManagePicker open={!!picker} {...(picker || {})} onClose={() => setPicker(null)} />
+    </React.Fragment>
+  );
+}
+
+/* ---------- Add participant / preceptor slide-overs ---------- */
+function AddParticipantSheet({ open, onClose, onSaved, program }) {
+  const preceptors = preceptorsFor(program.id);
+  const [name, setName] = React.useState('');
+  const [site, setSite] = React.useState('');
+  const [reviewer, setReviewer] = React.useState('');
+  React.useEffect(() => { if (open) { setName(''); setSite(''); setReviewer(preceptors[0] || ''); } }, [open]);
+  const submit = () => { if (!name.trim()) return; addParticipant({ name, site, reviewer, programId: program.id }); onSaved(); onClose(); };
+  return (
+    <Sheet open={open} onClose={onClose} width={520} title="Add participant" subtitle={`Enroll a learner in ${program.name}`}
+      footer={<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="primary" icon="check" disabled={!name.trim()} onClick={submit}>Add participant</Button></div>}>
+      <div className="field"><label>Full name <span className="req-star">*</span></label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Taylor Brooks" /></div>
+      <div className="field"><label>Clinical site</label><input type="text" value={site} onChange={e => setSite(e.target.value)} placeholder="e.g. Mercy General Hospital" /></div>
+      <div className="field" style={{ marginBottom: 0 }}><label>Assigned preceptor</label><select value={reviewer} onChange={e => setReviewer(e.target.value)}><option value="">{preceptors.length ? 'Select preceptor' : 'No preceptors yet — add one first'}</option>{preceptors.map(r => <option key={r} value={r}>{r}</option>)}</select></div>
+      <p className="hint">The learner starts at 0% and logs cases against the NCCT Surgical Case Log module.</p>
+    </Sheet>
+  );
+}
+
+function AddPreceptorSheet({ open, onClose, onSaved, program }) {
+  const [name, setName] = React.useState('');
+  React.useEffect(() => { if (open) setName(''); }, [open]);
+  const submit = () => { if (!name.trim()) return; addReviewer(name, program.id); onSaved(); onClose(); };
+  return (
+    <Sheet open={open} onClose={onClose} width={480} title="Add preceptor" subtitle={`Add a preceptor to ${program.name}`}
+      footer={<div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="primary" icon="check" disabled={!name.trim()} onClick={submit}>Add preceptor</Button></div>}>
+      <div className="field" style={{ marginBottom: 0 }}><label>Preceptor name <span className="req-star">*</span></label><input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Dr. Lena Park" /></div>
+      <p className="hint">Preceptors can review case submissions and be assigned to participants.</p>
+    </Sheet>
   );
 }
 
 function ProgramDetail({ program, onBack }) {
   const [tab, setTab] = React.useState('participants');
   const [pid, setPid] = React.useState(null);
+  const [addP, setAddP] = React.useState(false);
+  const [addR, setAddR] = React.useState(false);
+  const [, setTick] = React.useState(0);
+  const refresh = () => setTick(t => t + 1);
   const pendingTotal = program.real ? cases.filter(c => c.status === 'pending').length : 0;
 
   if (pid) return (
@@ -2462,10 +2863,11 @@ function ProgramDetail({ program, onBack }) {
             {t.l}{t.dot && <span className="tab-dot" />}
           </button>
         ))}
-        {tab === 'participants' && <a className="link-btn" style={{ marginLeft: 'auto' }}><Icon name="plus" size={14} /> Add participant</a>}
+        {tab === 'participants' && <button className="link-btn" style={{ marginLeft: 'auto' }} onClick={() => setAddP(true)}><Icon name="plus" size={14} /> Add participant</button>}
+        {tab === 'preceptors' && <button className="link-btn" style={{ marginLeft: 'auto' }} onClick={() => setAddR(true)}><Icon name="plus" size={14} /> Add preceptor</button>}
       </div>
-      {tab === 'participants' && <ProgramParticipants program={program} onOpenParticipant={setPid} />}
-      {tab === 'preceptors' && <ProgramReviewers program={program} />}
+      {tab === 'participants' && <ProgramParticipants program={program} onOpenParticipant={setPid} onRefresh={refresh} />}
+      {tab === 'preceptors' && <ProgramReviewers program={program} onRefresh={refresh} />}
       {tab === 'module' && (
         <div className="stack">
           <div className="md-edit-head">
@@ -2475,6 +2877,8 @@ function ProgramDetail({ program, onBack }) {
           <ModuleTargetsEditor note={true} />
         </div>
       )}
+      <AddParticipantSheet open={addP} onClose={() => setAddP(false)} onSaved={refresh} program={program} />
+      <AddPreceptorSheet open={addR} onClose={() => setAddR(false)} onSaved={refresh} program={program} />
     </div>
   );
 }
@@ -2492,15 +2896,14 @@ function AdminApp({ tweaks }) {
       { key: 'people', icon: 'users', label: 'People' },
     ],
   }];
-  const secondary = [{ icon: 'settings', label: 'Profile & Preferences', onClick: () => {} }];
+  const secondary = [];
 
   const titles = { people: 'People', programs: open ? open.name : 'Programs' };
   const crumbsMap = {
     people: ['Program Manager', 'People'],
     programs: open ? ['Program Manager', 'Programs', open.name] : ['Program Manager', 'Programs'],
   };
-  const right = key === 'programs' && open ? <Button variant="outline" iconAfter="chevronDown">Program actions</Button>
-    : key === 'programs' ? <Button variant="primary" icon="plus" onClick={() => setCreating(true)}>Create new program</Button> : null;
+  const right = key === 'programs' && !open ? <Button variant="primary" icon="plus" onClick={() => setCreating(true)}>Create new program</Button> : null;
 
   const onNav = (k) => { setKey(k); setOpen(null); };
   const createProgram = (p) => { setPrograms(list => [...list, p]); setOpen(p); };
@@ -2508,7 +2911,7 @@ function AdminApp({ tweaks }) {
   return (
     <SidebarShell menuGroups={menuGroups} secondary={secondary} activeKey={key} onNav={onNav}
       user={ADMIN} title={titles[key]} crumbs={crumbsMap[key]} right={right}>
-      {key === 'people' && <PeopleRoster />}
+      {key === 'people' && <PeopleRoster programs={programs} />}
       {key === 'programs' && !open && <ProgramsList programs={programs} onOpen={setOpen} onCreate={() => setCreating(true)} />}
       {key === 'programs' && open && <ProgramDetail program={open} onBack={() => setOpen(null)} />}
       <CreateProgramSheet open={creating} onClose={() => setCreating(false)} onCreate={createProgram} />
@@ -2519,9 +2922,7 @@ function AdminApp({ tweaks }) {
 Object.assign(window, { AdminApp });
 
 
-/* ============================================================
-   app.jsx — inlined
-   ============================================================ */
+/* app.jsx */
 /* ============================================================
    Root app — role routing, demo switcher, tweaks
    ============================================================ */
